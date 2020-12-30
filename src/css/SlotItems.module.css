@@ -1,0 +1,37 @@
+.slotHeaderWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.addHorizontalBar {
+  width: 60%;
+  height: 5px;
+  background: #507f2e;
+}
+.slotTitle {
+  padding: 20px;
+  background: #153311;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+.slotContentWrapper {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.cardItemContent,
+.slotPriceWrapper {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cardItem {
+  width: 30%;
+  margin: 15px;
+  border-radius: 15px !important;
+}
