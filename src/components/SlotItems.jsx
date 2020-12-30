@@ -2,6 +2,8 @@ import React from "react";
 import classnames from "classnames";
 import { BiRupee } from "react-icons/bi";
 import styles from "../css/SlotItems.module.css";
+import Moment from "react-moment";
+import "moment-timezone";
 
 const SlotItems = ({ title, data }) => {
   return (
@@ -31,8 +33,16 @@ const SlotItems = ({ title, data }) => {
               >
                 <div className="columns">
                   <div className={classnames("column", styles.slotTimeWrapper)}>
-                    <p>{item.startTime}</p>
-                    <p>{item.endTime}</p>
+                    <p>
+                      <Moment subtract={{ hours: 12 }} format="hh:mm A">
+                        {item.startTime}
+                      </Moment>
+                    </p>
+                    <p>
+                      <Moment subtract={{ hours: 12 }} format="hh:mm A">
+                        {item.endTime}
+                      </Moment>
+                    </p>
                   </div>
                   <div className="column">
                     <p className={(styles.slotPriceWrapper, "title is-4")}>
