@@ -17,10 +17,13 @@
   border-bottom-left-radius: 20px;
 }
 .slotContentWrapper {
-  display: flex;
+  /* display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 .cardItemContent,
 .slotPriceWrapper {
@@ -31,7 +34,7 @@
 }
 
 .cardItem {
-  width: 30%;
   margin: 15px;
+  padding: 5px;
   border-radius: 15px !important;
 }
