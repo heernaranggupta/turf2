@@ -1,0 +1,6 @@
+.addHomeBackground {
+  background: url("../images/HomeBackground.png") !important;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50% 50%;
+}

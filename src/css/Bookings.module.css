@@ -1,0 +1,40 @@
+.addMinHeight {
+  min-height: 100vh !important;
+  height: auto !important;
+}
+.addGroundDivider {
+  width: 5px !important;
+  background: #fff;
+  opacity: 0.3;
+  border-radius: 10px;
+  margin: 20px !important;
+}
+.GroundImage {
+  height: 250px !important;
+  width: 500px !important;
+  margin: 10px;
+  padding: 10px;
+}
+.addGroundBackground {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #5f8d47;
+}
+.addBookingBackground {
+  background: transparent !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.timeBarWrapper {
+  width: 80% !important;
+  background-color: #6d9c55;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}

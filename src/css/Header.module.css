@@ -1,0 +1,13 @@
+.headerWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.personCircle {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  background: #fff;
+}
