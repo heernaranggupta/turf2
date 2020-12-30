@@ -15,12 +15,18 @@
   margin: 10px;
   padding: 10px;
 }
+.columnsWrapper {
+  position: relative;
+}
 .addGroundBackground {
+  height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   background: #5f8d47;
+  position: sticky;
+  top: 10%;
 }
 .addBookingBackground {
   background: transparent !important;
@@ -37,4 +43,8 @@
   align-items: center;
   padding: 10px;
   border-radius: 10px;
+}
+.slotsWrapper {
+  margin-top: 30px;
+  width: 100%;
 }
