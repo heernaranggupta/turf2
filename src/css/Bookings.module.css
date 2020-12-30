@@ -30,7 +30,7 @@
   align-items: center;
 }
 .timeBarWrapper {
-  width: 80% !important;
+  width: 90% !important;
   background-color: #6d9c55;
   display: flex;
   justify-content: space-evenly;
