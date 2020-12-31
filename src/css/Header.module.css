@@ -1,8 +1,10 @@
 .headerWrapper {
+  height: 10vh;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 20px;
+  background-color: #437520;
 }
 
 .personCircle {
@@ -10,4 +12,9 @@
   width: 50px;
   border-radius: 50%;
   background: #fff;
+}
+.HeaderOptions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

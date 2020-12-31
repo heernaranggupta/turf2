@@ -5,6 +5,7 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
+import Cart from "../components/Cart";
 import Home from "../pages/Home";
 
 const Routes = () => {
@@ -12,6 +13,7 @@ const Routes = () => {
     <Router>
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/cart" exact component={Cart} />
         <Redirect to="/" />
       </Switch>
     </Router>
