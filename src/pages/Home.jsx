@@ -5,7 +5,7 @@ import styles from "../css/Home.module.css";
 
 const Home = () => {
   return (
-    <div className={classnames("section", styles.addHomeBackground)}>
+    <div className={classnames(styles.addHomeBackground)}>
       <div
         className={classnames("container is-fluid", styles.overRideContainer)}
       >

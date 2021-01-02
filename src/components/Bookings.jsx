@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import classnames from "classnames";
 import axios from "axios";
 import { BiCalendarWeek } from "react-icons/bi";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import styles from "../css/Bookings.module.css";
 import GroundImage from "../images/ground.png";
 import GroundImageSelected from "../images/ground_selected.png";
@@ -14,20 +14,18 @@ import {
   convertMinsToHrsMins,
   getMaxAllowedMonth,
 } from "../utils/TimeConverter";
-import headerWithToken from "../config/headerWithToken";
 import { Link } from "react-router-dom";
+import { filterData } from "../utils/filterData";
 
 const Bookings = () => {
   const {
     setGroundData,
-    temporaryCart,
-    setTemporaryCart,
     totalTime,
     bookDate,
     setBookDate,
-    phoneNumber,
-    cartId,
     setCartId,
+    setPhoneNumber,
+    setCartData,
   } = useContext(Context);
 
   const [isGroundSelected1, setIsGroundSelected1] = useState(true);
@@ -37,96 +35,85 @@ const Bookings = () => {
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  const handleOnSave = () => {
-    const slots = [];
-    if (isGroundSelected1) {
-      slots.push(...temporaryCart.turf01);
-    }
-    if (isGroundSelected2) {
-      slots.push(...temporaryCart.turf02);
-    }
-    if (isGroundSelected3) {
-      slots.push(...temporaryCart.turf03);
-    }
-
-    const body = {
-      cartId: cartId.length ? cartId : "",
-      userPhoneNumber: phoneNumber === 0 ? "" : phoneNumber,
-      selectedSlots: [...slots],
-    };
-
-    const url = api + "user/cart";
-    axios
-      .post(url, body, headerWithToken)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.body.phoneNumber === undefined || null) {
-          localStorage.setItem("turfCart", res.data.body._cartId);
-          setCartId(res.data.body._cartId);
+  const handleFetchedData = useCallback(
+    (res) => {
+      if (res.data.success) {
+        if (res.data.body) {
+          if (res.data.body.selectedSlots.length) {
+            const [sortedData] = filterData(res.data.body);
+            setCartData(sortedData);
+          }
         }
+      }
+    },
+    [setCartData]
+  );
 
-        if (res.data.success === true) {
-          toast.success("Added SuccessFully to Cart");
-        }
-      })
-      .catch((error) => {
-        toast.error(error.message);
-        console.log(error.message);
-      });
-  };
+  const fetchCartData = useCallback(() => {
+    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+    const cartLocalId = localStorage.getItem("turfCart");
+
+    setCartId(() => (cartLocalId ? cartLocalId : null));
+
+    setPhoneNumber(() =>
+      data?.user?.phoneNumber ? data.user.phoneNumber : null
+    );
+
+    // if (data === null && cartLocalId === null) {
+    //   setCartId(null);
+    // } else if (data === null && cartLocalId != null) {
+    //   setCartId(cartLocalId);
+    // } else {
+    //   setPhoneNumber(data.user.phoneNumber);
+    // }
+
+    if (data === null) {
+      axios
+        .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
+        .then((res) => {
+          handleFetchedData(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get(
+          api + "user/cart?phoneNumber=" + data.user.phoneNumber,
+          headerWithoutToken
+        )
+        .then((res) => {
+          handleFetchedData(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [handleFetchedData, setCartId, setPhoneNumber]);
 
   const markSelectedCard = useCallback(
     (groundDataNew) => {
-      const tempTurf01 = temporaryCart.turf01;
-      const tempTurf02 = temporaryCart.turf02;
-      const tempTurf03 = temporaryCart.turf03;
-
       if (groundDataNew.turf01) {
         groundDataNew.turf01.forEach((item) => {
-          item.id = `${item.startTime}_g1`;
-
-          tempTurf01.forEach((item2) => {
-            if (item.id === item2.id) {
-              item.isSelected = true;
-            }
-          });
+          item.id = `${item.startTime}_g1_${item.date}`;
         });
       }
       if (groundDataNew.turf02) {
         groundDataNew.turf02.forEach((item) => {
-          item.id = `${item.startTime}_g2`;
-          tempTurf02.forEach((item2) => {
-            if (item.id === item2.id) {
-              item.isSelected = true;
-            }
-          });
+          item.id = `${item.startTime}_g2_${item.date}`;
         });
       }
       if (groundDataNew.turf03) {
         groundDataNew.turf03.forEach((item) => {
-          item.id = `${item.startTime}_g3`;
-          tempTurf03.forEach((item2) => {
-            if (item.id === item2.id) {
-              item.isSelected = true;
-            }
-          });
+          item.id = `${item.startTime}_g3_${item.date}`;
         });
       }
-
-      console.log(groundDataNew);
-
       setGroundData(groundDataNew);
     },
-    [
-      temporaryCart.turf01,
-      temporaryCart.turf02,
-      temporaryCart.turf03,
-      setGroundData,
-    ]
+    [setGroundData]
   );
 
-  const getAllUserData = useCallback(() => {
-    console.log("Get All User Function Called");
+  const getAllSlotsByDateTime = useCallback(() => {
     const groundList = [];
 
     if (isGroundSelected1) {
@@ -145,12 +132,11 @@ const Bookings = () => {
       closeTime: "2020-12-24T16:00:10.000Z",
       slotDuration: 30,
     };
-
     axios
       .post(api + "user/get-all-slots-by-date", postData, headerWithoutToken)
       .then((res) => {
         const responseData = res.data.body;
-
+        console.log(responseData);
         markSelectedCard(responseData);
       })
       .catch((error) => {
@@ -165,14 +151,25 @@ const Bookings = () => {
     markSelectedCard,
   ]);
 
+  const setUserData = useCallback(() => {
+    const turfcartId = localStorage.getItem("turfCart");
+    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+
+    setCartId(() => (turfcartId ? turfcartId : null));
+    setPhoneNumber(() =>
+      data?.user?.phoneNumber ? data?.user?.phoneNumber : null
+    );
+  }, [setCartId, setPhoneNumber]);
+
   useEffect(() => {
     getMaxAllowedMonth(setMaxAllowedDate);
-    getAllUserData();
-    console.log(temporaryCart);
-  }, [getAllUserData, temporaryCart]);
+    setUserData();
+    getAllSlotsByDateTime();
+    fetchCartData();
+  }, [getAllSlotsByDateTime, fetchCartData, setUserData]);
 
   return (
-    <div className={classnames()}>
+    <div className={classnames("container is-fluid")}>
       <div className={classnames("columns", styles.columnsWrapper)}>
         <div className={classnames("column box", styles.addGroundBackground)}>
           <figure
@@ -258,26 +255,7 @@ const Bookings = () => {
                   min={new Date().toISOString().slice(0, 10)}
                   max={maxAllowedDate}
                   onChange={(event) => {
-                    if (
-                      temporaryCart.turf01.length ||
-                      temporaryCart.turf02.length ||
-                      temporaryCart.turf03.length
-                    ) {
-                      if (
-                        window.confirm(
-                          "All changes will be lost when date is changed. Do you want to continue?"
-                        )
-                      ) {
-                        setTemporaryCart({
-                          turf01: [],
-                          turf02: [],
-                          turf03: [],
-                        });
-                        setBookDate(event.target.value);
-                      }
-                    } else {
-                      setBookDate(event.target.value);
-                    }
+                    setBookDate(event.target.value);
                   }}
                 />
                 <span className="icon is-small is-right">
@@ -326,24 +304,14 @@ const Bookings = () => {
                   </div>
                 </div>
               </div>
-              <button
-                className="button is-primary is-light"
-                onClick={() => handleOnSave()}
-              >
-                Save Changes
-              </button>
-              <Link
-                to="/cart"
-                onClick={() => handleOnSave()}
-                className="button is-success is-light my-3"
-              >
+
+              <Link to="/cart" className="button is-success is-light my-3">
                 Checkout
               </Link>
             </div>
           </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };

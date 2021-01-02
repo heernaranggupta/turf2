@@ -25,8 +25,9 @@
   align-items: center;
   flex-direction: column;
   background: #5f8d47;
+  /* background: hsl(140, 70%, 60%); */
   position: sticky;
-  top: 10%;
+  top: 0%;
 }
 .addBookingBackground {
   position: relative;
@@ -39,6 +40,7 @@
 .timeBarWrapper {
   width: 90% !important;
   background-color: #6d9c55;
+  /* background: hsl(140, 70%, 60%); */
   display: flex;
   justify-content: space-evenly;
   align-items: center;

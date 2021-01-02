@@ -3,28 +3,26 @@ import React, { createContext, useState } from "react";
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [groundData, setGroundData] = useState({});
-  const [temporaryCart, setTemporaryCart] = useState({
-    turf01: [],
-    turf02: [],
-    turf03: [],
-  });
-
   const [totalTime, setTotalTime] = useState(0);
   const [bookDate, setBookDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
-  const [phoneNumber, setPhoneNumber] = useState(0);
-  const [cartId, setCartId] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [cartId, setCartId] = useState(null);
   const [cartData, setCartData] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalSlots, setTotalSlots] = useState(0);
+  const [isCartEmpty, setIsCartEmpty] = useState(false);
 
   return (
     <Context.Provider
       value={{
+        isLoggedIn,
+        setIsLoggedIn,
         groundData,
         setGroundData,
-        temporaryCart,
-        setTemporaryCart,
         totalTime,
         setTotalTime,
         bookDate,
@@ -35,6 +33,12 @@ export const ContextProvider = ({ children }) => {
         setCartId,
         cartData,
         setCartData,
+        totalAmount,
+        setTotalAmount,
+        totalSlots,
+        setTotalSlots,
+        isCartEmpty,
+        setIsCartEmpty,
       }}
     >
       {children}

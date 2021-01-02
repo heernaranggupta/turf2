@@ -1,7 +1,7 @@
 .groundWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
   flex-wrap: wrap;
 }
@@ -29,4 +29,7 @@
 }
 .timeDurationWrapper {
   margin-left: 15px;
+}
+.groundWrapper {
+  background: #5f8d47;
 }

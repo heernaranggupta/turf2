@@ -60,8 +60,5 @@ export const filterData = (receviedData) => {
       }
     }
   });
-
-  console.log(finalObj);
-
   return [finalObj, dateArry];
 };

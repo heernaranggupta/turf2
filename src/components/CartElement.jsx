@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import classnames from "classnames";
 import "moment-timezone";
 import Moment from "react-moment";
 import { BiRupee } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
+import axios from "axios";
+import { toast } from "react-toastify";
 import styles from "../css/CartElement.module.css";
+import { Context } from "../data/context";
+import api from "../config/api";
+import headerWithToken from "../config/headerWithToken";
 
-const CartElement = ({ data, label }) => {
+const CartElement = ({ data, label, reloadData }) => {
+  const { phoneNumber, cartId } = useContext(Context);
+
+  const onRemoveSlots = (e) => {
+    const body = {
+      cartId: cartId,
+      userPhoneNumber: phoneNumber,
+      removeSlot: e,
+    };
+    const url = api + "user/cart/remove";
+    axios
+      .post(url, body, headerWithToken)
+      .then(() => {
+        toast.success("Removed from Cart");
+        reloadData();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <div className={classnames(styles.groundWrapper, "has-text-centered")}>
-      <p className="title has-text-centered">{label}</p>
+    <div className={classnames(styles.groundWrapper, "box")}>
+      <p className="title has-text-white">{label}</p>
       <div className={styles.scrollGroundItems}>
         {data.map((item, index) => {
           return (
@@ -40,6 +64,7 @@ const CartElement = ({ data, label }) => {
               </div>
 
               <span
+                onClick={() => onRemoveSlots(item)}
                 className={classnames(styles.deleteWrapper, "is-clickable")}
               >
                 <MdDelete color="#FFF" />
