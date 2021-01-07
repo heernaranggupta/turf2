@@ -79,12 +79,24 @@
 
 @media only screen and (max-width: 768px) {
   .addGroundBackground {
-    height: auto;
+    height: 30vh;
     position: relative;
   }
+  .addGroundBackground{
+    flex-direction: row;
+  }
   .GroundImage {
-    height: 250px !important;
-    width: 350px !important;
-    margin: 10px;
+    height: 110px !important;
+    width: 180px !important;
+    margin: 0px;
+    max-width: none;
+  }
+  .rotate{
+    transform: rotate(-90deg);
+    margin-left: -80px;
+  }
+  .rotate1{
+    transform: rotate(-90deg);
+    margin-left: -40px;
   }
 }

@@ -12,6 +12,33 @@
 .input {
   border-radius: 10px !important;
 }
-.column {
-  padding: 0 0.75rem !important;
+
+@font-face {
+  font-family: 'Conv_Aileron-Regular';
+  src: url('./fonts/Aileron-Regular.eot');
+  src: local('☺'), url('./fonts/Aileron-Regular.woff') format('woff'), url('./fonts/Aileron-Regular.ttf') format('truetype'), url('./fonts/Aileron-Regular.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Conv_Ubuntu Regular';
+  src: url('./fonts/Ubuntu Regular 400.eot');
+  src: local('☺'), url('./fonts/Ubuntu Regular 400.woff') format('woff'), url('./fonts/Ubuntu Regular 400.ttf') format('truetype'), url('./fonts/Ubuntu Regular 400.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Conv_Ailerons';
+  src: url('./fonts/Ailerons 400.eot');
+  src: local('☺'), url('./fonts/Ailerons 400.woff') format('woff'), url('./fonts/Ailerons 400.ttf') format('truetype'), url('./fonts/Ailerons 400.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+h1 h2 h3 h4 h5 h6 {
+  font-family: Conv_Ailerons;
+}
+p{
+  font-family: Conv_Ubuntu Regular;
 }

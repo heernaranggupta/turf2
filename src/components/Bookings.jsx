@@ -178,7 +178,7 @@ const Bookings = () => {
       <div className={classnames("columns", styles.columnsWrapper)}>
         <div className={classnames("column box", styles.addGroundBackground)}>
           <figure
-            className="image"
+            className={classnames("image", styles.rotate1)}
             onClick={() => {
               setIsGroundSelected1(!isGroundSelected1);
             }}
@@ -199,7 +199,7 @@ const Bookings = () => {
           </figure>
 
           <figure
-            className="image"
+            className={classnames("image", styles.rotate)}
             onClick={() => {
               setIsGroundSelected2(!isGroundSelected2);
             }}
@@ -220,7 +220,7 @@ const Bookings = () => {
           </figure>
 
           <figure
-            className="image"
+            className={classnames("image", styles.rotate)}
             onClick={() => {
               setIsGroundSelected3(!isGroundSelected3);
             }}
