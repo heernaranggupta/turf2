@@ -30,3 +30,23 @@
     padding-right: 0 !important;
   }
 }
+
+
+@media only screen and (max-width: 1040px) {
+  .cartColumns {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  .SecondColumns {
+    width: 100% !important;
+  }
+  .cartSummaryWrapper {
+    height: auto;
+    position: relative !important;
+  }
+  .allGroundsWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 25px;
+  }
+}
