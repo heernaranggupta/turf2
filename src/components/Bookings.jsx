@@ -300,7 +300,7 @@ const Bookings = () => {
                 <div className="field">
                   <div className="control">
                     <input
-                      className="input"
+                      className={classnames(styles.hourcal , "input")}
                       type="text"
                       placeholder="Total Hours"
                       readOnly
@@ -310,7 +310,7 @@ const Bookings = () => {
                 </div>
               </div>
 
-              <Link to="/cart" className="button is-success is-light my-3">
+              <Link to="/cart" className={classnames(styles.checkoutbtn ,"button is-success is-light my-3")}>
                 Checkout
               </Link>
             </div>
