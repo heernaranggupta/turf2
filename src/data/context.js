@@ -3,19 +3,42 @@ import React, { createContext, useState } from "react";
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const [ground1Data, setGround1Data] = useState([]);
-  const [ground2Data, setGround2Data] = useState([]);
-  const [ground3Data, setGround3Data] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [groundData, setGroundData] = useState({});
+  const [totalTime, setTotalTime] = useState(0);
+  const [bookDate, setBookDate] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
+  const [phoneNumber, setPhoneNumber] = useState(null);
+  const [cartId, setCartId] = useState(null);
+  const [cartData, setCartData] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [totalSlots, setTotalSlots] = useState(0);
+  const [isCartEmpty, setIsCartEmpty] = useState(false);
 
   return (
     <Context.Provider
       value={{
-        ground1Data,
-        setGround1Data,
-        ground2Data,
-        setGround2Data,
-        ground3Data,
-        setGround3Data,
+        isLoggedIn,
+        setIsLoggedIn,
+        groundData,
+        setGroundData,
+        totalTime,
+        setTotalTime,
+        bookDate,
+        setBookDate,
+        phoneNumber,
+        setPhoneNumber,
+        cartId,
+        setCartId,
+        cartData,
+        setCartData,
+        totalAmount,
+        setTotalAmount,
+        totalSlots,
+        setTotalSlots,
+        isCartEmpty,
+        setIsCartEmpty,
       }}
     >
       {children}

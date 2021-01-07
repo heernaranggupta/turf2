@@ -1,0 +1,35 @@
+.groundWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.scrollGroundItems {
+  min-width: 350px;
+  max-height: 500px;
+  padding: 20px;
+  overflow: auto;
+}
+.groundItemWrapper {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 !important;
+  border-radius: 15px !important;
+}
+.deleteWrapper {
+  width: 15%;
+  height: 100%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.timeDurationWrapper {
+  margin-left: 15px;
+}
+.groundWrapper {
+  background: #5f8d47;
+}

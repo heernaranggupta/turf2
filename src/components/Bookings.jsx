@@ -2,46 +2,121 @@ import React, { useState, useEffect, useCallback, useContext } from "react";
 import classnames from "classnames";
 import axios from "axios";
 import { BiCalendarWeek } from "react-icons/bi";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import styles from "../css/Bookings.module.css";
-import dividerStyles from "../css/divider.module.css";
 import GroundImage from "../images/ground.png";
 import GroundImageSelected from "../images/ground_selected.png";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { Context } from "../data/context";
 import SlotItems from "./SlotItems";
+import {
+  convertMinsToHrsMins,
+  getMaxAllowedMonth,
+} from "../utils/TimeConverter";
+import { Link } from "react-router-dom";
+import { filterData } from "../utils/filterData";
 
 const Bookings = () => {
   const {
-    ground1Data,
-    setGround1Data,
-    ground2Data,
-    setGround2Data,
-    ground3Data,
-    setGround3Data,
+    setGroundData,
+    totalTime,
+    bookDate,
+    setBookDate,
+    setCartId,
+    setPhoneNumber,
+    setCartData,
   } = useContext(Context);
 
   const [isGroundSelected1, setIsGroundSelected1] = useState(true);
   const [isGroundSelected2, setIsGroundSelected2] = useState(false);
   const [isGroundSelected3, setIsGroundSelected3] = useState(false);
-
-  const [bookDate, setBookDate] = useState(
-    new Date().toISOString().slice(0, 10)
-  );
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  const getMaxAllowedMonth = () => {
-    const date = new Date();
-    const newDate = new Date(date.setMonth(date.getMonth() + 1));
-    setMaxAllowedDate(newDate.toISOString().slice(0, 10));
-  };
+  const handleFetchedData = useCallback(
+    (res) => {
+      if (res.data.success) {
+        if (res.data.body) {
+          if (res.data.body.selectedSlots.length) {
+            const [sortedData] = filterData(res.data.body);
+            setCartData(sortedData);
+          }
+        }
+      }
+    },
+    [setCartData]
+  );
 
-  const getAllUserData = useCallback(() => {
-    console.log("Get All User Function Called");
+  const fetchCartData = useCallback(() => {
+    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+    const cartLocalId = localStorage.getItem("turfCart");
+
+    setCartId(() => (cartLocalId ? cartLocalId : null));
+
+    setPhoneNumber(() =>
+      data?.user?.phoneNumber ? data.user.phoneNumber : null
+    );
+
+    // if (data === null && cartLocalId === null) {
+    //   setCartId(null);
+    // } else if (data === null && cartLocalId != null) {
+    //   setCartId(cartLocalId);
+    // } else {
+    //   setPhoneNumber(data.user.phoneNumber);
+    // }
+
+    if (data === null) {
+      axios
+        .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
+        .then((res) => {
+          handleFetchedData(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get(
+          api + "user/cart?phoneNumber=" + data.user.phoneNumber,
+          headerWithoutToken
+        )
+        .then((res) => {
+          handleFetchedData(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [handleFetchedData, setCartId, setPhoneNumber]);
+
+  const markSelectedCard = useCallback(
+    (groundDataNew) => {
+      if (groundDataNew.turf01) {
+        groundDataNew.turf01.forEach((item) => {
+          item.id = `${item.startTime}_g1_${item.date}`;
+        });
+      }
+      if (groundDataNew.turf02) {
+        groundDataNew.turf02.forEach((item) => {
+          item.id = `${item.startTime}_g2_${item.date}`;
+        });
+      }
+      if (groundDataNew.turf03) {
+        groundDataNew.turf03.forEach((item) => {
+          item.id = `${item.startTime}_g3_${item.date}`;
+        });
+      }
+
+      setGroundData(groundDataNew);
+    },
+    [setGroundData]
+  );
+
+  const getAllSlotsByDateTime = useCallback(() => {
     const groundList = [];
+
     if (isGroundSelected1) {
       groundList.push("turf01");
     }
@@ -58,19 +133,15 @@ const Bookings = () => {
       closeTime: "2020-12-24T16:00:10.000Z",
       slotDuration: 30,
     };
-
     axios
       .post(api + "user/get-all-slots-by-date", postData, headerWithoutToken)
       .then((res) => {
         const responseData = res.data.body;
-        if (responseData.turf01 !== null && responseData.turf01.length) {
-          setGround1Data([...responseData.turf01]);
-        }
-        if (responseData.turf02 !== null && responseData.turf02.length) {
-          setGround2Data([...responseData.turf02]);
-        }
-        if (responseData.turf03 !== null && responseData.turf03.length) {
-          setGround3Data([...responseData.turf03]);
+        console.log("Get All Slots by Date ", responseData);
+        if (responseData) {
+          markSelectedCard(responseData);
+        } else {
+          toast.error("Something went wrong");
         }
       })
       .catch((error) => {
@@ -82,18 +153,28 @@ const Bookings = () => {
     isGroundSelected2,
     isGroundSelected3,
     bookDate,
-    setGround1Data,
-    setGround2Data,
-    setGround3Data,
+    markSelectedCard,
   ]);
 
+  const setUserData = useCallback(() => {
+    const turfcartId = localStorage.getItem("turfCart");
+    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+
+    setCartId(() => (turfcartId ? turfcartId : null));
+    setPhoneNumber(() =>
+      data?.user?.phoneNumber ? data?.user?.phoneNumber : null
+    );
+  }, [setCartId, setPhoneNumber]);
+
   useEffect(() => {
-    getMaxAllowedMonth();
-    getAllUserData();
-  }, [getAllUserData]);
+    getMaxAllowedMonth(setMaxAllowedDate);
+    setUserData();
+    getAllSlotsByDateTime();
+    fetchCartData();
+  }, [getAllSlotsByDateTime, fetchCartData, setUserData]);
 
   return (
-    <div className={classnames()}>
+    <div className={classnames("container is-fluid")}>
       <div className={classnames("columns", styles.columnsWrapper)}>
         <div className={classnames("column box", styles.addGroundBackground)}>
           <figure
@@ -162,20 +243,13 @@ const Bookings = () => {
 
         <div
           className={classnames(
-            dividerStyles.divider,
-            dividerStyles.isVertical
-          )}
-        ></div>
-
-        <div
-          className={classnames(
-            "column box is-three-fifths",
+            "column box is-two-thirds",
             styles.addMinHeight,
             styles.addBookingBackground
           )}
         >
           <div className={classnames(styles.timeBarWrapper)}>
-            <div style={{ display: "flex" }}>
+            <div style={{ display: "flex" }} className={styles.dateWrapper}>
               <BiCalendarWeek size={40} color="#FFF" className="mx-3" />
               <div className="control has-icons-right">
                 <input
@@ -185,7 +259,9 @@ const Bookings = () => {
                   value={bookDate}
                   min={new Date().toISOString().slice(0, 10)}
                   max={maxAllowedDate}
-                  onChange={(event) => setBookDate(event.target.value)}
+                  onChange={(event) => {
+                    setBookDate(event.target.value);
+                  }}
                 />
                 <span className="icon is-small is-right">
                   <BiCalendarWeek color="#000" />
@@ -216,14 +292,31 @@ const Bookings = () => {
             </div>
           </div>
           <div className={classnames(styles.slotsWrapper)}>
-            <SlotItems title="Ground 1" data={ground1Data} />
-            <SlotItems title="Ground 2" data={ground2Data} />
-            <SlotItems title="Ground 3" data={ground3Data} />
+            <SlotItems />
           </div>
-          <div className={classnames(styles.checkoutWrapper)}></div>
+          <div className={classnames(styles.checkoutWrapper, "my-3")}>
+            <div className={styles.timeBarWrapper}>
+              <div style={{ display: "flex" }} className={styles.dateWrapper}>
+                <div className="field">
+                  <div className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Total Hours"
+                      readOnly
+                      value={convertMinsToHrsMins(totalTime)}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <Link to="/cart" className="button is-success is-light my-3">
+                Checkout
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };
