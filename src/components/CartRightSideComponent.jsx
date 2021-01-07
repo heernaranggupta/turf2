@@ -7,6 +7,7 @@ import { filterData } from "../utils/filterData";
 import axios from "axios";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
+import { Link } from "react-router-dom";
 
 const CartRightSideComponent = () => {
   const {
@@ -17,6 +18,7 @@ const CartRightSideComponent = () => {
     setTotalAmount,
     setTotalSlots,
     setIsCartEmpty,
+    isCartEmpty,
   } = useContext(Context);
 
   const [dateArray, setDateArray] = useState([]);
@@ -29,14 +31,19 @@ const CartRightSideComponent = () => {
             const [sortedData, dateArry] = filterData(res.data.body);
             setTotalSlots(res.data.body.selectedSlots.length);
             setCartData(sortedData);
+            console.log(sortedData);
             setTotalAmount(res.data.body.cartTotal);
             setDateArray([...dateArry]);
             setIsCartEmpty(false);
           } else {
             setIsCartEmpty(true);
+            setTotalAmount(0);
+            setTotalSlots(0);
           }
         } else {
           setIsCartEmpty(true);
+          setTotalAmount(0);
+          setTotalSlots(0);
         }
       }
     },
@@ -88,6 +95,22 @@ const CartRightSideComponent = () => {
   useEffect(() => {
     fetchCartData();
   }, [fetchCartData]);
+
+  if (isCartEmpty) {
+    return (
+      <div className={classnames("container", styles.isCartEmptyWrapper)}>
+        <article className="message is-success is-large">
+          <div className="message-header">
+            <p>Message</p>
+          </div>
+          <div className="message-body">Your Cart is Empty</div>
+          <Link to="/" className="button is-success m-5">
+            Book Slots
+          </Link>
+        </article>
+      </div>
+    );
+  }
 
   return (
     <div>

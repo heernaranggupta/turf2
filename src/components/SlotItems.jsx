@@ -13,8 +13,6 @@ const SlotItems = () => {
   const {
     groundData,
     setGroundData,
-    temporaryCart,
-    setTemporaryCart,
     setTotalTime,
     cartId,
     setCartId,
@@ -63,46 +61,29 @@ const SlotItems = () => {
     setTotalTime((i) => i + 30);
   };
 
-  const removeFromCart = (index, ground, id) => {
-    const data = temporaryCart;
-    var newData = null;
-    if (ground === 1) {
-      const oldData = data.turf01;
-      newData = oldData.filter((item) => item.id !== id);
-      data.turf01 = newData;
-    } else if (ground === 2) {
-      const oldData = data.turf02;
-      newData = oldData.filter((item) => item.id !== id);
-      data.turf02 = newData;
-    } else if (ground === 3) {
-      const oldData = data.turf03;
-      newData = oldData.filter((item) => item.id !== id);
-      data.turf03 = newData;
-    }
-
+  const removeFromCart = (index, ground, id, item) => {
     const body = {
       cartId: cartId,
       userPhoneNumber: phoneNumber,
-      removeSlot: newData,
+      removeSlot: item,
     };
     const url = api + "user/cart/remove";
     axios
       .post(url, body, headerWithToken)
       .then(() => {
-        toast.success("Removed from Cart");
+        toast.warning("Removed from Cart");
       })
       .catch((err) => {
         console.log(err);
       });
     setTotalTime((i) => i - 30);
-    setTemporaryCart(data);
   };
 
-  const handleOnClick = (index, ground, id) => {
+  const handleOnClick = (index, ground, id, item) => {
     if (ground === 1) {
       const newData = groundData.turf01;
       if (newData[index].isSelected) {
-        //removeFromCart(index, ground, id);
+        removeFromCart(index, ground, id, item);
         newData[index].isSelected = false;
       } else {
         addToCart(index, ground);
@@ -117,7 +98,7 @@ const SlotItems = () => {
     } else if (ground === 2) {
       const newData = groundData.turf02;
       if (newData[index].isSelected) {
-        //removeFromCart(index, ground, id);
+        removeFromCart(index, ground, id, item);
         newData[index].isSelected = false;
       } else {
         addToCart(index, ground);
@@ -132,7 +113,7 @@ const SlotItems = () => {
     } else if (ground === 3) {
       const newData = groundData.turf03;
       if (newData[index].isSelected) {
-        //removeFromCart(index, ground, id);
+        removeFromCart(index, ground, id, item);
         newData[index].isSelected = false;
       } else {
         addToCart(index, ground);

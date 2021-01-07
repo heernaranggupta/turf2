@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,8 +12,21 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import ProtectedRoutes from "./protected.routes";
 import { ToastContainer } from "react-toastify";
+import Signup from "../pages/Signup";
+import { Context } from "../data/context";
+import Checkout from "../pages/Checkout";
 
 const Routes = () => {
+  const { setIsLoggedIn } = useContext(Context);
+
+  const checkAuth = useCallback(async () => {
+    const data = await localStorage.getItem("turfUserDetails");
+    setIsLoggedIn(() => (data !== null ? true : false));
+  }, [setIsLoggedIn]);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
   return (
     <Router>
       <Headers />
@@ -21,9 +34,14 @@ const Routes = () => {
         <Route path="/" exact component={Home} />
         <Route path="/cart" exact component={Cart} />
         <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={Signup} />
 
         <ProtectedRoutes path="/profile">
           <Profile />
+        </ProtectedRoutes>
+
+        <ProtectedRoutes path="/checkout">
+          <Checkout />
         </ProtectedRoutes>
 
         <Redirect to="/" />

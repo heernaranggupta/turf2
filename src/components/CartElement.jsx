@@ -10,6 +10,7 @@ import styles from "../css/CartElement.module.css";
 import { Context } from "../data/context";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
+import { tConvert } from "../utils/TimeConverter";
 
 const CartElement = ({ data, label, reloadData }) => {
   const { phoneNumber, cartId } = useContext(Context);
@@ -42,16 +43,8 @@ const CartElement = ({ data, label, reloadData }) => {
               key={index}
             >
               <div className={styles.timeDurationWrapper}>
-                <p>
-                  <Moment subtract={{ hours: 12 }} format="hh:mm A">
-                    {item.startTime}
-                  </Moment>
-                </p>
-                <p>
-                  <Moment subtract={{ hours: 12 }} format="hh:mm A">
-                    {item.endTime}
-                  </Moment>
-                </p>
+                <p>{tConvert(item.startTime)}</p>
+                <p>{tConvert(item.endTime)}</p>
               </div>
 
               <div className={styles.currencyWrapper}>

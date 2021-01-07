@@ -108,6 +108,7 @@ const Bookings = () => {
           item.id = `${item.startTime}_g3_${item.date}`;
         });
       }
+
       setGroundData(groundDataNew);
     },
     [setGroundData]
@@ -136,8 +137,12 @@ const Bookings = () => {
       .post(api + "user/get-all-slots-by-date", postData, headerWithoutToken)
       .then((res) => {
         const responseData = res.data.body;
-        console.log(responseData);
-        markSelectedCard(responseData);
+        console.log("Get All Slots by Date ", responseData);
+        if (responseData) {
+          markSelectedCard(responseData);
+        } else {
+          toast.error("Something went wrong");
+        }
       })
       .catch((error) => {
         toast.error(error.message);

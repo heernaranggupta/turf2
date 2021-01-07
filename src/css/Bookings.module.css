@@ -33,12 +33,13 @@
   position: relative;
   background: transparent !important;
   display: flex;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .timeBarWrapper {
-  width: 90% !important;
+  width: 100% !important;
   background-color: #6d9c55;
   /* background: hsl(140, 70%, 60%); */
   display: flex;
@@ -76,17 +77,11 @@
   }
 }
 
-@media only screen and (max-width: 800px) {
-  .columns:not(.is-desktop) {
-    flex-direction: column !important;
-  }
+@media only screen and (max-width: 768px) {
   .addGroundBackground {
     height: auto;
     position: relative;
   }
-}
-
-@media only screen and (max-width: 768px) {
   .GroundImage {
     height: 250px !important;
     width: 350px !important;

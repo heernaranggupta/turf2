@@ -3,6 +3,7 @@ import classnames from "classnames";
 import styles from "../css/Cart.module.css";
 import { BiRupee } from "react-icons/bi";
 import { Context } from "../data/context";
+import { Link } from "react-router-dom";
 
 const CartSummary = () => {
   const { totalAmount, totalSlots } = useContext(Context);
@@ -74,14 +75,19 @@ const CartSummary = () => {
         </div>
       </div>
 
-      <button
-        className={classnames(
-          "button is-large has-text-white",
-          styles.checkoutBtn
-        )}
-      >
-        CHECKOUT
-      </button>
+      {totalAmount > 0 ? (
+        <Link
+          to="checkout"
+          className={classnames(
+            "button is-large has-text-white my-5",
+            styles.checkoutBtn
+          )}
+        >
+          CHECKOUT
+        </Link>
+      ) : (
+        <span></span>
+      )}
     </>
   );
 };

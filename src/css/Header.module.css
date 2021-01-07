@@ -1,11 +1,15 @@
 .headerWrapper {
   height: 10vh;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   background-color: #437520;
+  padding: 0 55px;
+  display: flex;
+  align-items: center;
 }
 
+.btnBackGround {
+  background: #75a269 !important;
+  border: none;
+}
 .personCircle {
   height: 50px;
   width: 50px;

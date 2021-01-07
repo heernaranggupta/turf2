@@ -4,11 +4,12 @@ import "moment-timezone";
 import { BiRupee } from "react-icons/bi";
 import Moment from "react-moment";
 import styles from "../css/SlotItems.module.css";
+import { tConvert } from "../utils/TimeConverter";
 
 export const SlotCardItem = ({ item, index, handleOnClick, id }) => {
   return (
     <div
-      onClick={() => handleOnClick(index, id, item.id)}
+      onClick={() => handleOnClick(index, id, item.id, item)}
       className={classnames("card is-clickable", styles.cardItem)}
       key={index}
     >
@@ -20,14 +21,10 @@ export const SlotCardItem = ({ item, index, handleOnClick, id }) => {
           )}
         >
           <p style={{ color: item.isSelected ? "white" : "black" }}>
-            <Moment subtract={{ hours: 12 }} format="hh:mm A">
-              {item.startTime}
-            </Moment>
+            {tConvert(item.startTime)}
           </p>
           <p style={{ color: item.isSelected ? "white" : "black" }}>
-            <Moment subtract={{ hours: 12 }} format="hh:mm A">
-              {item.endTime}
-            </Moment>
+            {tConvert(item.endTime)}
           </p>
         </div>
 
