@@ -31,7 +31,6 @@ const CartRightSideComponent = () => {
             const [sortedData, dateArry] = filterData(res.data.body);
             setTotalSlots(res.data.body.selectedSlots.length);
             setCartData(sortedData);
-            console.log(sortedData);
             setTotalAmount(res.data.body.cartTotal);
             setDateArray([...dateArry]);
             setIsCartEmpty(false);

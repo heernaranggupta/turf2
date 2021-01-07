@@ -3,9 +3,12 @@ import React, { useEffect, useContext, useState } from "react";
 import headerWithToken from "../config/headerWithToken";
 import { Context } from "../data/context";
 import api from "../config/api";
+import { ListData } from "../utils/ListData";
+
 
 const PaymentGateway = () => {
-  const { totalAmount, cartData } = useContext(Context);
+  const { cartData } = useContext(Context);
+  const allData = ListData(cartData);
 
   const [responce, setResponce] = useState(null);
 
@@ -25,9 +28,9 @@ const PaymentGateway = () => {
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const body = {
         userId: data.user.phoneNumber,
-        timeSlots: [cartData],
+        timeSlots: [allData],
       };
-      console.log("booking body", cartData);
+      console.log("booking body", body);
       // axios
       //   .post(api + "common/order", body, headerWithToken)
       //   .then((res) => {
