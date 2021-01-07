@@ -1,0 +1,11 @@
+.CheckoutWrapper {
+  min-height: 100vh;
+  position: relative;
+  background: #437520;
+}
+.CheckoutLeftColumn,
+.CheckoutRightColumn {
+  background: #5f8d47;
+  min-height: 100vh;
+  width: 100%;
+}

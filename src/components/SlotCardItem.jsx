@@ -2,7 +2,6 @@ import React from "react";
 import classnames from "classnames";
 import "moment-timezone";
 import { BiRupee } from "react-icons/bi";
-import Moment from "react-moment";
 import styles from "../css/SlotItems.module.css";
 import { tConvert } from "../utils/TimeConverter";
 

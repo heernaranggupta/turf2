@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import classnames from "classnames";
 import "moment-timezone";
-import Moment from "react-moment";
 import { BiRupee } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
