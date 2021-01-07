@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import classnames from "classnames";
-import "moment-timezone";
 import styles from "../css/SlotItems.module.css";
 import { Context } from "../data/context";
 import { SlotCardItem } from "./SlotCardItem";

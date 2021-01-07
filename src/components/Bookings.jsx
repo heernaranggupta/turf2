@@ -19,6 +19,7 @@ import { filterData } from "../utils/filterData";
 
 const Bookings = () => {
   const {
+    groundData,
     setGroundData,
     totalTime,
     bookDate,
@@ -36,82 +37,107 @@ const Bookings = () => {
   const [endTime, setEndTime] = useState("");
 
   const handleFetchedData = useCallback(
-    (res) => {
+    (res, FetchgroundData) => {
       if (res.data.success) {
         if (res.data.body) {
           if (res.data.body.selectedSlots.length) {
             const [sortedData] = filterData(res.data.body);
             setCartData(sortedData);
+            const selectedDateCart = sortedData[bookDate];
+
+            const newData = FetchgroundData;
+            if (selectedDateCart) {
+              if (selectedDateCart.turf01 && newData.turf01) {
+                selectedDateCart.turf01.forEach((item) => {
+                  newData.turf01.forEach((item2) => {
+                    if (
+                      `${item.startTime}_g1_${item.date}` ===
+                      `${item2.startTime}_g1_${item2.date}`
+                    ) {
+                      item2.isSelected = true;
+                    }
+                  });
+                });
+              }
+
+              if (selectedDateCart.turf02 && newData.turf02) {
+                selectedDateCart.turf02.forEach((item) => {
+                  newData.turf02.forEach((item2) => {
+                    if (
+                      `${item.startTime}_g2_${item.date}` ===
+                      `${item2.startTime}_g2_${item2.date}`
+                    ) {
+                      item2.isSelected = true;
+                    }
+                  });
+                });
+              }
+
+              if (selectedDateCart.turf03 && newData.turf03) {
+                selectedDateCart.turf03.forEach((item) => {
+                  newData.turf03.forEach((item2) => {
+                    if (
+                      `${item.startTime}_g3_${item.date}` ===
+                      `${item2.startTime}_g3_${item2.date}`
+                    ) {
+                      item2.isSelected = true;
+                    }
+                  });
+                });
+              }
+            }
+
+            setGroundData({ ...newData });
           }
         }
       }
     },
-    [setCartData]
+    [setCartData, bookDate, setGroundData]
   );
 
-  const fetchCartData = useCallback(() => {
-    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
-    const cartLocalId = localStorage.getItem("turfCart");
+  const fetchCartData = useCallback(
+    (FetchgroundData) => {
+      const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+      const cartLocalId = localStorage.getItem("turfCart");
 
-    setCartId(() => (cartLocalId ? cartLocalId : null));
+      setCartId(() => (cartLocalId ? cartLocalId : null));
 
-    setPhoneNumber(() =>
-      data?.user?.phoneNumber ? data.user.phoneNumber : null
-    );
+      setPhoneNumber(() =>
+        data?.user?.phoneNumber ? data.user.phoneNumber : null
+      );
 
-    // if (data === null && cartLocalId === null) {
-    //   setCartId(null);
-    // } else if (data === null && cartLocalId != null) {
-    //   setCartId(cartLocalId);
-    // } else {
-    //   setPhoneNumber(data.user.phoneNumber);
-    // }
+      // if (data === null && cartLocalId === null) {
+      //   setCartId(null);
+      // } else if (data === null && cartLocalId != null) {
+      //   setCartId(cartLocalId);
+      // } else {
+      //   setPhoneNumber(data.user.phoneNumber);
+      // }
 
-    if (data === null) {
-      axios
-        .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
-        .then((res) => {
-          handleFetchedData(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      axios
-        .get(
-          api + "user/cart?phoneNumber=" + data.user.phoneNumber,
-          headerWithoutToken
-        )
-        .then((res) => {
-          handleFetchedData(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [handleFetchedData, setCartId, setPhoneNumber]);
-
-  const markSelectedCard = useCallback(
-    (groundDataNew) => {
-      if (groundDataNew.turf01) {
-        groundDataNew.turf01.forEach((item) => {
-          item.id = `${item.startTime}_g1_${item.date}`;
-        });
+      if (data === null) {
+        axios
+          .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
+          .then((res) => {
+            handleFetchedData(res, FetchgroundData);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        axios
+          .get(
+            api + "user/cart?phoneNumber=" + data.user.phoneNumber,
+            headerWithoutToken
+          )
+          .then((res) => {
+            handleFetchedData(res, FetchgroundData);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
-      if (groundDataNew.turf02) {
-        groundDataNew.turf02.forEach((item) => {
-          item.id = `${item.startTime}_g2_${item.date}`;
-        });
-      }
-      if (groundDataNew.turf03) {
-        groundDataNew.turf03.forEach((item) => {
-          item.id = `${item.startTime}_g3_${item.date}`;
-        });
-      }
-
-      setGroundData(groundDataNew);
     },
-    [setGroundData]
+    [handleFetchedData, setCartId, setPhoneNumber]
   );
 
   const getAllSlotsByDateTime = useCallback(() => {
@@ -136,12 +162,30 @@ const Bookings = () => {
     axios
       .post(api + "user/get-all-slots-by-date", postData, headerWithoutToken)
       .then((res) => {
-        const responseData = res.data.body;
-        console.log("Get All Slots by Date ", responseData);
-        if (responseData) {
-          markSelectedCard(responseData);
+        const groundDataNew = res.data.body;
+        console.log("Get All Slots by Date ", groundDataNew);
+        if (groundDataNew) {
+          if (groundDataNew.turf01) {
+            groundDataNew.turf01.forEach((item) => {
+              item.id = `${item.startTime}_g1_${item.date}`;
+            });
+          }
+
+          if (groundDataNew.turf02) {
+            groundDataNew.turf02.forEach((item) => {
+              item.id = `${item.startTime}_g2_${item.date}`;
+            });
+          }
+
+          if (groundDataNew.turf03) {
+            groundDataNew.turf03.forEach((item) => {
+              item.id = `${item.startTime}_g3_${item.date}`;
+            });
+          }
+
+          fetchCartData(groundDataNew);
         } else {
-          toast.error("Something went wrong");
+          toast.error("No Slots Found");
         }
       })
       .catch((error) => {
@@ -153,7 +197,7 @@ const Bookings = () => {
     isGroundSelected2,
     isGroundSelected3,
     bookDate,
-    markSelectedCard,
+    fetchCartData,
   ]);
 
   const setUserData = useCallback(() => {
@@ -170,8 +214,7 @@ const Bookings = () => {
     getMaxAllowedMonth(setMaxAllowedDate);
     setUserData();
     getAllSlotsByDateTime();
-    fetchCartData();
-  }, [getAllSlotsByDateTime, fetchCartData, setUserData]);
+  }, [getAllSlotsByDateTime, setUserData]);
 
   return (
     <div className={classnames("container is-fluid")}>

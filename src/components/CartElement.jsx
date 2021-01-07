@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import classnames from "classnames";
-import "moment-timezone";
 import { BiRupee } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
-import styles from "../css/CartElement.module.css";
 import { Context } from "../data/context";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
 import { tConvert } from "../utils/TimeConverter";
+import styles from "../css/CartElement.module.css";
 
 const CartElement = ({ data, label, reloadData }) => {
   const { phoneNumber, cartId } = useContext(Context);
