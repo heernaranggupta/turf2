@@ -39,57 +39,53 @@ const Bookings = () => {
   const handleFetchedData = useCallback(
     (res, FetchgroundData) => {
       if (res.data.success) {
-        if (res.data.body) {
-          if (res.data.body.selectedSlots.length) {
-            const [sortedData] = filterData(res.data.body);
-            setCartData(sortedData);
-            const selectedDateCart = sortedData[bookDate];
+        const [sortedData] = filterData(res.data.body);
+        setCartData(sortedData);
+        const selectedDateCart = sortedData[bookDate];
 
-            const newData = FetchgroundData;
-            if (selectedDateCart) {
-              if (selectedDateCart.turf01 && newData.turf01) {
-                selectedDateCart.turf01.forEach((item) => {
-                  newData.turf01.forEach((item2) => {
-                    if (
-                      `${item.startTime}_g1_${item.date}` ===
-                      `${item2.startTime}_g1_${item2.date}`
-                    ) {
-                      item2.isSelected = true;
-                    }
-                  });
-                });
-              }
+        const newData = FetchgroundData;
+        if (selectedDateCart) {
+          if (selectedDateCart.turf01 || newData.turf01) {
+            selectedDateCart.turf01.forEach((item) => {
+              newData.turf01.forEach((item2) => {
+                if (
+                  `${item.startTime}_g1_${item.date}` ===
+                  `${item2.startTime}_g1_${item2.date}`
+                ) {
+                  item2.isSelected = true;
+                }
+              });
+            });
+          }
 
-              if (selectedDateCart.turf02 && newData.turf02) {
-                selectedDateCart.turf02.forEach((item) => {
-                  newData.turf02.forEach((item2) => {
-                    if (
-                      `${item.startTime}_g2_${item.date}` ===
-                      `${item2.startTime}_g2_${item2.date}`
-                    ) {
-                      item2.isSelected = true;
-                    }
-                  });
-                });
-              }
+          if (selectedDateCart.turf02 || newData.turf02) {
+            selectedDateCart.turf02.forEach((item) => {
+              newData.turf02.forEach((item2) => {
+                if (
+                  `${item.startTime}_g2_${item.date}` ===
+                  `${item2.startTime}_g2_${item2.date}`
+                ) {
+                  item2.isSelected = true;
+                }
+              });
+            });
+          }
 
-              if (selectedDateCart.turf03 && newData.turf03) {
-                selectedDateCart.turf03.forEach((item) => {
-                  newData.turf03.forEach((item2) => {
-                    if (
-                      `${item.startTime}_g3_${item.date}` ===
-                      `${item2.startTime}_g3_${item2.date}`
-                    ) {
-                      item2.isSelected = true;
-                    }
-                  });
-                });
-              }
-            }
-
-            setGroundData({ ...newData });
+          if (selectedDateCart.turf03 || newData.turf03) {
+            selectedDateCart.turf03.forEach((item) => {
+              newData.turf03.forEach((item2) => {
+                if (
+                  `${item.startTime}_g3_${item.date}` ===
+                  `${item2.startTime}_g3_${item2.date}`
+                ) {
+                  item2.isSelected = true;
+                }
+              });
+            });
           }
         }
+
+        setGroundData({ ...newData });
       }
     },
     [setCartData, bookDate, setGroundData]
@@ -343,7 +339,7 @@ const Bookings = () => {
                 <div className="field">
                   <div className="control">
                     <input
-                      className={classnames(styles.hourcal , "input")}
+                      className={classnames(styles.hourcal, "input")}
                       type="text"
                       placeholder="Total Hours"
                       readOnly
@@ -353,7 +349,13 @@ const Bookings = () => {
                 </div>
               </div>
 
-              <Link to="/cart" className={classnames(styles.checkoutbtn ,"button is-success is-light my-3")}>
+              <Link
+                to="/cart"
+                className={classnames(
+                  styles.checkoutbtn,
+                  "button is-success is-light my-3"
+                )}
+              >
                 Checkout
               </Link>
             </div>

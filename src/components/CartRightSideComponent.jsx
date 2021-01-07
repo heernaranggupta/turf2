@@ -114,9 +114,9 @@ const CartRightSideComponent = () => {
   return (
     <div>
       {dateArray.map((item, index) => {
-        const turf01 = cartData[item].turf01 || [];
-        const turf02 = cartData[item].turf02 || [];
-        const turf03 = cartData[item].turf03 || [];
+        const turf01 = cartData[item]?.turf01 || [];
+        const turf02 = cartData[item]?.turf02 || [];
+        const turf03 = cartData[item]?.turf03 || [];
 
         return (
           <div
