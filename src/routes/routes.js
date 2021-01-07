@@ -17,12 +17,19 @@ import { Context } from "../data/context";
 import Checkout from "../pages/Checkout";
 
 const Routes = () => {
-  const { setIsLoggedIn } = useContext(Context);
+  const { setIsLoggedIn, setCartId, setPhoneNumber } = useContext(Context);
 
   const checkAuth = useCallback(async () => {
     const data = await localStorage.getItem("turfUserDetails");
+    const cartLocalId = localStorage.getItem("turfCart");
+
+    setCartId(() => (cartLocalId ? cartLocalId : null));
+
+    setPhoneNumber(() =>
+      data?.user?.phoneNumber ? data.user.phoneNumber : null
+    );
     setIsLoggedIn(() => (data !== null ? true : false));
-  }, [setIsLoggedIn]);
+  }, [setIsLoggedIn, setCartId, setPhoneNumber]);
 
   useEffect(() => {
     checkAuth();
