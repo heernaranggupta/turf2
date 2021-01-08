@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/turf2/static/css/main.519ad9d0.chunk.css",
+    "main.js": "/turf2/static/js/main.cd568698.chunk.js",
+    "main.js.map": "/turf2/static/js/main.cd568698.chunk.js.map",
+    "runtime-main.js": "/turf2/static/js/runtime-main.6a09f1c3.js",
+    "runtime-main.js.map": "/turf2/static/js/runtime-main.6a09f1c3.js.map",
+    "static/css/2.ccc6f86f.chunk.css": "/turf2/static/css/2.ccc6f86f.chunk.css",
+    "static/js/2.16e66ae4.chunk.js": "/turf2/static/js/2.16e66ae4.chunk.js",
+    "static/js/2.16e66ae4.chunk.js.map": "/turf2/static/js/2.16e66ae4.chunk.js.map",
+    "index.html": "/turf2/index.html",
+    "static/css/2.ccc6f86f.chunk.css.map": "/turf2/static/css/2.ccc6f86f.chunk.css.map",
+    "static/css/main.519ad9d0.chunk.css.map": "/turf2/static/css/main.519ad9d0.chunk.css.map",
+    "static/js/2.16e66ae4.chunk.js.LICENSE.txt": "/turf2/static/js/2.16e66ae4.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/turf2/static/media/HolidayFreeRegular.68ae0c6e.woff2",
+    "static/media/Home.module.css": "/turf2/static/media/HomeBackground.5828c75c.png",
+    "static/media/ground.514a776e.png": "/turf2/static/media/ground.514a776e.png",
+    "static/media/ground_selected.45ccd54d.png": "/turf2/static/media/ground_selected.45ccd54d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6a09f1c3.js",
+    "static/css/2.ccc6f86f.chunk.css",
+    "static/js/2.16e66ae4.chunk.js",
+    "static/css/main.519ad9d0.chunk.css",
+    "static/js/main.cd568698.chunk.js"
+  ]
+}
