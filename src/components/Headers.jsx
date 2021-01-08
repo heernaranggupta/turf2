@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+  useLayoutEffect,
+} from "react";
 import { BiCart } from "react-icons/bi";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
@@ -16,17 +22,17 @@ const Headers = () => {
     }
   }, [isLoggedIn]);
 
-  const navbarClickHandler = useCallback(() => {
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData]);
+
+  useLayoutEffect(() => {
     document.querySelector(".navbar-burger").addEventListener("click", () => {
+      console.log("Clicked");
       document.querySelector(".navbar-burger").classList.toggle("is-active");
       document.querySelector(".navbar-menu").classList.toggle("is-active");
     });
   }, []);
-
-  useEffect(() => {
-    fetchUserData();
-    navbarClickHandler();
-  }, [fetchUserData, navbarClickHandler]);
 
   return (
     <nav
@@ -102,7 +108,7 @@ const Headers = () => {
         ) : (
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="field is-grouped">
+              <div className="field">
                 <Link
                   to="/login"
                   className={classnames("control button", styles.btnBackGround)}
