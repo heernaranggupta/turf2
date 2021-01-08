@@ -47,7 +47,7 @@ const Headers = () => {
 
         <div
           role="button"
-          className="navbar-burger"
+          className="navbar-burger has-text-white"
           aria-label="menu"
           aria-expanded="false"
           data-target="navbarBasicExample"
@@ -61,68 +61,70 @@ const Headers = () => {
         {isLoggedIn ? (
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="field is-grouped">
-                <div className="navbar-item has-dropdown is-hoverable mx-1">
-                  <p
-                    className={classnames(
-                      "control button navbar-item has-text-white is-capitalized",
-                      styles.btnBackGround
-                    )}
-                  >
-                    Hello, {userName}
-                  </p>
-                  <div className="navbar-dropdown is-boxed">
-                    <Link
-                      to="/profile"
-                      className="navbar-item"
-                      href="https://bulma.io/documentation/overview/start/"
-                    >
-                      Profile
-                    </Link>
-                    <p
-                      onClick={async () => {
-                        await localStorage.removeItem("turfUserDetails");
-                        setIsLoggedIn(false);
-                      }}
-                      className="navbar-item is-clickable"
-                    >
-                      Logout
-                    </p>
-                  </div>
-                </div>
-
-                <Link
-                  to="/cart"
-                  className={classnames("control button", styles.btnBackGround)}
+              <div className="navbar-item has-dropdown is-hoverable">
+                <p
+                  className={classnames(
+                    "control button navbar-item has-text-white is-capitalized",
+                    styles.btnBackGround
+                  )}
                 >
-                  <BiCart size={30} color="#FFF" className="is-clickable" />
-                </Link>
+                  Hello, {userName}
+                </p>
+                <div className="navbar-dropdown is-boxed">
+                  <Link
+                    to="/profile"
+                    className="navbar-item"
+                    href="https://bulma.io/documentation/overview/start/"
+                  >
+                    Profile
+                  </Link>
+                  <p
+                    onClick={async () => {
+                      await localStorage.removeItem("turfUserDetails");
+                      setIsLoggedIn(false);
+                    }}
+                    className="navbar-item is-clickable"
+                  >
+                    Logout
+                  </p>
+                </div>
               </div>
+            </div>
+
+            <div className="navbar-item">
+              <Link
+                to="/cart"
+                className={classnames("control button", styles.btnBackGround)}
+              >
+                <BiCart size={30} color="#FFF" className="is-clickable" />
+              </Link>
             </div>
           </div>
         ) : (
           <div className="navbar-end">
             <div className="navbar-item">
-              <div className="field">
-                <Link
-                  to="/login"
-                  className={classnames("control button", styles.btnBackGround)}
-                >
-                  <span className="has-text-white">Login</span>
-                </Link>
-                <Link
-                  to="/signup"
-                  className={classnames("control button", styles.btnBackGround)}
-                >
-                  <span className="has-text-white">Register</span>
-                </Link>
-                <Link
-                  to="/cart"
-                  className={classnames("control button", styles.btnBackGround)}
-                >
-                  <BiCart size={30} color="#FFF" className="is-clickable" />
-                </Link>
-              </div>
+              <Link
+                to="/login"
+                className={classnames("control button", styles.btnBackGround)}
+              >
+                <span className="has-text-white">Login</span>
+              </Link>
+            </div>
+            <div className="navbar-item">
+              <Link
+                to="/signup"
+                className={classnames("control button", styles.btnBackGround)}
+              >
+                <span className="has-text-white">Register</span>
+              </Link>
+            </div>
+            <div className="navbar-item">
+              <Link
+                to="/cart"
+                className={classnames("control button", styles.btnBackGround)}
+              >
+                <BiCart size={30} color="#FFF" className="is-clickable" />
+              </Link>
             </div>
           </div>
         )}
