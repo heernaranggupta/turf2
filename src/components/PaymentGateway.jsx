@@ -1,15 +1,19 @@
+import React, { useContext, useState } from "react";
 import axios from "axios";
-import React, { useEffect, useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import headerWithToken from "../config/headerWithToken";
 import { Context } from "../data/context";
 import api from "../config/api";
 import { ListData } from "../utils/ListData";
-
+import styles from "../css/Payment.module.css";
 
 const PaymentGateway = () => {
-  const { cartData } = useContext(Context);
+  const { cartData, totalAmount, isLoggedIn } = useContext(Context);
   const allData = ListData(cartData);
 
+  const history = useHistory();
+
+  // eslint-disable-next-line no-unused-vars
   const [responce, setResponce] = useState(null);
 
   const options = {
@@ -30,7 +34,7 @@ const PaymentGateway = () => {
         userId: data.user.phoneNumber,
         timeSlots: allData,
       };
-      console.log(body)
+      console.log(body);
       axios
         .post(api + "common/order", body, headerWithToken)
         .then((res) => {
@@ -58,10 +62,33 @@ const PaymentGateway = () => {
     var rzp1 = new window.Razorpay(options);
     await rzp1.open();
   };
+
   return (
-    <div>
-      <p>Payment Gateway</p>
-      <input type="submit" value="Razor Pay" onClick={openPayModal} />
+    <div className={styles.PaymentWrapper}>
+      {totalAmount > 0 ? (
+        <div>
+          <figure
+            className="image is-clickable"
+            style={{ width: "250px" }}
+            onClick={() => {
+              if (isLoggedIn) {
+                openPayModal();
+              } else {
+                history.push("/login");
+              }
+            }}
+          >
+            <button className="button is-success p-5">
+              <img
+                src="https://razorpay.com/assets/razorpay-logo-white.svg"
+                alt="Razor Pay"
+              />
+            </button>
+          </figure>
+        </div>
+      ) : (
+        <span></span>
+      )}
     </div>
   );
 };

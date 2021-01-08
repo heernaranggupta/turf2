@@ -16,9 +16,9 @@
   font-style: normal;
 }
 @font-face {
-  font-family: 'HolidayFree';
-  src: url('./fonts/HolidayFreeRegular.woff2') format('woff2'),
-      url('./fonts/HolidayFreeRegular.woff') format('woff');
+  font-family: "HolidayFree";
+  src: url("./fonts/HolidayFreeRegular.woff2") format("woff2"),
+    url("./fonts/HolidayFreeRegular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

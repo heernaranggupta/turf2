@@ -74,20 +74,6 @@ const CartSummary = () => {
           </div>
         </div>
       </div>
-
-      {totalAmount > 0 ? (
-        <Link
-          to="checkout"
-          className={classnames(
-            "button is-large has-text-white my-5",
-            styles.checkoutBtn
-          )}
-        >
-          CHECKOUT
-        </Link>
-      ) : (
-        <span></span>
-      )}
     </>
   );
 };

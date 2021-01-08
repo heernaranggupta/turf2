@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import CartSummary from "../components/CartSummary";
 import CartRightSideComponent from "../components/CartRightSideComponent";
 import styles from "../css/Cart.module.css";
+import PaymentGateway from "../components/PaymentGateway";
 
 const Cart = () => {
   return (
@@ -19,6 +20,7 @@ const Cart = () => {
             )}
           >
             <CartSummary />
+            <PaymentGateway />
           </div>
 
           <div

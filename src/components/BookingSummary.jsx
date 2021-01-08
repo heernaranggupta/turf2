@@ -6,11 +6,38 @@ import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
 import { SlotCardItem } from "./SlotCardItem";
 
-const BookingSummary = () =>{
+const BookingSummary = () => {
+  const [history, setHistory] = useState([]);
+  const [upcoming, setUpComing] = useState([]);
 
-    const [history,setHistory] = useState([])
-    const [upcoming,setUpComing] = useState([])
+  const bookingSummary = useCallback(() => {
+    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+    axios
+      .get(
+        api + "user/booking-history?userPhoneNumber=" + data.user.phoneNumber,
+        headerWithToken
+      )
+      .then((res) => {
+        console.log(res.data);
+        const filterUpComing = res.data.body.bookedTimeSlots.filter(function (
+          item
+        ) {
+          return new Date() <= new Date(item.date);
+        });
+        setUpComing(filterUpComing);
+        const filterHistory = res.data.body.bookedTimeSlots.filter(function (
+          item
+        ) {
+          return new Date() >= new Date(item.date);
+        });
+        setHistory(filterHistory);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
+<<<<<<< HEAD
     const bookingSummary = useCallback(() =>{
         const data = JSON.parse(localStorage.getItem("turfUserDetails"))
         axios.get(api + 'user/booking-history?userPhoneNumber=' + data.user.phoneNumber,headerWithToken).then(res=>{
@@ -84,8 +111,47 @@ const BookingSummary = () =>{
                     />
                 ))}
             </header>
+=======
+  const handleOnClick = (index, ground, id, item) => {
+    console.log("delete booking");
+  };
 
+  useEffect(() => {
+    bookingSummary();
+  }, [bookingSummary]);
+>>>>>>> 3594adc46a1dfa3034315630f62bc07990761ccb
+
+  return (
+    <div className={classnames("box", styles.dateCardWrapper)}>
+      <header className="card-header">
+        <p className="card-header-title has-text-white">Upcoming Booking</p>
+        <div className={classnames(cartStyles.slotContentWrapper)}>
+          {upcoming &&
+            upcoming.map((item, index) => (
+              <SlotCardItem
+                key={index}
+                item={item}
+                index={index}
+                handleOnClick={handleOnClick}
+                id={1}
+              />
+            ))}
         </div>
-    );
-}
+      </header>
+      <header className="card-header">
+        <p className="card-header-title has-text-white">Booking History</p>
+        {history &&
+          history.map((item, index) => (
+            <SlotCardItem
+              key={index}
+              item={item}
+              index={index}
+              handleOnClick={handleOnClick}
+              id={1}
+            />
+          ))}
+      </header>
+    </div>
+  );
+};
 export default BookingSummary;
