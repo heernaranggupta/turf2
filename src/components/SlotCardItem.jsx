@@ -4,7 +4,13 @@ import { BiRupee } from "react-icons/bi";
 import styles from "../css/SlotItems.module.css";
 import { tConvert } from "../utils/TimeConverter";
 
-export const SlotCardItem = ({ item, index, handleOnClick, id }) => {
+export const SlotCardItem = ({
+  item,
+  index,
+  handleOnClick,
+  id,
+  isHistory = false,
+}) => {
   return (
     <div
       onClick={() => handleOnClick(index, id, item.id, item)}
@@ -24,6 +30,13 @@ export const SlotCardItem = ({ item, index, handleOnClick, id }) => {
           <p style={{ color: item.isSelected ? "white" : "black" }}>
             {tConvert(item.endTime)}
           </p>
+          {isHistory ? (
+            <p style={{ color: item.isSelected ? "white" : "black" }}>
+              {item.date}
+            </p>
+          ) : (
+            ""
+          )}
         </div>
 
         <div className={styles.currencyWrapper}>
