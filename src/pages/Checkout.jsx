@@ -1,16 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import classnames from "classnames";
-import { Context } from "../data/context";
 import styles from "../css/Checkout.module.css";
 import CartSummary from "../components/CartSummary";
 import CartRightSideComponent from "../components/CartRightSideComponent";
 import PaymentGateway from "../components/PaymentGateway";
-import { ListData } from "../utils/ListData";
 
 const Checkout = () => {
-  const { cartData } = useContext(Context);
-  const allData = ListData(cartData);
-
   return (
     <div className={classnames("section", styles.CheckoutWrapper)}>
       <div
