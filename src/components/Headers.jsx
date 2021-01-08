@@ -35,14 +35,9 @@ const Headers = () => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
-          <img
-            src="https://bulma.io/images/bulma-logo.png"
-            width="112"
-            height="28"
-            alt="Logo"
-          />
-        </a>
+        <Link className="navbar-item" to="/">
+          <h2 className={classnames(styles.headerlogo)}>Rebounce</h2>
+        </Link>
 
         <div
           role="button"
