@@ -59,7 +59,7 @@ const CartSummary = () => {
         </div>
       </div>
 
-      <div className={classnames(styles.cartTotalInfo)}>
+      {/* <div className={classnames(styles.cartTotalInfo)}>
         <BiRupee size={40} color="#FFF" />
         <div className="field">
           <div className="control">
@@ -72,7 +72,7 @@ const CartSummary = () => {
             />
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -84,7 +84,7 @@
   text-align: center;
   width: 90%;
   border-radius: 12px;
-  margin-left: 10px;
+  margin-left: 25px;
   height: 50px;
   font-family: Conv_Ailerons;
 }
@@ -120,7 +120,7 @@
   }
   .rotate1{
     transform: rotate(-90deg);
-    margin-left: -40px;
+    margin-left: -17px;
   }
 .checkoutWrapper{
   width: 100%;
@@ -129,4 +129,14 @@
 .checkoutbtn{
   width: 90%;
 }
+}
+@media only screen and (max-width: 360px) {
+  .rotate1{
+    margin-left: -40px;
+  }
+}
+@media only screen and (max-width: 410px) {
+  .rotate1{
+    margin-left: -42px;
+  }
 }
