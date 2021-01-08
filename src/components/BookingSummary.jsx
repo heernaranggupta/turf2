@@ -14,7 +14,7 @@ const BookingSummary = () =>{
     const bookingSummary = useCallback(() =>{
         const data = JSON.parse(localStorage.getItem("turfUserDetails"))
         axios.get(api + 'user/booking-history?userPhoneNumber=' + data.user.phoneNumber,headerWithToken).then(res=>{
-          
+          debugger
             console.log(res.data)
             const filterUpComing = res.data.body.bookedTimeSlots.filter(
                 function (item) {
@@ -56,7 +56,7 @@ const BookingSummary = () =>{
 
     return(
         <div className={classnames("box", styles.dateCardWrapper)}>
-            <header className="card-header">
+            <header className={classnames(styles.historygrid ,"card-header")}>
               <p className="card-header-title has-text-white">Upcoming Booking</p>
               <div className={classnames(styles.slotContentWrapper)}>
                 {upcoming &&
@@ -71,7 +71,7 @@ const BookingSummary = () =>{
                 ))}
             </div>
             </header>
-            <header className="card-header">
+            <header className={classnames(styles.historygrid ,"card-header")}>
               <p className="card-header-title has-text-white">Booking History</p>
               {history &&
                     history.map((item, index) => (
