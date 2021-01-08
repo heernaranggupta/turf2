@@ -42,7 +42,7 @@ const Headers = () => {
     >
       <div className="navbar-brand">
         <Link className="navbar-item" to="/">
-          <h2 className={classnames(styles.headerlogo)}>Rebounce</h2>
+          <p className={classnames("subtitle is-2 has-text-white mt-3",styles.headerlogo)}>Rebounce</p>
         </Link>
 
         <div

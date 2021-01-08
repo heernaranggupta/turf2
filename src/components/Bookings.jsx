@@ -44,7 +44,7 @@ const Bookings = () => {
 
         const newData = FetchgroundData;
         if (selectedDateCart) {
-          if (selectedDateCart.turf01 || newData.turf01) {
+          if (selectedDateCart.turf01 && newData.turf01) {
             selectedDateCart.turf01.forEach((item) => {
               newData.turf01.forEach((item2) => {
                 if (
@@ -57,7 +57,7 @@ const Bookings = () => {
             });
           }
 
-          if (selectedDateCart.turf02 || newData.turf02) {
+          if (selectedDateCart.turf02 && newData.turf02) {
             selectedDateCart.turf02.forEach((item) => {
               newData.turf02.forEach((item2) => {
                 if (
@@ -70,7 +70,7 @@ const Bookings = () => {
             });
           }
 
-          if (selectedDateCart.turf03 || newData.turf03) {
+          if (selectedDateCart.turf03 && newData.turf03) {
             selectedDateCart.turf03.forEach((item) => {
               newData.turf03.forEach((item2) => {
                 if (

@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
+import BookingSummary from "../components/BookingSummary";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -124,65 +125,71 @@ const Profile = () => {
               </button>
             </div>
           </div>
-          <div className={classnames("column is-two-thirds")}></div>
+          <div className={classnames("column is-two-thirds")}>
+            <div
+              className={classnames(
+                "column is-two-thirds ",
+                styles.SecondColumns
+              )}
+            >
+              <BookingSummary />
+            </div>
+          </div>
         </div>
-      </div>
 
-      <div className={classnames("modal", isModalOpen ? "is-active" : "")}>
-        <div className="modal-background"></div>
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">Edit Profile</p>
-            <button
-              onClick={() => setisModalOpen(false)}
-              className="delete"
-              aria-label="close"
-            ></button>
-          </header>
-          <section className="modal-card-body">
-            <div className="field">
-              <label className="label">Full Name</label>
-              <div className="control">
+        <div className={classnames("modal", isModalOpen ? "is-active" : "")}>
+          <div className="modal-background"></div>
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">Edit Profile</p>
+              <button
+                onClick={() => setisModalOpen(false)}
+                className="delete"
+                aria-label="close"
+              ></button>
+            </header>
+            <section className="modal-card-body">
+              <div className="field">
+                <label className="label">Full Name</label>
+                <div className="control">
+                  <input
+                    ref={nameRef}
+                    className="input"
+                    type="text"
+                    placeholder="Eg: Joe Deo"
+                  />
+                </div>
+              </div>
+
+              <div className="field">
+                <label className="label">Email</label>
                 <input
-                  ref={nameRef}
+                  ref={emailRef}
                   className="input"
-                  type="text"
-                  placeholder="Eg: Joe Deo"
+                  type="email"
+                  placeholder="Email"
                 />
               </div>
-            </div>
 
-            <div className="field">
-              <label className="label">Email</label>
-              <input
-                ref={emailRef}
-                className="input"
-                type="email"
-                placeholder="Email"
-              />
-            </div>
-
-            <div className="field">
-              <label className="label">Date Of Birth</label>
-              <input
-                ref={DOBRef}
-                className="input"
-                type="date"
-                placeholder="Date of Birth"
-              />
-            </div>
-          </section>
-          <footer className="modal-card-foot">
-            <button
-              onClick={() => handleSaveProfileChanges()}
-              className="button is-success"
-            >
-              Save changes
-            </button>
-            <button onClick={() => setisModalOpen(false)} className="button">
-              Cancel
-            </button>
-          </footer>
+              <div className="field">
+                <label className="label">Date Of Birth</label>
+                <input
+                  ref={DOBRef}
+                  className="input"
+                  type="date"
+                  placeholder="Date of Birth"
+                />
+              </div>
+            </section>
+            <footer className="modal-card-foot">
+              <button
+                onClick={() => handleSaveProfileChanges()}
+                className="button is-success"
+              >
+                Save changes
+              </button>
+            </footer>
+          </div>
         </div>
       </div>
     </div>
