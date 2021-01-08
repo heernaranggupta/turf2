@@ -51,6 +51,17 @@ const Routes = () => {
           <Checkout />
         </ProtectedRoutes>
 
+        <Route
+          path="/logout"
+          exact
+          render={() => {
+            setIsLoggedIn(false);
+            localStorage.removeItem("turfUserDetails");
+            localStorage.removeItem("turfCart");
+            return <Redirect to="/" />;
+          }}
+        />
+
         <Redirect to="/" />
       </Switch>
       <ToastContainer pauseOnHover={false} autoClose={3000} />
