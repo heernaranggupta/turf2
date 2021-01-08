@@ -71,7 +71,6 @@
   height: 50px;
   padding-left: 20px;
   padding-right: 20px;
-  font-size: 2rem;
   border-radius: 12px;
   text-align: center;
   margin-left: 16px;
@@ -82,9 +81,8 @@
 }
 .hourcal{
   background: #fff;
-  font-size: 2rem;
   text-align: center;
-  width: 100%;
+  width: 90%;
   border-radius: 12px;
   margin-left: 10px;
   height: 50px;
@@ -95,7 +93,7 @@
   .timeBarWrapper {
     width: 100%;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
   .dateWrapper {
     margin-bottom: 10px;
@@ -124,4 +122,11 @@
     transform: rotate(-90deg);
     margin-left: -40px;
   }
+.checkoutWrapper{
+  width: 100%;
+  left: 25%;
+}
+.checkoutbtn{
+  width: 90%;
+}
 }
