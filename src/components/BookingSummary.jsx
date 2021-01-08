@@ -79,7 +79,7 @@ const BookingSummary = () =>{
                         key={index}
                         item={item}
                         index={index}
-                        handleOnClick={handleOnClick}
+                        handleOnClick={() => {}}
                         id={1}
                     />
                 ))}
