@@ -2,17 +2,20 @@
   background: #437520;
   position: relative;
 }
+
 .allGroundsWrapper {
   display: grid;
   grid-template-columns: repeat(2, auto);
   gap: 25px;
 }
+
 .isCartEmptyWrapper {
   height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .isCartEmptyWrapper article {
   width: 350px !important;
 }
@@ -20,13 +23,16 @@
 .cartColumns {
   position: relative;
 }
-.cartSummaryWrapper{
+
+.cartSummaryWrapper {
   background-color: #5f8d47;
   border-radius: 15px;
 }
+
 .dateCardWrapper {
   background: transparent;
 }
+
 .cartSummaryWrapper {
   height: 100vh;
   position: sticky !important;
@@ -35,7 +41,10 @@
 
 .cartSummaryInfo {
   margin-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
+
 .cartTotalInfo {
   margin-top: 50px;
   background: #719e67;
@@ -45,42 +54,58 @@
   align-items: center;
   border-radius: 20px;
 }
+
 .checkoutBtn {
-  text-align: center;
-  background: #233c28 !important;
   border: none;
+  height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 12px;
+  text-align: center;
+  margin-left: 16px;
+  background-color: #233c28;
+  color: #fff;
+  box-shadow: 3px 3px 29px #292a2b, 2px 1px 4px #292a2b, 1px 2px 7px #292a2b;
+  font-family: Conv_Ailerons;
   margin-top: 50px;
 }
+
 @media only screen and (max-width: 1410px) {
   .allGroundsWrapper {
     display: grid;
     grid-template-columns: repeat(1, auto);
   }
 }
+
 @media only screen and (max-width: 1100px) {
   .overRideContainer {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 }
+
 @media only screen and (max-width: 1040px) {
   .cartColumns {
     display: flex !important;
     flex-direction: column !important;
   }
+
   .SecondColumns {
     width: 100% !important;
   }
+
   .cartSummaryWrapper {
     height: auto;
     position: relative !important;
   }
+
   .allGroundsWrapper {
     display: grid;
     grid-template-columns: repeat(2, auto);
     gap: 25px;
   }
 }
+
 @media only screen and (max-width: 900px) {
   .allGroundsWrapper {
     display: grid;
@@ -88,24 +113,30 @@
     gap: 15px;
   }
 }
+
 @media only screen and (max-width: 490px) {
   .box {
     padding: 0% !important;
   }
+
   .card-content {
     padding: 0 !important;
   }
+
   .allGroundsWrapper {
     padding: 0 !important;
   }
+
   .CartWrapper {
     padding: 3rem 0 !important;
   }
+
   .cartSummaryWrapper {
     margin: 20px;
   }
 }
-.cardheader{
+
+.cardheader {
   background-color: #5f8d47 !important;
   border-radius: 10px;
 }
