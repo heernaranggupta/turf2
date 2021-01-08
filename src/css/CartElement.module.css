@@ -22,14 +22,17 @@
 .deleteWrapper {
   width: 15%;
   height: 100%;
-  background-color: red;
+  background-color: #d13232;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 .timeDurationWrapper {
   margin-left: 15px;
 }
 .groundWrapper {
   background: #5f8d47;
+  border-radius: 15px;
 }

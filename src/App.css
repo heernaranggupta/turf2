@@ -36,6 +36,15 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'HolidayFree';
+  src: url('./fonts/HolidayFreeRegular.woff2') format('woff2'),
+      url('./fonts/HolidayFreeRegular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 h1 h2 h3 h4 h5 h6 {
   font-family: Conv_Ailerons;
 }

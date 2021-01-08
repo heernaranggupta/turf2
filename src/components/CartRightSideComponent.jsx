@@ -126,7 +126,7 @@ const CartRightSideComponent = () => {
             key={index}
             className={classnames("box", styles.dateCardWrapper)}
           >
-            <header className="card-header">
+            <header className={classnames(styles.cardheader, "card-header")}>
               <p className="card-header-title has-text-white">{item}</p>
             </header>
             <div

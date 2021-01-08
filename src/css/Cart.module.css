@@ -20,9 +20,12 @@
 .cartColumns {
   position: relative;
 }
-.cartSummaryWrapper,
+.cartSummaryWrapper{
+  background-color: #5f8d47;
+  border-radius: 15px;
+}
 .dateCardWrapper {
-  background: #5f8d47;
+  background: transparent;
 }
 .cartSummaryWrapper {
   height: 100vh;
@@ -101,4 +104,8 @@
   .cartSummaryWrapper {
     margin: 20px;
   }
+}
+.cardheader{
+  background-color: #5f8d47 !important;
+  border-radius: 10px;
 }
