@@ -30,13 +30,14 @@ const PaymentGateway = () => {
         userId: data.user.phoneNumber,
         timeSlots: [allData],
       };
+      console.log(body)
       axios
         .post(api + "common/order", body, headerWithToken)
         .then((res) => {
           console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response);
         });
     },
     prefill: {

@@ -4,6 +4,7 @@ import styles from "../css/Cart.module.css";
 import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
+import { SlotCardItem } from "./SlotCardItem";
 
 const BookingSummary = () =>{
 
