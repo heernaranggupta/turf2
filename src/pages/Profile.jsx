@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useContext } from "react";
 import classnames from "classnames";
 import { Context } from "../data/context";
 import styles from "../css/Profile.module.css";
+import BookingSummary from "../components/BookingSummary";
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -57,7 +58,16 @@ const Profile = () => {
               Logout
             </button>
           </div>
-          <div className={classnames("column is-two-thirds")}></div>
+          <div className={classnames("column is-two-thirds")}>
+            <div
+              className={classnames(
+                "column is-two-thirds ",
+                styles.SecondColumns
+              )}
+            >
+              <BookingSummary />
+            </div>
+          </div>
         </div>
       </div>
     </div>
