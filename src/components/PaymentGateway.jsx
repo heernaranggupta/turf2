@@ -32,7 +32,7 @@ const PaymentGateway = () => {
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const body = {
         userId: data.user.phoneNumber,
-        timeSlots: [allData],
+        timeSlots: allData,
       };
       console.log(body);
       axios
