@@ -59,7 +59,7 @@ const CartElement = ({ data, label, reloadData }) => {
                 onClick={() => onRemoveSlots(item)}
                 className={classnames(styles.deleteWrapper, "is-clickable")}
               >
-                <MdDelete color="#FFF" />
+                <MdDelete size={30} color="#FFF" />
               </span>
             </div>
           );
