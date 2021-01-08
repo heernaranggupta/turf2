@@ -1,5 +1,5 @@
 export const filterData = (receviedData) => {
-  const selectedSlots = receviedData.selectedSlots;
+  const selectedSlots = receviedData?.selectedSlots || [];
 
   //   const selectedSlot = {
   //     "2020-12-31": {

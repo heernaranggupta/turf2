@@ -14,10 +14,12 @@ const BookingSummary = () =>{
     const bookingSummary = useCallback(() =>{
         const data = JSON.parse(localStorage.getItem("turfUserDetails"))
         axios.get(api + 'user/booking-history?userPhoneNumber=' + data.user.phoneNumber,headerWithToken).then(res=>{
-            console.log(res.daya.body.bookedTimeSlots)
-            setBookingList(res.daya.body.bookedTimeSlots)
+            
+            console.log(res.data.body.bookedTimeSlots)
+            console.log("time",new Date().toISOString())
+            setBookingList(res.data.body.bookedTimeSlots)
         }).catch(err=>{
-            console.log(err.response)
+            console.log(err)
         })
     })
 
