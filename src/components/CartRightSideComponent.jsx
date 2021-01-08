@@ -31,7 +31,6 @@ const CartRightSideComponent = () => {
             const [sortedData, dateArry] = filterData(res.data.body);
             setTotalSlots(res.data.body.selectedSlots.length);
             setCartData(sortedData);
-            console.log(sortedData);
             setTotalAmount(res.data.body.cartTotal);
             setDateArray([...dateArry]);
             setIsCartEmpty(false);
@@ -115,9 +114,9 @@ const CartRightSideComponent = () => {
   return (
     <div>
       {dateArray.map((item, index) => {
-        const turf01 = cartData[item].turf01 || [];
-        const turf02 = cartData[item].turf02 || [];
-        const turf03 = cartData[item].turf03 || [];
+        const turf01 = cartData[item]?.turf01 || [];
+        const turf02 = cartData[item]?.turf02 || [];
+        const turf03 = cartData[item]?.turf03 || [];
 
         return (
           <div
