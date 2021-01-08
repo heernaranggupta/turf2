@@ -45,7 +45,7 @@ const Headers = () => {
       <div className="navbar-brand">
         <Link className="navbar-item" to="/">
           {/* <p className={classnames("subtitle is-2 has-text-white mt-3",styles.headerlogo)}>Rebounce</p> */}
-          <img className="image is-128x128" src={logo} alt="rebounceLogo" />
+          <img className={classnames(styles.logorebounce)} src={logo} alt="rebounceLogo" />
         </Link>
 
         <div
