@@ -1,9 +1,6 @@
 .headerWrapper {
   height: 10vh;
   background-color: #437520;
-  padding: 0 55px;
-  display: flex;
-  align-items: center;
 }
 
 .btnBackGround {
@@ -15,4 +12,10 @@
   width: 50px;
   border-radius: 50%;
   background: #fff;
+}
+.headerlogo{
+  color: #fff;
+  font-family: HolidayFree;
+  font-size: 40px;
+  margin-top: 10px;
 }
