@@ -19,7 +19,6 @@ import { filterData } from "../utils/filterData";
 
 const Bookings = () => {
   const {
-    groundData,
     setGroundData,
     totalTime,
     bookDate,

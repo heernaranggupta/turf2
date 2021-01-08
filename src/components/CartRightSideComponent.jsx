@@ -19,6 +19,7 @@ const CartRightSideComponent = () => {
     setTotalSlots,
     setIsCartEmpty,
     isCartEmpty,
+    setTotalTime,
   } = useContext(Context);
 
   const [dateArray, setDateArray] = useState([]);
@@ -38,15 +39,17 @@ const CartRightSideComponent = () => {
             setIsCartEmpty(true);
             setTotalAmount(0);
             setTotalSlots(0);
+            setTotalTime(0);
           }
         } else {
           setIsCartEmpty(true);
           setTotalAmount(0);
           setTotalSlots(0);
+          setTotalTime(0);
         }
       }
     },
-    [setCartData, setIsCartEmpty, setTotalAmount, setTotalSlots]
+    [setCartData, setIsCartEmpty, setTotalAmount, setTotalSlots, setTotalTime]
   );
 
   const fetchCartData = useCallback(() => {
@@ -123,7 +126,9 @@ const CartRightSideComponent = () => {
             key={index}
             className={classnames("box", styles.dateCardWrapper)}
           >
-            <header className={classnames(styles.cardheader, "card-header")}>
+            <header
+              className={classnames(styles.cardheader, "card-header my-3")}
+            >
               <p className="card-header-title has-text-white">{item}</p>
             </header>
             <div

@@ -11,7 +11,7 @@ import { tConvert } from "../utils/TimeConverter";
 import styles from "../css/CartElement.module.css";
 
 const CartElement = ({ data, label, reloadData }) => {
-  const { phoneNumber, cartId } = useContext(Context);
+  const { phoneNumber, cartId, setTotalTime } = useContext(Context);
 
   const onRemoveSlots = (e) => {
     const body = {
@@ -24,6 +24,7 @@ const CartElement = ({ data, label, reloadData }) => {
       .post(url, body, headerWithToken)
       .then(() => {
         toast.success("Removed from Cart");
+        setTotalTime((oldTime) => oldTime - 30);
         reloadData();
       })
       .catch((err) => {
@@ -31,7 +32,7 @@ const CartElement = ({ data, label, reloadData }) => {
       });
   };
   return (
-    <div className={classnames(styles.groundWrapper, "box")}>
+    <div className={classnames("box", styles.groundWrapper)}>
       <p className="title has-text-white">{label}</p>
       <div className={styles.scrollGroundItems}>
         {data.map((item, index) => {

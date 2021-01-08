@@ -36,3 +36,8 @@
   background: #5f8d47;
   border-radius: 15px;
 }
+@media only screen and (max-width: 400px) {
+  .groundWrapper {
+    padding: 0 !important;
+  }
+}
