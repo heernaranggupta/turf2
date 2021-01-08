@@ -3,7 +3,6 @@ import classnames from "classnames";
 import styles from "../css/Cart.module.css";
 import { BiRupee } from "react-icons/bi";
 import { Context } from "../data/context";
-import { Link } from "react-router-dom";
 
 const CartSummary = () => {
   const { totalAmount, totalSlots } = useContext(Context);

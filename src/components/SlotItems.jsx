@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import api from "../config/api";
 import axios from "axios";
 import headerWithToken from "../config/headerWithToken";
+import { compareTime } from "../utils/compareTime";
 
 const SlotItems = () => {
   const {
@@ -147,15 +148,19 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf01 &&
-            groundData.turf01.map((item, index) => (
-              <SlotCardItem
-                key={index}
-                item={item}
-                index={index}
-                handleOnClick={handleOnClick}
-                id={1}
-              />
-            ))}
+            groundData.turf01.map(
+              (item, index) =>
+                item.status === "AVAILABLE" &&
+                !compareTime(item.startTime) && (
+                  <SlotCardItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    handleOnClick={handleOnClick}
+                    id={1}
+                  />
+                )
+            )}
         </div>
       </div>
 
@@ -177,15 +182,18 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf02 &&
-            groundData.turf02.map((item, index) => (
-              <SlotCardItem
-                key={index}
-                item={item}
-                index={index}
-                handleOnClick={handleOnClick}
-                id={2}
-              />
-            ))}
+            groundData.turf02.map(
+              (item, index) =>
+                item.status === "AVAILABLE" && (
+                  <SlotCardItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    handleOnClick={handleOnClick}
+                    id={1}
+                  />
+                )
+            )}
         </div>
       </div>
 
@@ -207,15 +215,18 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf03 &&
-            groundData.turf03.map((item, index) => (
-              <SlotCardItem
-                key={index}
-                item={item}
-                index={index}
-                handleOnClick={handleOnClick}
-                id={3}
-              />
-            ))}
+            groundData.turf03.map(
+              (item, index) =>
+                item.status === "AVAILABLE" && (
+                  <SlotCardItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    handleOnClick={handleOnClick}
+                    id={1}
+                  />
+                )
+            )}
         </div>
       </div>
     </div>
