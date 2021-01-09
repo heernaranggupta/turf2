@@ -16,11 +16,10 @@ import {
 } from "../utils/TimeConverter";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/filterData";
-import { compareTime, getCurrentTime } from "../utils/compareTime";
+import { getCurrentTime } from "../utils/compareTime";
 
 const Bookings = () => {
   const {
-    groundData,
     setSortedData,
     setGroundData,
     totalTime,
