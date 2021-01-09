@@ -15,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import Signup from "../pages/Signup";
 import { Context } from "../data/context";
 import Checkout from "../pages/Checkout";
+import Invoice from "../components/invoice";
 
 const Routes = () => {
   const { setIsLoggedIn, setCartId, setPhoneNumber } = useContext(Context);
@@ -42,6 +43,7 @@ const Routes = () => {
         <Route path="/cart" exact component={Cart} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
+        <Route path="/invoice/:id" exact component={Invoice} />
 
         <ProtectedRoutes path="/profile">
           <Profile />

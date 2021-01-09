@@ -31,7 +31,6 @@
   }
 }
 
-
 @media only screen and (max-width: 1040px) {
   .cartColumns {
     display: flex !important;
@@ -40,7 +39,7 @@
   .SecondColumns {
     width: 100% !important;
   }
-  .cartSummaryWrapper {
+  .ProfileLeftColumn {
     height: auto;
     position: relative !important;
   }

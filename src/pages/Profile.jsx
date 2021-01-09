@@ -125,15 +125,10 @@ const Profile = () => {
               </button>
             </div>
           </div>
-          <div className={classnames("column is-two-thirds")}>
-            <div
-              className={classnames(
-                "column is-two-thirds ",
-                styles.SecondColumns
-              )}
-            >
-              <BookingSummary />
-            </div>
+          <div
+            className={classnames("column is-two-thirds", styles.SecondColumns)}
+          >
+            <BookingSummary />
           </div>
         </div>
 

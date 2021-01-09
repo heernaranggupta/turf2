@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import api from "../config/api";
 import axios from "axios";
 import headerWithToken from "../config/headerWithToken";
-import { compareTime } from "../utils/compareTime";
+import { compareDate, compareTime } from "../utils/compareTime";
 
 const SlotItems = () => {
   const {
@@ -148,10 +148,17 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf01 &&
-            groundData.turf01.map(
-              (item, index) =>
-                item.status === "AVAILABLE" &&
-                !compareTime(item.startTime) && (
+            groundData.turf01.map((item, index) =>
+              item.status === "AVAILABLE" && compareDate(item.date) ? (
+                <SlotCardItem
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnClick={handleOnClick}
+                  id={1}
+                />
+              ) : (
+                compareTime(item.startTime) && (
                   <SlotCardItem
                     key={index}
                     item={item}
@@ -160,6 +167,7 @@ const SlotItems = () => {
                     id={1}
                   />
                 )
+              )
             )}
         </div>
       </div>
@@ -182,17 +190,26 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf02 &&
-            groundData.turf02.map(
-              (item, index) =>
-                item.status === "AVAILABLE" && (
+            groundData.turf02.map((item, index) =>
+              item.status === "AVAILABLE" && compareDate(item.date) ? (
+                <SlotCardItem
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnClick={handleOnClick}
+                  id={2}
+                />
+              ) : (
+                compareTime(item.startTime) && (
                   <SlotCardItem
                     key={index}
                     item={item}
                     index={index}
                     handleOnClick={handleOnClick}
-                    id={1}
+                    id={2}
                   />
                 )
+              )
             )}
         </div>
       </div>
@@ -215,17 +232,26 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf03 &&
-            groundData.turf03.map(
-              (item, index) =>
-                item.status === "AVAILABLE" && (
+            groundData.turf03.map((item, index) =>
+              item.status === "AVAILABLE" && compareDate(item.date) ? (
+                <SlotCardItem
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnClick={handleOnClick}
+                  id={3}
+                />
+              ) : (
+                compareTime(item.startTime) && (
                   <SlotCardItem
                     key={index}
                     item={item}
                     index={index}
                     handleOnClick={handleOnClick}
-                    id={1}
+                    id={3}
                   />
                 )
+              )
             )}
         </div>
       </div>
