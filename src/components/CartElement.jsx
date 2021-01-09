@@ -49,7 +49,7 @@ const CartElement = ({ data, label, reloadData }) => {
               <div className={styles.currencyWrapper}>
                 <p className={(styles.slotPriceWrapper, "title is-4")}>
                   <span>
-                    <BiRupee size={30} color={"#000"} />
+                    <BiRupee size={20} color={"#000"} />
                   </span>
                   <span>{item.price}</span>
                 </p>
