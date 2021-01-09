@@ -9,8 +9,8 @@ export const getCurrentTime = () => {
   return date;
 };
 
-export const compareTime = (startTime) => {
-  var a = getCurrentTime();
+export const compareTime = (startTime, secondTime = "") => {
+  var a = secondTime.length ? secondTime : getCurrentTime();
   var b = startTime;
   var aa1 = a.split(":");
   var aa2 = b.split(":");
@@ -39,7 +39,6 @@ export const compareTime = (startTime) => {
   //   } else {
   //     alert("a is greater");
   //   }
-
   return dd1 < dd2 ? true : false;
 };
 

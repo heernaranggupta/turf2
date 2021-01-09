@@ -38,13 +38,7 @@ const PaymentGateway = () => {
         .post(api + "common/order", body, headerWithToken)
         .then((res) => {
           console.log(res);
-          if (
-            res.data.body.message ===
-            "slot with start time 11:30 on date 2021-01-10 is already booked."
-          ) {
-            //
-          }
-          if (res.data.body.message === "" || res.data.body.message === null) {
+          if (res.data.success) {
             history.push("/payment-success");
           }
         })

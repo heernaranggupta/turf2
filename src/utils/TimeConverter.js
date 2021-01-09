@@ -25,8 +25,22 @@ export function tConvert(time) {
       time[5] = +time[0] < 12 ? " AM" : " PM"; // Set AM/PM
       time[0] = +time[0] % 12 || 12; // Adjust hours
     }
-    return time.join(""); // return adjusted time or original string
-  } else {
-    return "";
+
+    var newTime = "";
+    time.forEach((item, index) => {
+      if (index !== 3) {
+        newTime = newTime + item;
+      }
+    });
+    return newTime; // return adjusted time or original string
   }
 }
+
+export const convertDate = (data) => {
+  if (data) {
+    console.log(data);
+    var date = data;
+    var dateArr = date.split("-");
+    return dateArr[2] + "-" + dateArr[1] + "-" + dateArr[0];
+  }
+};

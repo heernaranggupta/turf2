@@ -16,9 +16,12 @@ import {
 } from "../utils/TimeConverter";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/filterData";
+import { compareTime, getCurrentTime } from "../utils/compareTime";
 
 const Bookings = () => {
   const {
+    groundData,
+    setSortedData,
     setGroundData,
     totalTime,
     bookDate,
@@ -32,7 +35,7 @@ const Bookings = () => {
   const [isGroundSelected2, setIsGroundSelected2] = useState(false);
   const [isGroundSelected3, setIsGroundSelected3] = useState(false);
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
-  const [startTime, setStartTime] = useState("");
+  const [startTime, setStartTime] = useState(getCurrentTime());
   const [endTime, setEndTime] = useState("");
 
   const handleFetchedData = useCallback(
@@ -83,11 +86,11 @@ const Bookings = () => {
             });
           }
         }
-
+        setSortedData({ ...newData });
         setGroundData({ ...newData });
       }
     },
-    [setCartData, bookDate, setGroundData]
+    [setCartData, bookDate, setGroundData, setSortedData]
   );
 
   const fetchCartData = useCallback(
@@ -314,6 +317,7 @@ const Bookings = () => {
                   className="input "
                   type="time"
                   placeholder="Pick Start Time"
+                  readOnly
                   value={startTime}
                   onChange={(event) => setStartTime(event.target.value)}
                 />
@@ -324,7 +328,9 @@ const Bookings = () => {
                   type="time"
                   placeholder="Pick End Time"
                   value={endTime}
-                  onChange={(event) => setEndTime(event.target.value)}
+                  onChange={(event) => {
+                    setEndTime(event.target.value);
+                  }}
                 />
               </div>
             </div>
@@ -334,11 +340,17 @@ const Bookings = () => {
           </div>
           <div className={classnames(styles.checkoutWrapper, "my-3")}>
             <div className={styles.timeBarWrapper}>
-              <div style={{ display: "flex" }} className={styles.dateWrapper , "is-hidden-touch"}>
+              <div
+                style={{ display: "flex" }}
+                className={(styles.dateWrapper, "is-hidden-touch")}
+              >
                 <div className="field">
                   <div className="control">
                     <input
-                      className={classnames(styles.hourcal, "input is-size-4-mobile is-size-3")}
+                      className={classnames(
+                        styles.hourcal,
+                        "input is-size-4-mobile is-size-3"
+                      )}
                       type="text"
                       placeholder="Total Hours"
                       readOnly

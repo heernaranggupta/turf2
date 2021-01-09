@@ -148,27 +148,34 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf01 &&
-            groundData.turf01.map((item, index) =>
-              item.status === "AVAILABLE" && compareDate(item.date) ? (
-                <SlotCardItem
-                  key={index}
-                  item={item}
-                  index={index}
-                  handleOnClick={handleOnClick}
-                  id={1}
-                />
-              ) : (
-                compareTime(item.startTime) && (
-                  <SlotCardItem
-                    key={index}
-                    item={item}
-                    index={index}
-                    handleOnClick={handleOnClick}
-                    id={1}
-                  />
-                )
-              )
-            )}
+            groundData.turf01.map((item, index) => {
+              if (item.status === "AVAILABLE") {
+                if (compareDate(item.date)) {
+                  return (
+                    <SlotCardItem
+                      key={index}
+                      item={item}
+                      index={index}
+                      handleOnClick={handleOnClick}
+                      id={1}
+                    />
+                  );
+                } else {
+                  if (compareTime(item.startTime)) {
+                    return (
+                      <SlotCardItem
+                        key={index}
+                        item={item}
+                        index={index}
+                        handleOnClick={handleOnClick}
+                        id={1}
+                      />
+                    );
+                  }
+                }
+              }
+              return <span style={{ display: "none" }} key={index}></span>;
+            })}
         </div>
       </div>
 
@@ -190,27 +197,34 @@ const SlotItems = () => {
 
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf02 &&
-            groundData.turf02.map((item, index) =>
-              item.status === "AVAILABLE" && compareDate(item.date) ? (
-                <SlotCardItem
-                  key={index}
-                  item={item}
-                  index={index}
-                  handleOnClick={handleOnClick}
-                  id={2}
-                />
-              ) : (
-                compareTime(item.startTime) && (
-                  <SlotCardItem
-                    key={index}
-                    item={item}
-                    index={index}
-                    handleOnClick={handleOnClick}
-                    id={2}
-                  />
-                )
-              )
-            )}
+            groundData.turf02.map((item, index) => {
+              if (item.status === "AVAILABLE") {
+                if (compareDate(item.date)) {
+                  return (
+                    <SlotCardItem
+                      key={index}
+                      item={item}
+                      index={index}
+                      handleOnClick={handleOnClick}
+                      id={2}
+                    />
+                  );
+                } else {
+                  if (compareTime(item.startTime)) {
+                    return (
+                      <SlotCardItem
+                        key={index}
+                        item={item}
+                        index={index}
+                        handleOnClick={handleOnClick}
+                        id={2}
+                      />
+                    );
+                  }
+                }
+              }
+              return <span style={{ display: "none" }} key={index}></span>;
+            })}
         </div>
       </div>
 
@@ -230,29 +244,37 @@ const SlotItems = () => {
           </p>
         </div>
 
-        <div className={classnames(styles.slotContentWrapper)}>
+        <div className={classnames(styles.slotContentWrapper, "mb-6")}>
           {groundData.turf03 &&
-            groundData.turf03.map((item, index) =>
-              item.status === "AVAILABLE" && compareDate(item.date) ? (
-                <SlotCardItem
-                  key={index}
-                  item={item}
-                  index={index}
-                  handleOnClick={handleOnClick}
-                  id={3}
-                />
-              ) : (
-                compareTime(item.startTime) && (
-                  <SlotCardItem
-                    key={index}
-                    item={item}
-                    index={index}
-                    handleOnClick={handleOnClick}
-                    id={3}
-                  />
-                )
-              )
-            )}
+            groundData.turf03.map((item, index) => {
+              if (item.status === "AVAILABLE") {
+                if (compareDate(item.date)) {
+                  return (
+                    <SlotCardItem
+                      key={index}
+                      item={item}
+                      index={index}
+                      handleOnClick={handleOnClick}
+                      id={3}
+                    />
+                  );
+                } else {
+                  if (compareTime(item.startTime)) {
+                    return (
+                      <SlotCardItem
+                        key={index}
+                        item={item}
+                        index={index}
+                        handleOnClick={handleOnClick}
+                        id={3}
+                      />
+                    );
+                  }
+                }
+              }
+              return <span style={{ display: "none" }} key={index}></span>;
+            })}
+          <div className="mb-6"></div>
         </div>
       </div>
     </div>

@@ -5,6 +5,7 @@ export const Context = createContext();
 export const ContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [groundData, setGroundData] = useState({});
+  const [sortedData, setSortedData] = useState({});
   const [totalTime, setTotalTime] = useState(0);
   const [bookDate, setBookDate] = useState(
     new Date().toISOString().slice(0, 10)
@@ -15,13 +16,14 @@ export const ContextProvider = ({ children }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalSlots, setTotalSlots] = useState(0);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
-  
 
   return (
     <Context.Provider
       value={{
         isLoggedIn,
         setIsLoggedIn,
+        sortedData,
+        setSortedData,
         groundData,
         setGroundData,
         totalTime,
