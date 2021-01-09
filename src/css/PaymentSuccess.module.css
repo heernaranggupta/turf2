@@ -1,13 +1,13 @@
 .psContainer {
-  min-height: 90vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .imageWrapper {
-  height: 500px;
-  width: 500px;
+  height: 640px;
+  width: 640px;
 }
 .imageWrapper img {
   width: 100%;

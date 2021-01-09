@@ -18,7 +18,7 @@ const PaymentGateway = () => {
 
   const options = {
     key: "rzp_test_ZcSb49CvQ0NZhe",
-    
+
     // amount: totalAmount * 100, //  = INR 1
     amount: 1000,
     name: "Turf Booking",
@@ -38,11 +38,14 @@ const PaymentGateway = () => {
         .post(api + "common/order", body, headerWithToken)
         .then((res) => {
           console.log(res);
-          if(res.data.body.message === 'slot with start time 11:30 on date 2021-01-10 is already booked.'){
+          if (
+            res.data.body.message ===
+            "slot with start time 11:30 on date 2021-01-10 is already booked."
+          ) {
             //
           }
-          if(res.data.body.message === '' || res.data.body.message === null){
-            history.push('/payment-success')
+          if (res.data.body.message === "" || res.data.body.message === null) {
+            history.push("/payment-success");
           }
         })
         .catch((err) => {
