@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import classnames from "classnames";
 import styles from "../css/Cart.module.css";
-import { BiRupee } from "react-icons/bi";
 import { Context } from "../data/context";
 
 const CartSummary = () => {
