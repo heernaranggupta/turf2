@@ -18,10 +18,9 @@ const PaymentGateway = () => {
 
   const options = {
     key: "rzp_test_ZcSb49CvQ0NZhe",
-    // keyId: rzp_test_ZcSb49CvQ0NZhe
-    // keySecret: Qy4DDJgdGCbkABNYhRrn7CMH
+    
     // amount: totalAmount * 100, //  = INR 1
-    amount: 100,
+    amount: 1000,
     name: "Turf Booking",
     description:
       "Welcome to Rebounce You can pay with RazorPay and book your turf Ground",
@@ -39,6 +38,12 @@ const PaymentGateway = () => {
         .post(api + "common/order", body, headerWithToken)
         .then((res) => {
           console.log(res);
+          if(res.data.body.message === 'slot with start time 11:30 on date 2021-01-10 is already booked.'){
+            //
+          }
+          if(res.data.body.message === '' || res.data.body.message === null){
+            history.push('/payment-success')
+          }
         })
         .catch((err) => {
           console.log(err.response);
