@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3a2e76ad.chunk.css",
+    "main.js": "/static/js/main.b053ef1f.chunk.js",
+    "main.js.map": "/static/js/main.b053ef1f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.81dd8c54.js",
+    "runtime-main.js.map": "/static/js/runtime-main.81dd8c54.js.map",
+    "static/css/2.ccc6f86f.chunk.css": "/static/css/2.ccc6f86f.chunk.css",
+    "static/js/2.1f7d886a.chunk.js": "/static/js/2.1f7d886a.chunk.js",
+    "static/js/2.1f7d886a.chunk.js.map": "/static/js/2.1f7d886a.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.ccc6f86f.chunk.css.map": "/static/css/2.ccc6f86f.chunk.css.map",
+    "static/css/main.3a2e76ad.chunk.css.map": "/static/css/main.3a2e76ad.chunk.css.map",
+    "static/js/2.1f7d886a.chunk.js.LICENSE.txt": "/static/js/2.1f7d886a.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/static/media/HolidayFreeRegular.68ae0c6e.woff2",
+    "static/media/Home.module.css": "/static/media/HomeBackground.5828c75c.png",
+    "static/media/ground.514a776e.png": "/static/media/ground.514a776e.png",
+    "static/media/ground_selected.45ccd54d.png": "/static/media/ground_selected.45ccd54d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.81dd8c54.js",
+    "static/css/2.ccc6f86f.chunk.css",
+    "static/js/2.1f7d886a.chunk.js",
+    "static/css/main.3a2e76ad.chunk.css",
+    "static/js/main.b053ef1f.chunk.js"
+  ]
+}

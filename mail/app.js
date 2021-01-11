@@ -93,6 +93,13 @@ router.post("/show", (req, res) => {
   res.render("template", { slots: slots, name });
 });
 
+app.get("/", (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    message: "Server is Running",
+  });
+});
+
 app.use("/api", router);
 
 app.listen(PORT, function () {
