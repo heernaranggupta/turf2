@@ -8,10 +8,10 @@
 # testing
 /coverage
 
+
 # production
 /build
-/admin/.gitignore
-/client/.gitignore
+.eslintcache
 
 # misc
 .DS_Store

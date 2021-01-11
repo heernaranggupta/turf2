@@ -1,16 +1,10 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-  useContext,
-  useRef,
-} from "react";
+import React, { useRef } from "react";
 import classnames from "classnames";
 import styles from "../css/AddManager.module.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 import api from "../config/api";
-import headerWithToken from "../config/headerWithoutToken";
+import headerWithToken from "../config/headerWithoutToken.js";
 
 const AddManager = () => {
   const phoneRef = useRef(null);
@@ -28,12 +22,12 @@ const AddManager = () => {
       return;
     }
     if (!usernameRef.current.value.trim().length) {
-        toast.error("User Name Cannot be empty");
-        return;
+      toast.error("User Name Cannot be empty");
+      return;
     }
     if (!companynameRef.current.value.trim().length) {
-        toast.error("Comapny Name Cannot be empty");
-        return;
+      toast.error("Comapny Name Cannot be empty");
+      return;
     }
 
     const values = {
@@ -41,7 +35,7 @@ const AddManager = () => {
       phoneNumber: phoneRef.current.value,
       companyName: companynameRef.current.value,
       password: passwordRef.current.value,
-      role: 'MANAGER'
+      role: "MANAGER",
     };
 
     axios
@@ -63,13 +57,12 @@ const AddManager = () => {
       });
   };
 
-
   return (
     <div>
       Add Manager Form
       <div className="my-5 mx-3">
         <div className="field my-3">
-        <div className="control">
+          <div className="control">
             <input
               className={classnames("input", styles.AddManagerInputs)}
               type="text"
