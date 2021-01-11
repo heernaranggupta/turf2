@@ -8,6 +8,9 @@ import React, {
 import classnames from "classnames";
 import styles from "../css/AddManager.module.css";
 import { toast } from "react-toastify";
+import axios from "axios";
+import api from "../config/api";
+import headerWithToken from "../config/headerWithoutToken";
 
 const AddManager = () => {
   const phoneRef = useRef(null);
@@ -42,7 +45,7 @@ const AddManager = () => {
     };
 
     axios
-      .post(api + "business/signup", values, headerWithoutToken)
+      .post(api + "business/signup", values, headerWithToken)
       .then(async (res) => {
         if (res.data.code === 200) {
           window.location = "/";
