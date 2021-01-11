@@ -1,0 +1,16 @@
+.psContainer {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.imageWrapper {
+  height: 640px;
+  width: 640px;
+}
+.imageWrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
