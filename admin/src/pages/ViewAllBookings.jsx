@@ -47,13 +47,9 @@ const ViewAllBookings = () => {
               <option value={"BOOKED_BY_USER"}>Booked By User</option>
               <option value={"BOOKED_BY_BUSINESS"}>booked by Business</option>
               <option value={"CANCELLED_BY_USER"}>Cancel by User</option>
-              <option value={"CANCELLED_BY_BUSINESS"}>
-                Cancel by Business
-              </option>
+              <option value={"CANCELLED_BY_BUSINESS"}>Cancel by Business</option>
               <option value={"RESCHEDULED_BY_USER"}>Reshedule by User</option>
-              <option value={"RESCHEDULED_BY_BUSINESS"}>
-                Reshedule by Business
-              </option>
+              <option value={"RESCHEDULED_BY_BUSINESS"}>Reshedule by Business</option>
               <option value={"AVAILABLE"}>Available</option>
               <option value={"NOT_AVAILABLE"}>Not Available</option>
             </select>
