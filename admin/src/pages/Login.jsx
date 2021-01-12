@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from "react";
 import classnames from "classnames";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Context } from "../data/context";
@@ -12,7 +12,7 @@ const Login = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const { setIsLoggedIn } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
   const phoneRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -54,6 +54,10 @@ const Login = () => {
         }
       });
   };
+
+  if (isLoggedIn) {
+    return <Redirect to={state?.from || "/"} />;
+  }
 
   return (
     <div className="my-5 mx-3">
