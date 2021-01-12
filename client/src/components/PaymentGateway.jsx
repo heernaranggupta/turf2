@@ -18,6 +18,8 @@ const PaymentGateway = () => {
 
   const options = {
     key: "rzp_test_ZcSb49CvQ0NZhe",
+    // key: 'rzp_live_VMGLEhEd6uLVJm',
+    // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
     // amount: totalAmount * 100, //  = INR 1
     amount: 1000,
