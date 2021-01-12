@@ -6,12 +6,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const ViewAllBookings = () => {
-  const {viewAllBookingList,setviewAllBookingList} = useContext(Context);
+  const { viewAllBookingList, setviewAllBookingList } = useContext(Context);
 
   // const [viewAllBookingList, setviewAllBookingList] = useState([]);
   const [status, setStatus] = useState("BOOKED_BY_USER");
-  const [toDate, setToDate] = useState( new Date().toISOString().slice(0, 10));
-  const [fromDate, setFromDate] = useState( new Date().toISOString().slice(0, 10));
+  const [toDate, setToDate] = useState(new Date().toISOString().slice(0, 10));
+  const [fromDate, setFromDate] = useState(
+    new Date().toISOString().slice(0, 10)
+  );
 
   const getAllBookings = useCallback(() => {
     const postData = {
@@ -20,7 +22,7 @@ const ViewAllBookings = () => {
       fromDate: fromDate,
       toDate: toDate,
     };
-    console.log("body",postData)
+    console.log("body", postData);
     axios
       .post(api + "business/view-all-bookings", postData, headerWithToken)
       .then((res) => {
@@ -31,7 +33,7 @@ const ViewAllBookings = () => {
         toast.error(error.message);
         console.log(error.message);
       });
-  }, []);
+  }, [fromDate, setviewAllBookingList, status, toDate]);
 
   useEffect(() => {
     getAllBookings();
@@ -47,9 +49,13 @@ const ViewAllBookings = () => {
               <option value={"BOOKED_BY_USER"}>Booked By User</option>
               <option value={"BOOKED_BY_BUSINESS"}>booked by Business</option>
               <option value={"CANCELLED_BY_USER"}>Cancel by User</option>
-              <option value={"CANCELLED_BY_BUSINESS"}>Cancel by Business</option>
+              <option value={"CANCELLED_BY_BUSINESS"}>
+                Cancel by Business
+              </option>
               <option value={"RESCHEDULED_BY_USER"}>Reshedule by User</option>
-              <option value={"RESCHEDULED_BY_BUSINESS"}>Reshedule by Business</option>
+              <option value={"RESCHEDULED_BY_BUSINESS"}>
+                Reshedule by Business
+              </option>
               <option value={"AVAILABLE"}>Available</option>
               <option value={"NOT_AVAILABLE"}>Not Available</option>
             </select>
@@ -101,8 +107,8 @@ const ViewAllBookings = () => {
                         {list.turfId === "turf03" ? "Ground 3" : <span></span>}
                       </td>
                       <td>
-                          <tr>Cancel</tr>
-                          <tr>Reshedule</tr>
+                        <tr>Cancel</tr>
+                        <tr>Reshedule</tr>
                       </td>
                     </tr>
                   ))

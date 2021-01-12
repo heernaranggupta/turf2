@@ -14,6 +14,7 @@ const Home = () => {
           <p>You have role of {role}</p>
           <p>Your Company Name is {companyName}</p>
           <p>Hey, {username}</p>
+          <Link to="/dashboard">Go to Dashboard</Link>
         </div>
       ) : (
         <div>

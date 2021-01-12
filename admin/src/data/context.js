@@ -7,6 +7,7 @@ export const ContextProvider = ({ children }) => {
   const [companyName, setCompanyName] = useState("");
   const [role, setRole] = useState("");
   const [username, setUsername] = useState("");
+  const [phoneNumber, setphoneNumber] = useState("");
   const [viewAllBookingList, setviewAllBookingList] = useState([]);
 
   return (
@@ -20,8 +21,10 @@ export const ContextProvider = ({ children }) => {
         setRole,
         username,
         setUsername,
+        phoneNumber,
+        setphoneNumber,
         viewAllBookingList,
-        setviewAllBookingList
+        setviewAllBookingList,
       }}
     >
       {children}

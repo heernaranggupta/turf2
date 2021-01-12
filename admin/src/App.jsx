@@ -1,14 +1,18 @@
 import React from "react";
+import { ThemeProvider } from "@material-ui/core";
 import { ContextProvider } from "./data/context";
 import Routes from "./routes/routes";
-import "./App.css";
+import theme from "./theme";
 import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
 function App() {
   return (
-    <ContextProvider>
-      <Routes />
-    </ContextProvider>
+    <ThemeProvider theme={theme}>
+      <ContextProvider>
+        <Routes />
+      </ContextProvider>
+    </ThemeProvider>
   );
 }
 
