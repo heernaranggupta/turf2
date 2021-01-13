@@ -4,7 +4,7 @@ import styles from "../css/AddManager.module.css";
 import { toast } from "react-toastify";
 import axios from "axios";
 import api from "../config/api";
-import headerWithToken from "../config/headerWithoutToken.js";
+import headerWithToken from "../config/headerWithToken.js";
 
 const AddManager = () => {
   const phoneRef = useRef(null);

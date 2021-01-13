@@ -31,40 +31,40 @@ const items = [
     title: "Dashboard",
   },
   {
-    href: "/customers",
+    href: "/viewBookings",
     icon: UsersIcon,
-    title: "Customers",
+    title: "Booking List",
   },
+  // {
+  //   href: "/products",
+  //   icon: ShoppingBagIcon,
+  //   title: "Products",
+  // },
   {
-    href: "/products",
-    icon: ShoppingBagIcon,
-    title: "Products",
-  },
-  {
-    href: "/account",
+    href: "/addManager",
     icon: UserIcon,
-    title: "Account",
+    title: "Add Manager",
   },
-  {
-    href: "/settings",
-    icon: SettingsIcon,
-    title: "Settings",
-  },
-  {
-    href: "/login",
-    icon: LockIcon,
-    title: "Login",
-  },
-  {
-    href: "/register",
-    icon: UserPlusIcon,
-    title: "Register",
-  },
-  {
-    href: "/404",
-    icon: AlertCircleIcon,
-    title: "Error",
-  },
+  // {
+  //   href: "/settings",
+  //   icon: SettingsIcon,
+  //   title: "Settings",
+  // },
+  // {
+  //   href: "/login",
+  //   icon: LockIcon,
+  //   title: "Login",
+  // },
+  // {
+  //   href: "/register",
+  //   icon: UserPlusIcon,
+  //   title: "Register",
+  // },
+  // {
+  //   href: "/404",
+  //   icon: AlertCircleIcon,
+  //   title: "Error",
+  // },
 ];
 
 const useStyles = makeStyles(() => ({

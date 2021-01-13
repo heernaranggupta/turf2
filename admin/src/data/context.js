@@ -9,6 +9,9 @@ export const ContextProvider = ({ children }) => {
   const [username, setUsername] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
   const [viewAllBookingList, setviewAllBookingList] = useState([]);
+  const [toDate, setToDate] = useState(new Date().toISOString().slice(0, 10));
+  const [fromDate, setFromDate] = useState(new Date().toISOString().slice(0, 10));
+  const [status, setStatus] = useState("BOOKED_BY_USER");
 
   return (
     <Context.Provider
@@ -25,6 +28,12 @@ export const ContextProvider = ({ children }) => {
         setphoneNumber,
         viewAllBookingList,
         setviewAllBookingList,
+        toDate,
+        setToDate,
+        fromDate,
+        setFromDate,
+        status,
+        setStatus
       }}
     >
       {children}

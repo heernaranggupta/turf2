@@ -17,6 +17,10 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+import {
+  Edit as Edit,
+  Repeat as Repeat
+} from "react-feather";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -27,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = ({ className, customers, ...rest }) => {
   const classes = useStyles();
+  console.log("from result",customers)
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -85,7 +90,7 @@ const Results = ({ className, customers, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                {/* <TableCell padding="checkbox">
                   <Checkbox
                     checked={selectedCustomerIds.length === customers.length}
                     color="primary"
@@ -95,48 +100,55 @@ const Results = ({ className, customers, ...rest }) => {
                     }
                     onChange={handleSelectAll}
                   />
-                </TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>Phone</TableCell>
-                <TableCell>Registration date</TableCell>
+                </TableCell> */}
+                <TableCell>Mobile</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Ground</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {customers.slice(0, limit).map((customer) => (
                 <TableRow
                   hover
-                  key={customer.id}
-                  selected={selectedCustomerIds.indexOf(customer.id) !== -1}
+                  key={customer.bookingId}
+                  selected={selectedCustomerIds.indexOf(customer.bookingId) !== -1}
                 >
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.id)}
+                      checked={selectedCustomerIds.indexOf(customer.bookingId) !== -1}
+                      onChange={(event) => handleSelectOne(event, customer.bookingId)}
                       value="true"
                     />
-                  </TableCell>
+                  </TableCell> */}
                   <TableCell>
-                    <Box alignItems="center" display="flex">
+                    {/* <Box alignItems="center" display="flex">
                       <Avatar
                         className={classes.avatar}
                         src={customer.avatarUrl}
                       >
-                        {customer.name}
+                        {customer.userId}
                       </Avatar>
+                      <Typography color="textPrimary" variant="body1"> */}
+                        {customer.userId}
+                      {/* </Typography>
+                    </Box> */}
+                  </TableCell>
+                  <TableCell>{customer.date}</TableCell>
+                  <TableCell>
+                    {customer.turfId}
+                  </TableCell>
+                  <TableCell>{customer.status}</TableCell>
+                  <TableCell>
+                    <Box alignItems="center" display="flex">
                       <Typography color="textPrimary" variant="body1">
-                        {customer.name}
+                        <Edit/>
+                      </Typography>
+                      <Typography color="textPrimary" variant="body1">
+                        <Repeat />
                       </Typography>
                     </Box>
-                  </TableCell>
-                  <TableCell>{customer.email}</TableCell>
-                  <TableCell>
-                    {`${customer.address.city}, ${customer.address.state}, ${customer.address.country}`}
-                  </TableCell>
-                  <TableCell>{customer.phone}</TableCell>
-                  <TableCell>
-                    {moment(customer.createdAt).format("DD/MM/YYYY")}
                   </TableCell>
                 </TableRow>
               ))}
@@ -144,7 +156,7 @@ const Results = ({ className, customers, ...rest }) => {
           </Table>
         </Box>
       </PerfectScrollbar>
-      <TablePagination
+      {/* <TablePagination
         component="div"
         count={customers.length}
         onChangePage={handlePageChange}
@@ -152,7 +164,7 @@ const Results = ({ className, customers, ...rest }) => {
         page={page}
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
-      />
+      /> */}
     </Card>
   );
 };

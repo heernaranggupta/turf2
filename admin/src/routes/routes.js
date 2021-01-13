@@ -72,13 +72,13 @@ const Routes = () => {
           )}
         />
 
-        <ProtectedRoutes path="/addManager">
+        {/* <ProtectedRoutes path="/addManager">
           <AddManager />
-        </ProtectedRoutes>
+        </ProtectedRoutes> */}
 
-        <ProtectedRoutes path="/viewBookings">
+        {/* <ProtectedRoutes path="/viewBookings">
           <ViewAllBookings />
-        </ProtectedRoutes>
+        </ProtectedRoutes> */}
 
         <ProtectedRoutes path="/dashboard">
           <DashboardLayout>
@@ -86,13 +86,13 @@ const Routes = () => {
           </DashboardLayout>
         </ProtectedRoutes>
 
-        <ProtectedRoutes path="/customers">
+        <ProtectedRoutes path="/viewBookings">
           <DashboardLayout>
             <CustomerListView />
           </DashboardLayout>
         </ProtectedRoutes>
 
-        <ProtectedRoutes path="/account">
+        <ProtectedRoutes path="/addManager">
           <DashboardLayout>
             <Account />
           </DashboardLayout>
@@ -119,6 +119,17 @@ const Routes = () => {
             </MainLayout>
           )}
         />
+
+        <Route
+          path="/logout"
+          exact
+          render={() => {
+            setIsLoggedIn(false);
+            localStorage.removeItem("turfAdminDetails");
+            localStorage.removeItem("turfCart");
+            return <Redirect to="/" />;
+          }}
+        />    
 
         <Redirect to="/404" />
       </Switch>

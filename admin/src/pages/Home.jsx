@@ -1,9 +1,13 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link,Redirect } from "react-router-dom";
 import { Context } from "../data/context";
 
 const Home = () => {
   const { isLoggedIn, role, companyName, username } = useContext(Context);
+
+  if(isLoggedIn){
+    return <Redirect to="/dashboard"/>
+  }
   return (
     <div>
       <h2>Home</h2>
