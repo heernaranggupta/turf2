@@ -15,14 +15,7 @@ const Cart = () => {
   const { cartData } = useContext(Context);
   const allData = ListData(cartData);
 
-  // const handleFetchedData = useCallback(() => {
-  //     allData
-  //   },
-  //   [allData]
-  // );
-
-  useEffect(() => {
-    // handleFetchedData()
+  const handleFetchedData = useCallback(() => {
     const postData = {
       "timeSlotRequestList":allData
     }
@@ -32,7 +25,13 @@ const Cart = () => {
     }).catch(err=>{
       console.log(err.response)
     })
-  },[])
+    },
+    []
+  );
+
+  useEffect(() => {
+    handleFetchedData()
+  },[handleFetchedData])
 
   return (
     <div className={classnames("section", styles.CartWrapper)}>

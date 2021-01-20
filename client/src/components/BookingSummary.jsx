@@ -4,6 +4,7 @@ import styles from "../css/BookingSummary.module.css";
 import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
+import BookingSummaryElement from "./BookingSummaryElement";
 import { SlotCardItem } from "./SlotCardItem";
 
 const BookingSummary = () => {
@@ -18,6 +19,7 @@ const BookingSummary = () => {
         headerWithToken
       )
       .then((res) => {
+        console.log(res.data.body)
         const filterUpComing = res.data.body.bookedTimeSlots.filter(function (
           item
         ) {
@@ -36,8 +38,16 @@ const BookingSummary = () => {
       });
   }, []);
 
+  const handleOnClickView = (index, ground, id, item) =>{
+    axios.post(api + "common/payment-details?paymentID=" + item.paymentId,headerWithToken).then(res =>{
+      console.log("paymentinfo",res.data)
+    })
+    .catch(err =>{
+      console.log(err.response)
+    })
+  }
+
   const handleOnClick = (index, ground, id, item) => {
-    console.log("delete", item);
     const body = {
       bookingId: item.bookingId,
       price: item.price,
@@ -51,6 +61,7 @@ const BookingSummary = () => {
       .post(api + "user/cancel-booking", body, headerWithToken)
       .then((res) => {
         console.log(res.data);
+        window.location.reload(false)
       });
   };
 
@@ -65,11 +76,12 @@ const BookingSummary = () => {
         <div className={classnames("card-content", styles.historygrid)}>
           {upcoming &&
             upcoming.map((item, index) => (
-              <SlotCardItem
+              <BookingSummaryElement
                 key={index}
                 item={item}
                 index={index}
                 handleOnClick={handleOnClick}
+                handleOnClickView={handleOnClickView}
                 id={1}
               />
             ))}
@@ -85,6 +97,7 @@ const BookingSummary = () => {
                 item={item}
                 index={index}
                 handleOnClick={() => {}}
+                handleOnClickView={() => {}}
                 id={1}
                 isHistory={true}
               />
