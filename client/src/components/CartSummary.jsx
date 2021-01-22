@@ -16,7 +16,7 @@ const CartSummary = () => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "baseline",
           }}
         >
           <p
@@ -38,7 +38,7 @@ const CartSummary = () => {
           style={{
             display: "flex",
             justifyContent: "space-between",
-            alignItems: "center",
+            alignItems: "baseline",
           }}
         >
           <p
