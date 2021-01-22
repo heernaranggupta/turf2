@@ -45,5 +45,5 @@ export const compareTime = (startTime, secondTime = "") => {
 export const compareDate = (date) => {
   var x = new Date();
   var y = new Date(date);
-  return y > x ? true : false;
+  return y.getDate() > x.getDate() ? true : false;
 };

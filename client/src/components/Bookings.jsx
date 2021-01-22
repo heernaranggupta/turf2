@@ -39,11 +39,11 @@ const Bookings = () => {
 
   const handleFetchedData = useCallback(
     (res, FetchgroundData) => {
-      if (res.data.success) {
-        const [sortedData] = filterData(res.data.body);
+      
+      if (res.status === 200) {
+        const [sortedData] = filterData(res.data.body || []);
         setCartData(sortedData);
         const selectedDateCart = sortedData[bookDate];
-
         const newData = FetchgroundData;
         if (selectedDateCart) {
           if (selectedDateCart.turf01 && newData.turf01) {
