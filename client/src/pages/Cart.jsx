@@ -26,7 +26,7 @@ const Cart = () => {
       console.log(err.response)
     })
     },
-    []
+    [allData]
   );
 
   useEffect(() => {

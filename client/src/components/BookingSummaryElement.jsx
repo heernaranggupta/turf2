@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import { BiRupee,BiFile } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import styles from "../css/SlotItems.module.css";
+import styles from "../css/BookingSummaryElement.module.css";
 import { tConvert, convertDate } from "../utils/TimeConverter";
 
 const BookingSummaryElement = ({
@@ -62,9 +62,17 @@ const BookingSummaryElement = ({
               <BiRupee size={20} color={"#000"} />
             </span>
             <span>{item.price}</span>
+            <span></span>
+            <span onClick={() => handleOnClick(index, id, item.id, item)}>
+              <MdDelete size={20} color={"#000"} />
+            </span>
+            <span></span>
+            <span onClick={() => handleOnClickView(index, id, item.id, item)}>
+              <BiFile size={20} color={"#000"} />
+            </span>
           </p>
         </div>
-        <div className={styles.currencyWrapper}>
+        {/* <div className={styles.currencyWrapper}>
           <p className={(styles.slotPriceWrapper, "title is-4")}>
             <span onClick={() => handleOnClick(index, id, item.id, item)}>
               <MdDelete size={20} color={"#000"} />
@@ -79,7 +87,7 @@ const BookingSummaryElement = ({
             </span>
             <span></span>
           </p>
-        </div>
+        </div> */}
       </div>
     </div>
   );
