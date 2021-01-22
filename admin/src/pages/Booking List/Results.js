@@ -17,10 +17,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import {
-  Edit as Edit,
-  Repeat as Repeat
-} from "react-feather";
+import { Edit as Edit, Repeat as Repeat } from "react-feather";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -31,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = ({ className, customers, ...rest }) => {
   const classes = useStyles();
-  console.log("from result",customers)
+  console.log("from result", customers);
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -105,6 +102,7 @@ const Results = ({ className, customers, ...rest }) => {
                 <TableCell>Date</TableCell>
                 <TableCell>Ground</TableCell>
                 <TableCell>Status</TableCell>
+                <TableCell>Amount</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -113,7 +111,9 @@ const Results = ({ className, customers, ...rest }) => {
                 <TableRow
                   hover
                   key={customer.bookingId}
-                  selected={selectedCustomerIds.indexOf(customer.bookingId) !== -1}
+                  selected={
+                    selectedCustomerIds.indexOf(customer.bookingId) !== -1
+                  }
                 >
                   {/* <TableCell padding="checkbox">
                     <Checkbox
@@ -131,19 +131,22 @@ const Results = ({ className, customers, ...rest }) => {
                         {customer.userId}
                       </Avatar>
                       <Typography color="textPrimary" variant="body1"> */}
-                        {customer.userId}
-                      {/* </Typography>
+                    {customer.userId}
+                    {/* </Typography>
                     </Box> */}
                   </TableCell>
                   <TableCell>{customer.date}</TableCell>
-                  <TableCell>
-                    {customer.turfId}
-                  </TableCell>
+                  <TableCell>{customer.turfId}</TableCell>
                   <TableCell>{customer.status}</TableCell>
+                  <TableCell>
+                      <div>Total Amount:{customer.price}</div>
+                      <div>Panding Amount: 50</div>
+                      <div>Paid Amount: 50</div>
+                  </TableCell>
                   <TableCell>
                     <Box alignItems="center" display="flex">
                       <Typography color="textPrimary" variant="body1">
-                        <Edit/>
+                        <Edit />
                       </Typography>
                       <Typography color="textPrimary" variant="body1">
                         <Repeat />

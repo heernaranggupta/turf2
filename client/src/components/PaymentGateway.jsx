@@ -17,7 +17,7 @@ const PaymentGateway = () => {
   const [responce, setResponce] = useState(null);
 
   const options = {
-    key: "rzp_test_ZcSb49CvQ0NZhe",
+    key: "rzp_test_LkGyvMQnSFDTBu",
     // key: 'rzp_live_VMGLEhEd6uLVJm',
     // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
@@ -33,6 +33,7 @@ const PaymentGateway = () => {
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const body = {
         userId: data.user.phoneNumber,
+        transactionId:response.razorpay_payment_id,
         timeSlots: allData,
       };
       console.log(body);

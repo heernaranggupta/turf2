@@ -4,7 +4,9 @@ import styles from "../css/BookingSummary.module.css";
 import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
+import BookingSummaryElement from "./BookingSummaryElement";
 import { SlotCardItem } from "./SlotCardItem";
+import Header from "../config/razorHeader";
 
 const BookingSummary = () => {
   const [history, setHistory] = useState([]);
@@ -18,6 +20,7 @@ const BookingSummary = () => {
         headerWithToken
       )
       .then((res) => {
+        console.log(res.data.body)
         const filterUpComing = res.data.body.bookedTimeSlots.filter(function (
           item
         ) {
@@ -36,8 +39,28 @@ const BookingSummary = () => {
       });
   }, []);
 
+  const handleOnClickView = (index, ground, id, item) =>{
+
+    axios.get(api + "common/payment-details?paymentID=" + item.paymentId,headerWithToken).then(async res =>{
+      console.log("payid",res.data.body.transactionId)
+      let id = "pay_GN6I4OsKaMirWs"
+        const response = await fetch(`https://api.razorpay.com/v1/payments/${id}`,{method:"get",headers:Header})
+        const responseData = await response.json()
+        console.log("payment details",responseData)
+    })
+    .catch(err =>{
+      console.log(err.response)
+    })
+  }
+
+  // if(res.data.body.transactionId !== ''){
+      //   axios.get("https://api.razorpay.com/v1/payments/" + res.data.body.transactionId,Header).then(res => {
+      //     console.log(res)
+      //   }).catch(err => {
+      //     console.log(err.response)
+      //   })
+      // }
   const handleOnClick = (index, ground, id, item) => {
-    console.log("delete", item);
     const body = {
       bookingId: item.bookingId,
       price: item.price,
@@ -51,6 +74,7 @@ const BookingSummary = () => {
       .post(api + "user/cancel-booking", body, headerWithToken)
       .then((res) => {
         console.log(res.data);
+        window.location.reload(false)
       });
   };
 
@@ -65,11 +89,12 @@ const BookingSummary = () => {
         <div className={classnames("card-content", styles.historygrid)}>
           {upcoming &&
             upcoming.map((item, index) => (
-              <SlotCardItem
+              <BookingSummaryElement
                 key={index}
                 item={item}
                 index={index}
                 handleOnClick={handleOnClick}
+                handleOnClickView={handleOnClickView}
                 id={1}
               />
             ))}
@@ -85,6 +110,7 @@ const BookingSummary = () => {
                 item={item}
                 index={index}
                 handleOnClick={() => {}}
+                handleOnClickView={() => {}}
                 id={1}
                 isHistory={true}
               />

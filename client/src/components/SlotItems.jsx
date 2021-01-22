@@ -150,6 +150,7 @@ const SlotItems = () => {
           {groundData.turf01 &&
             groundData.turf01.map((item, index) => {
               if (item.status === "AVAILABLE") {
+                
                 if (compareDate(item.date)) {
                   return (
                     <SlotCardItem

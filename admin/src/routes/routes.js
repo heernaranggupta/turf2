@@ -14,7 +14,7 @@ import AddManager from "../pages/AddManager";
 import { Context } from "../data/context";
 import DashboardView from "../pages/Reports";
 import DashboardLayout from "../layouts/DashboardLayout";
-import CustomerListView from "../pages/Customers";
+import CustomerListView from "../pages/Booking List";
 import Account from "../pages/Account";
 import Settings from "../pages/Settings";
 import Products from "../pages/Products";
