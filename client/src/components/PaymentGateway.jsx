@@ -63,9 +63,23 @@ const PaymentGateway = () => {
     },
   };
 
-  const openPayModal = async () => {
+  const openPayModal =  () => {
+    console.log("payment")
     var rzp1 = new window.Razorpay(options);
-    await rzp1.open();
+    const postData = {
+      "timeSlotRequestList":allData
+    }
+    axios.post(api + 'common/validate',postData,headerWithToken).then(res=>{
+      if(res.data.body.timeSlotResponses.status === "AVAILABLE"){
+        console.log("All Slots AVAILABLE")
+         rzp1.open();
+      }else{
+        console.log("some slots is not available")
+      }
+      console.log("validate",res)
+    }).catch(err=>{
+      console.log(err.response)
+    })
   };
 
   return (

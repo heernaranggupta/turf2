@@ -13,25 +13,6 @@ import { Context } from "../data/context";
 
 const Cart = () => {
   const { cartData } = useContext(Context);
-  const allData = ListData(cartData);
-
-  const handleFetchedData = useCallback(() => {
-    const postData = {
-      "timeSlotRequestList":allData
-    }
-    console.log("body",postData)
-    axios.post(api + 'common/validate',postData,headerWithToken).then(res=>{
-      console.log("validate",res)
-    }).catch(err=>{
-      console.log(err.response)
-    })
-    },
-    [allData]
-  );
-
-  useEffect(() => {
-    handleFetchedData()
-  },[handleFetchedData])
 
   return (
     <div className={classnames("section", styles.CartWrapper)}>
