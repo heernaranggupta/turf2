@@ -28,6 +28,7 @@ const Bookings = () => {
     setCartId,
     setPhoneNumber,
     setCartData,
+    setTotalSlots
   } = useContext(Context);
 
   const [isGroundSelected1, setIsGroundSelected1] = useState(true);
@@ -41,6 +42,7 @@ const Bookings = () => {
     (res, FetchgroundData) => {
       
       if (res.status === 200) {
+        setTotalSlots(res.data.body.selectedSlots.length || 0)
         const [sortedData] = filterData(res.data.body || []);
         setCartData(sortedData);
         const selectedDateCart = sortedData[bookDate];
@@ -89,7 +91,7 @@ const Bookings = () => {
         setGroundData({ ...newData });
       }
     },
-    [setCartData, bookDate, setGroundData, setSortedData]
+    [setCartData, bookDate, setGroundData, setSortedData, setTotalSlots]
   );
 
   const fetchCartData = useCallback(

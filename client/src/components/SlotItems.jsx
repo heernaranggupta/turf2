@@ -17,6 +17,7 @@ const SlotItems = () => {
     cartId,
     setCartId,
     phoneNumber,
+    setTotalSlots
   } = useContext(Context);
 
   const addToCart = (index, ground) => {
@@ -49,7 +50,8 @@ const SlotItems = () => {
           }
 
           if (res.data.success === true) {
-            toast.success("Added Successfully to Cart");
+            // toast.success("Added Successfully to Cart");
+            setTotalSlots(old => old+1)
           }
         })
         .catch((error) => {
@@ -71,7 +73,8 @@ const SlotItems = () => {
     axios
       .post(url, body, headerWithToken)
       .then(() => {
-        toast.warning("Removed from Cart");
+        // toast.warning("Removed from Cart");
+        setTotalSlots(old => old-1)
       })
       .catch((err) => {
         console.log(err);

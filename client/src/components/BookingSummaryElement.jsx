@@ -57,20 +57,20 @@ const BookingSummaryElement = ({
         </div>
 
         <div className={styles.currencyWrapper}>
-          <p className={(styles.slotPriceWrapper, "title is-4")}>
+          <p className={(styles.slotPriceWrapper, "title is-4 mb-0")}>
             <span>
               <BiRupee size={20} color={"#000"} />
             </span>
             <span>{item.price}</span>
-            <span></span>
-            <span onClick={() => handleOnClick(index, id, item.id, item)}>
-              <MdDelete size={20} color={"#000"} />
-            </span>
-            <span></span>
-            <span onClick={() => handleOnClickView(index, id, item.id, item)}>
-              <BiFile size={20} color={"#000"} />
-            </span>
           </p>
+          <div className={styles.action}>
+            <span onClick={() => handleOnClick(index, id, item.id, item)}>
+              <MdDelete size={30} color={"#fff"} />
+            </span>
+            <span onClick={() => handleOnClickView(index, id, item.id, item)}>
+              <BiFile size={30} color={"#fff"} />
+            </span>
+            </div>
         </div>
         {/* <div className={styles.currencyWrapper}>
           <p className={(styles.slotPriceWrapper, "title is-4")}>
