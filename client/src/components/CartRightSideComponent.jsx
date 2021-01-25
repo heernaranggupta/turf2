@@ -26,6 +26,7 @@ const CartRightSideComponent = () => {
 
   const handleFetchedData = useCallback(
     (res) => {
+      console.log("cart length",res)
       if (res.data.success) {
         if (res.data.body) {
           if (res.data.body.selectedSlots.length) {

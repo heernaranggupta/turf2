@@ -35,7 +35,7 @@ const Bookings = () => {
   const [isGroundSelected3, setIsGroundSelected3] = useState(false);
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
   const [startTime, setStartTime] = useState(getCurrentTime());
-  const [endTime, setEndTime] = useState("");
+  const [endTime, setEndTime] = useState("12:00:00");
 
   const handleFetchedData = useCallback(
     (res, FetchgroundData) => {
