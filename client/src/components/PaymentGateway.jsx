@@ -10,6 +10,8 @@ import styles from "../css/Payment.module.css";
 const PaymentGateway = () => {
   const { cartData, totalAmount, isLoggedIn } = useContext(Context);
   const allData = ListData(cartData);
+  const [payFull,setPayFull] = useState()
+  const [payHalf,setPayHalf] = useState()
 
   const history = useHistory();
 
@@ -64,13 +66,15 @@ const PaymentGateway = () => {
   };
 
   const openPayModal =  () => {
-    console.log("payment")
     var rzp1 = new window.Razorpay(options);
     const postData = {
       "timeSlotRequestList":allData
     }
     axios.post(api + 'common/validate',postData,headerWithToken).then(res=>{
-      if(res.data.body.timeSlotResponses.status === "AVAILABLE"){
+      const validateSlots = res.data.body.timeSlotResponses.filter(function (item) {
+        return item.status  === "NOT_AVAILABLE";
+      })
+      if(validateSlots.length === 0){
         console.log("All Slots AVAILABLE")
          rzp1.open();
       }else{
@@ -97,6 +101,10 @@ const PaymentGateway = () => {
               }
             }}
           >
+            {/* <fieldset id="group1">
+              <input type = "radio" value={payFull} onChange={e => {setPayFull(e.target.value);console.log(e.target.value)}} name="amt"/><lable>Pay Full Payment</lable><br/>
+              <input type = "radio" value={payHalf} onChange={e => {setPayHalf(e.target.value),console.log(e.target.value)}} name="amt"/><lable>Pay 30% Payment</lable>
+            </fieldset> */}
             <button className="button is-success p-5">
               <img
                 src="https://razorpay.com/assets/razorpay-logo-white.svg"

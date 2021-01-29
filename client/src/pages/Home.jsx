@@ -2,6 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import Bookings from "../components/Bookings";
 import styles from "../css/Home.module.css";
+import LandingPage from "../components/LandingPage";
 
 const Home = () => {
   return (
@@ -9,6 +10,7 @@ const Home = () => {
       <div
         className={classnames("container is-fluid", styles.overRideContainer)}
       >
+        <LandingPage/>
         <Bookings />
       </div>
     </div>
