@@ -10,10 +10,9 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { Context } from "../data/context";
 import styles from "../css/Header.module.css";
-import logo from '../images/logo.svg';
-import NotificationBadge from 'react-notification-badge';
-import {Effect} from 'react-notification-badge';
-
+import logo from "../images/logo.svg";
+import NotificationBadge from "react-notification-badge";
+import { Effect } from "react-notification-badge";
 
 const Headers = () => {
   const { isLoggedIn, setIsLoggedIn, totalSlots } = useContext(Context);
@@ -47,7 +46,11 @@ const Headers = () => {
       <div className="navbar-brand">
         <Link className="navbar-item" to="/">
           {/* <p className={classnames("subtitle is-2 has-text-white mt-3",styles.headerlogo)}>Rebounce</p> */}
-          <img className={classnames(styles.logorebounce)} src={logo} alt="rebounceLogo" />
+          <img
+            className={classnames(styles.logorebounce)}
+            src={logo}
+            alt="rebounceLogo"
+          />
         </Link>
 
         <div
@@ -102,7 +105,7 @@ const Headers = () => {
                 className={classnames("control button", styles.btnBackGround)}
               >
                 <BiCart size={50} color="#FFF" className="is-clickable" />
-                <NotificationBadge count={totalSlots} effect={Effect.SCALE}/>
+                <NotificationBadge count={totalSlots} effect={Effect.SCALE} />
               </Link>
             </div>
           </div>
@@ -130,6 +133,7 @@ const Headers = () => {
                 className={classnames("control button", styles.btnBackGround)}
               >
                 <BiCart size={30} color="#FFF" className="is-clickable" />
+                <NotificationBadge count={totalSlots} effect={Effect.SCALE} />
               </Link>
             </div>
           </div>
