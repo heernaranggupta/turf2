@@ -41,22 +41,22 @@ const PaymentGateway = () => {
       console.log(body);
       axios
         .post(api + "common/order", body, headerWithToken)
-        .then(async(res) => {
+        .then(async (res) => {
           console.log(res.data);
           if (res.data.success) {
-            const response = await fetch(mailapi,{
-              method:"post",
-              headers:{
-                "Content-Type":"application/json",
-                "accept":"application/json"
+            const response = await fetch(mailapi, {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+                accept: "application/json",
               },
-              body:JSON.stringify({
-                name:userData.name,
-                email:userData.emailId,
-                slots:res.data?.body?.timeSlots || [],
-                paymentId:res.data?.body?.paymentId,
-              })
-            })
+              body: JSON.stringify({
+                name: userData.name,
+                email: userData.emailId,
+                slots: res.data?.body?.timeSlots || [],
+                paymentId: res.data?.body?.paymentId,
+              }),
+            });
             const responseData = await response.json();
             console.log(responseData);
             history.push("/payment-success");
