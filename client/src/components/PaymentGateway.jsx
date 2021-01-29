@@ -63,7 +63,7 @@ const PaymentGateway = () => {
           }
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err.message);
         });
     },
     prefill: {

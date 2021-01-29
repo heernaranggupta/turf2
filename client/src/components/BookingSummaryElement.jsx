@@ -26,7 +26,7 @@ const BookingSummaryElement = ({
             item.isSelected && styles.cardClicked
           )}
         >
-          {isHistory ? (
+          
             <p
               className={styles.groundName}
               style={{ color: item.isSelected ? "white" : "black" }}
@@ -35,19 +35,14 @@ const BookingSummaryElement = ({
               {item.turfId === "turf02" ? "Ground 2" : <span></span>}
               {item.turfId === "turf03" ? "Ground 3" : <span></span>}
             </p>
-          ) : (
-            ""
-          )}
-          {isHistory ? (
+          
             <p
               style={{ color: item.isSelected ? "white" : "black" }}
               className="my-1"
             >
               {convertDate(item.date)}
             </p>
-          ) : (
-            ""
-          )}
+          
           <p style={{ color: item.isSelected ? "white" : "black" }}>
             {tConvert(item.startTime)}
           </p>
