@@ -3,12 +3,12 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import headerWithToken from "../config/headerWithToken";
 import { Context } from "../data/context";
-import api from "../config/api";
+import api, { mailapi } from "../config/api";
 import { ListData } from "../utils/ListData";
 import styles from "../css/Payment.module.css";
 
 const PaymentGateway = () => {
-  const { cartData, totalAmount, isLoggedIn } = useContext(Context);
+  const { cartData, totalAmount, isLoggedIn, userData } = useContext(Context);
   const allData = ListData(cartData);
   const [payFull,setPayFull] = useState()
   const [payHalf,setPayHalf] = useState()
@@ -41,9 +41,24 @@ const PaymentGateway = () => {
       console.log(body);
       axios
         .post(api + "common/order", body, headerWithToken)
-        .then((res) => {
-          console.log(res);
+        .then(async(res) => {
+          console.log(res.data);
           if (res.data.success) {
+            const response = await fetch(mailapi,{
+              method:"post",
+              headers:{
+                "Content-Type":"application/json",
+                "accept":"application/json"
+              },
+              body:JSON.stringify({
+                name:userData.name,
+                email:userData.emailId,
+                slots:res.data?.body?.timeSlots || [],
+                paymentId:res.data?.body?.paymentId,
+              })
+            })
+            const responseData = await response.json();
+            console.log(responseData);
             history.push("/payment-success");
           }
         })
