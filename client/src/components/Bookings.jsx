@@ -42,8 +42,7 @@ const Bookings = () => {
   const handleFetchedData = useCallback(
     (res, FetchgroundData) => {
       if (res.status === 200) {
-
-        setTotalSlots(res.data?.body?.selectedSlots.length || 0)
+        setTotalSlots(res.data?.body?.selectedSlots.length || 0);
         const [sortedData] = filterData(res.data.body);
         setCartData(sortedData);
         const selectedDateCart = sortedData[bookDate];
@@ -92,10 +91,18 @@ const Bookings = () => {
           }
         }
         setSortedData({ ...newData });
+
         setGroundData({ ...newData });
       }
     },
-    [setCartData, bookDate, setGroundData, setSortedData, setTotalSlots]
+    [
+      setCartData,
+      bookDate,
+      setGroundData,
+      setSortedData,
+      setTotalSlots,
+      setTotalTime,
+    ]
   );
 
   const fetchCartData = useCallback(

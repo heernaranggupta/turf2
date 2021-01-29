@@ -42,10 +42,10 @@ transporter.verify((error, success) => {
 });
 
 router.post("/send", (req, res, next) => {
-  var name = req.body.name;
+  var name = req.body.name || "";
   var email = req.body.email;
-  var slots = req.body.slots;
-  var paymentId = req.body.paymentId;
+  var slots = req.body.slots || [];
+  var paymentId = req.body.paymentId || "";
 
   try {
     ejs.renderFile(
@@ -89,9 +89,12 @@ router.post("/send", (req, res, next) => {
 });
 
 router.post("/show", (req, res) => {
-  const slots = req.body.slots;
-  const name = req.body.name;
-  res.render("template", { slots: slots, name });
+  var name = req.body.name || "";
+  var email = req.body.email;
+  var slots = req.body.slots || [];
+  var paymentId = req.body.paymentId || "";
+
+  res.render("template", { slots: slots, paymentId: paymentId, name });
 });
 
 app.get("/", (req, res, next) => {
