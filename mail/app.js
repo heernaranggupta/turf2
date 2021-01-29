@@ -45,11 +45,12 @@ router.post("/send", (req, res, next) => {
   var name = req.body.name;
   var email = req.body.email;
   var slots = req.body.slots;
+  var paymentId = req.body.paymentId;
 
   try {
     ejs.renderFile(
       __dirname + "/views/template.ejs",
-      { slots: slots, name },
+      { slots: slots, paymentId: paymentId, name },
       function (err, data) {
         if (err) {
           console.log(err);

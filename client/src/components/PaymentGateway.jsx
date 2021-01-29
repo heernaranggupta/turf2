@@ -3,15 +3,15 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import headerWithToken from "../config/headerWithToken";
 import { Context } from "../data/context";
-import api from "../config/api";
+import api, { mailapi } from "../config/api";
 import { ListData } from "../utils/ListData";
 import styles from "../css/Payment.module.css";
 
 const PaymentGateway = () => {
-  const { cartData, totalAmount, isLoggedIn } = useContext(Context);
+  const { cartData, totalAmount, isLoggedIn, userData } = useContext(Context);
   const allData = ListData(cartData);
-  const [payFull,setPayFull] = useState()
-  const [payHalf,setPayHalf] = useState()
+  const [payFull, setPayFull] = useState();
+  const [payHalf, setPayHalf] = useState();
 
   const history = useHistory();
 
@@ -35,15 +35,30 @@ const PaymentGateway = () => {
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const body = {
         userId: data.user.phoneNumber,
-        transactionId:response.razorpay_payment_id,
+        transactionId: response.razorpay_payment_id,
         timeSlots: allData,
       };
       console.log(body);
       axios
         .post(api + "common/order", body, headerWithToken)
-        .then((res) => {
-          console.log(res);
+        .then(async (res) => {
+          console.log(res.data);
           if (res.data.success) {
+            const response = await fetch(mailapi, {
+              method: "post",
+              headers: {
+                "Content-Type": "application/json",
+                accept: "application/json",
+              },
+              body: JSON.stringify({
+                name: userData.name,
+                email: userData.emailId,
+                slots: res.data?.body?.timeSlots || [],
+                paymentId: res.data?.body?.paymentId,
+              }),
+            });
+            const responseData = await response.json();
+            console.log(responseData);
             history.push("/payment-success");
           }
         })
@@ -65,25 +80,30 @@ const PaymentGateway = () => {
     },
   };
 
-  const openPayModal =  () => {
+  const openPayModal = () => {
     var rzp1 = new window.Razorpay(options);
     const postData = {
-      "timeSlotRequestList":allData
-    }
-    axios.post(api + 'common/validate',postData,headerWithToken).then(res=>{
-      const validateSlots = res.data.body.timeSlotResponses.filter(function (item) {
-        return item.status  === "NOT_AVAILABLE";
+      timeSlotRequestList: allData,
+    };
+    axios
+      .post(api + "common/validate", postData, headerWithToken)
+      .then((res) => {
+        const validateSlots = res.data.body.timeSlotResponses.filter(function (
+          item
+        ) {
+          return item.status === "NOT_AVAILABLE";
+        });
+        if (validateSlots.length === 0) {
+          console.log("All Slots AVAILABLE");
+          rzp1.open();
+        } else {
+          console.log("some slots is not available");
+        }
+        console.log("validate", res);
       })
-      if(validateSlots.length === 0){
-        console.log("All Slots AVAILABLE")
-         rzp1.open();
-      }else{
-        console.log("some slots is not available")
-      }
-      console.log("validate",res)
-    }).catch(err=>{
-      console.log(err.response)
-    })
+      .catch((err) => {
+        console.log(err.response);
+      });
   };
 
   return (

@@ -15,10 +15,10 @@ import headerWithToken from "../config/headerWithToken";
 import BookingSummary from "../components/BookingSummary";
 
 const Profile = () => {
-  const [userData, setUserData] = useState(null);
+  
   const [isModalOpen, setisModalOpen] = useState(false);
 
-  const { setIsLoggedIn } = useContext(Context);
+  const { setIsLoggedIn,userData, setUserData } = useContext(Context);
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
