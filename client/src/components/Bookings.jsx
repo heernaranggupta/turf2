@@ -22,13 +22,14 @@ const Bookings = () => {
   const {
     setSortedData,
     setGroundData,
+    setTotalTime,
     totalTime,
     bookDate,
     setBookDate,
     setCartId,
     setPhoneNumber,
     setCartData,
-    setTotalSlots
+    setTotalSlots,
   } = useContext(Context);
 
   const [isGroundSelected1, setIsGroundSelected1] = useState(true);
@@ -41,6 +42,7 @@ const Bookings = () => {
   const handleFetchedData = useCallback(
     (res, FetchgroundData) => {
       if (res.status === 200) {
+
         setTotalSlots(res.data?.body?.selectedSlots.length || 0)
         const [sortedData] = filterData(res.data.body);
         setCartData(sortedData);
@@ -55,6 +57,7 @@ const Bookings = () => {
                   `${item2.startTime}_g1_${item2.date}`
                 ) {
                   item2.isSelected = true;
+                  setTotalTime((old) => old + 30);
                 }
               });
             });
@@ -68,6 +71,7 @@ const Bookings = () => {
                   `${item2.startTime}_g2_${item2.date}`
                 ) {
                   item2.isSelected = true;
+                  setTotalTime((old) => old + 30);
                 }
               });
             });
@@ -81,6 +85,7 @@ const Bookings = () => {
                   `${item2.startTime}_g3_${item2.date}`
                 ) {
                   item2.isSelected = true;
+                  setTotalTime((old) => old + 30);
                 }
               });
             });
