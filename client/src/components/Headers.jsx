@@ -15,15 +15,18 @@ import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
 
 const Headers = () => {
-  const { isLoggedIn, setIsLoggedIn, totalSlots } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, totalSlots, setUserData } = useContext(
+    Context
+  );
   const [userName, setUserName] = useState("");
 
   const fetchUserData = useCallback(async () => {
     if (isLoggedIn) {
       var data = await JSON.parse(localStorage.getItem("turfUserDetails"));
+      setUserData(data.user);
       setUserName(data?.user?.name);
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, setUserData]);
 
   useEffect(() => {
     fetchUserData();

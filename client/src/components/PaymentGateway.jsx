@@ -10,8 +10,6 @@ import styles from "../css/Payment.module.css";
 const PaymentGateway = () => {
   const { cartData, totalAmount, isLoggedIn, userData } = useContext(Context);
   const allData = ListData(cartData);
-  const [payFull, setPayFull] = useState();
-  const [payHalf, setPayHalf] = useState();
 
   const history = useHistory();
 

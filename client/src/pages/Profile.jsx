@@ -15,10 +15,9 @@ import headerWithToken from "../config/headerWithToken";
 import BookingSummary from "../components/BookingSummary";
 
 const Profile = () => {
-  
   const [isModalOpen, setisModalOpen] = useState(false);
 
-  const { setIsLoggedIn,userData, setUserData } = useContext(Context);
+  const { setIsLoggedIn, userData, setUserData } = useContext(Context);
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -27,7 +26,7 @@ const Profile = () => {
   const fetchUserData = useCallback(async () => {
     var data = await JSON.parse(localStorage.getItem("turfUserDetails"));
     setUserData(data.user);
-  }, []);
+  }, [setUserData]);
 
   const handleSaveProfileChanges = () => {
     if (!nameRef.current.value.trim().length) {

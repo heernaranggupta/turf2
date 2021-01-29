@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 var router = express.Router();
 
 var transport = {
-  host: "smtp.gmail.com",
+  host: creds.SMTP,
   auth: {
     user: creds.USER,
     pass: creds.PASS,
@@ -56,7 +56,7 @@ router.post("/send", (req, res, next) => {
           console.log(err);
         } else {
           var mainOptions = {
-            from: '"Ferin Patel" fnpatel.spt@gmail.com',
+            from: `"Ferin Patel" ${creds.USER}`,
             to: email,
             subject: "Booking Successfull",
             html: data,
