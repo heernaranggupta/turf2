@@ -40,26 +40,15 @@ const BookingSummary = () => {
   }, []);
 
   const handleOnClickView = (index, ground, id, item) =>{
-
-    axios.get(api + "common/payment-details?paymentID=" + item.paymentId,headerWithToken).then(async res =>{
-      console.log("payid",res.data.body.transactionId)
-      let id = "pay_GN6I4OsKaMirWs"
-        const response = await fetch(`https://api.razorpay.com/v1/payments/${id}`,{method:"get",headers:Header})
-        const responseData = await response.json()
-        console.log("payment details",responseData)
+    console.log(item)
+    axios.get(api + "payment/details?orderId=" + item.orderId,headerWithToken).then(async res =>{
+      console.log("invoice",res)
     })
     .catch(err =>{
       console.log(err.response)
     })
   }
 
-  // if(res.data.body.transactionId !== ''){
-      //   axios.get("https://api.razorpay.com/v1/payments/" + res.data.body.transactionId,Header).then(res => {
-      //     console.log(res)
-      //   }).catch(err => {
-      //     console.log(err.response)
-      //   })
-      // }
   const handleOnClick = (index, ground, id, item) => {
     const body = {
       bookingId: item.bookingId,
