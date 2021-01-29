@@ -39,10 +39,10 @@ const PaymentGateway = () => {
       console.log(body);
       axios
         .post(api + "common/order", body, headerWithToken)
-        .then(async (res) => {
+        .then((res) => {
           console.log(res.data);
           if (res.data.success) {
-            const response = await fetch(mailapi, {
+            fetch(mailapi, {
               method: "post",
               body: JSON.stringify({
                 name: userData.name,
@@ -51,8 +51,6 @@ const PaymentGateway = () => {
                 paymentId: res.data?.body?.paymentId,
               }),
             });
-            const responseData = await response.json();
-            console.log(responseData);
             history.push("/payment-success");
           }
         })

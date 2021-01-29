@@ -17,6 +17,9 @@ import { Context } from "../data/context";
 import Checkout from "../pages/Checkout";
 import Invoice from "../components/invoice";
 import PaymentSuccess from "../pages/PaymentSuccess";
+import InvoiceGenerator from "../Invoice";
+import { invoiceData } from "../data/invoice";
+import { PDFViewer } from "@react-pdf/renderer";
 
 const Routes = () => {
   const { setIsLoggedIn, setCartId, setPhoneNumber } = useContext(Context);
@@ -45,6 +48,13 @@ const Routes = () => {
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/invoice/:id" exact component={Invoice} />
+        <Route
+          path="/pdf"
+          exact
+          render={() => {
+            return <InvoiceGenerator invoice={invoiceData} />;
+          }}
+        />
 
         <ProtectedRoutes path="/profile">
           <Profile />

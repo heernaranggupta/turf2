@@ -26,6 +26,7 @@ var router = express.Router();
 
 var transport = {
   host: creds.SMTP,
+  port: creds.PORT,
   auth: {
     user: creds.USER,
     pass: creds.PASS,
@@ -43,6 +44,8 @@ transporter.verify((error, success) => {
 });
 
 router.post("/send", (req, res, next) => {
+  console.log(req.body);
+
   var name = req.body.name || "";
   var email = req.body.email;
   var slots = req.body.slots || [];
@@ -57,7 +60,7 @@ router.post("/send", (req, res, next) => {
           console.log(err);
         } else {
           var mainOptions = {
-            from: `"Ferin Patel" ${creds.USER}`,
+            from: `"Ferin Patel" neha.smartypantstech@gmail.com`,
             to: email,
             subject: "Booking Successfull",
             html: data,
@@ -72,6 +75,7 @@ router.post("/send", (req, res, next) => {
                 success: false,
               });
             } else {
+              console.log(info);
               res.json({
                 message: "",
                 success: true,
