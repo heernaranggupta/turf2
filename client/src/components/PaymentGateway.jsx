@@ -44,10 +44,6 @@ const PaymentGateway = () => {
           if (res.data.success) {
             const response = await fetch(mailapi, {
               method: "post",
-              headers: {
-                "Content-Type": "application/json",
-                accept: "application/json",
-              },
               body: JSON.stringify({
                 name: userData.name,
                 email: userData.emailId,

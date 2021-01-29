@@ -17,7 +17,7 @@ const SlotItems = () => {
     cartId,
     setCartId,
     phoneNumber,
-    setTotalSlots
+    setTotalSlots,
   } = useContext(Context);
 
   const addToCart = (index, ground) => {
@@ -51,7 +51,7 @@ const SlotItems = () => {
 
           if (res.data.success === true) {
             // toast.success("Added Successfully to Cart");
-            setTotalSlots(old => old+1)
+            setTotalSlots((old) => old + 1);
           }
         })
         .catch((error) => {
@@ -74,7 +74,7 @@ const SlotItems = () => {
       .post(url, body, headerWithToken)
       .then(() => {
         // toast.warning("Removed from Cart");
-        setTotalSlots(old => old-1)
+        setTotalSlots((old) => old - 1);
       })
       .catch((err) => {
         console.log(err);
@@ -153,7 +153,6 @@ const SlotItems = () => {
           {groundData.turf01 &&
             groundData.turf01.map((item, index) => {
               if (item.status === "AVAILABLE") {
-                
                 if (compareDate(item.date)) {
                   return (
                     <SlotCardItem
