@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import { convertDate } from "../utils/TimeConverter";
 
 const borderColor = "#90e5fc";
 const styles = StyleSheet.create({
@@ -44,7 +45,7 @@ const InvoiceTableRow = ({ items = [] }) => {
     return (
       <View style={styles.row} key={index}>
         <Text style={styles.rate}>{item.bookingId}</Text>
-        <Text style={styles.rate}>{item.date}</Text>
+        <Text style={styles.rate}>{convertDate(item.date)}</Text>
         <Text style={styles.qty}>{item.turfId}</Text>
         <Text style={styles.description}>
           {item.startTime + " to " + item.endTime}
