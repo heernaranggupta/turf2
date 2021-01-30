@@ -26,9 +26,9 @@ const CartRightSideComponent = () => {
 
   const handleFetchedData = useCallback(
     (res) => {
-      console.log("cart length",res)
-      if (res.data.success) {
-        if (res.data.body) {
+      console.log("cart length", res);
+      if (res?.data?.success) {
+        if (res?.data?.body) {
           if (res.data.body.selectedSlots.length) {
             const [sortedData, dateArry] = filterData(res.data.body);
             setTotalSlots(res.data.body.selectedSlots.length);
@@ -48,6 +48,11 @@ const CartRightSideComponent = () => {
           setTotalSlots(0);
           setTotalTime(0);
         }
+      } else {
+        setIsCartEmpty(true);
+        setTotalAmount(0);
+        setTotalSlots(0);
+        setTotalTime(0);
       }
     },
     [setCartData, setIsCartEmpty, setTotalAmount, setTotalSlots, setTotalTime]

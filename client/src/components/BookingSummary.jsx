@@ -6,6 +6,8 @@ import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
 import BookingSummaryElement from "./BookingSummaryElement";
 import { SlotCardItem } from "./SlotCardItem";
+
+// eslint-disable-next-line no-unused-vars
 import Header from "../config/razorHeader";
 
 const BookingSummary = () => {
@@ -20,18 +22,20 @@ const BookingSummary = () => {
         headerWithToken
       )
       .then((res) => {
-        console.log(res.data.body)
-        const filterUpComing = res.data.body.bookedTimeSlots.filter(function (
-          item
-        ) {
-          return new Date() < new Date(item.date);
+        console.log(res.data.body);
+        const bookSlots = res.data?.body?.bookedTimeSlots || [];
+
+        const filterUpComing = bookSlots.filter((item) => {
+          return (
+            new Date().toDateString() <= new Date(item.date).toDateString()
+          );
         });
         setUpComing(filterUpComing);
-        const filterHistory = res.data.body.bookedTimeSlots.filter(function (
-          item
-        ) {
-          return new Date() > new Date(item.date);
-        });
+
+        const filterHistory = bookSlots.filter(
+          (item) =>
+            new Date().toDateString() > new Date(item.date).toDateString()
+        );
         setHistory(filterHistory);
       })
       .catch((err) => {
@@ -39,23 +43,29 @@ const BookingSummary = () => {
       });
   }, []);
 
-  const handleOnClickView = (index, ground, id, item) =>{
-    console.log(item)
-    axios.get(api + "/common/order/slot-list?orderId=" + item.orderId,headerWithToken).then(async res =>{
-      console.log("invoice",res)
-    })
-    .catch(err =>{
-      console.log(err.response)
-    })
+  const handleOnClickView = (index, ground, id, item) => {
+    console.log(item);
+    axios
+      .get(
+        api + "/common/order/slot-list?orderId=" + item.orderId,
+        headerWithToken
+      )
+      .then(async (res) => {
+        console.log("invoice", res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
 
-
-    axios.get(api + "payment/details?orderId=" + item.orderId,headerWithToken).then(async res =>{
-      console.log("invoice",res)
-    })
-    .catch(err =>{
-      console.log(err.response)
-    })
-  }
+    axios
+      .get(api + "payment/details?orderId=" + item.orderId, headerWithToken)
+      .then(async (res) => {
+        console.log("invoice", res);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  };
 
   const handleOnClick = (index, ground, id, item) => {
     const body = {
@@ -71,7 +81,6 @@ const BookingSummary = () => {
       .post(api + "user/cancel-booking", body, headerWithToken)
       .then((res) => {
         console.log(res.data);
-        window.location.reload(false)
       });
   };
 

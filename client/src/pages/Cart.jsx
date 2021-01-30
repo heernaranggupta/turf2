@@ -1,19 +1,12 @@
-import React,{useContext, useEffect,useCallback} from "react";
+import React from "react";
 import classnames from "classnames";
 import { ToastContainer } from "react-toastify";
 import CartSummary from "../components/CartSummary";
 import CartRightSideComponent from "../components/CartRightSideComponent";
 import styles from "../css/Cart.module.css";
 import PaymentGateway from "../components/PaymentGateway";
-import headerWithToken from "../config/headerWithToken";
-import api from "../config/api";
-import axios from "axios";
-import { ListData } from "../utils/ListData";
-import { Context } from "../data/context";
 
 const Cart = () => {
-  const { cartData } = useContext(Context);
-
   return (
     <div className={classnames("section", styles.CartWrapper)}>
       <div
@@ -27,9 +20,7 @@ const Cart = () => {
             )}
           >
             <CartSummary />
-            {
-              <PaymentGateway />
-            }
+            <PaymentGateway />
           </div>
 
           <div
