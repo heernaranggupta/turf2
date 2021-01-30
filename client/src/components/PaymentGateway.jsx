@@ -21,8 +21,8 @@ const PaymentGateway = () => {
     // key: 'rzp_live_VMGLEhEd6uLVJm',
     // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
-    // amount: totalAmount * 100, //  = INR 1
-    amount: 1000,
+    amount: totalAmount * 100, //  = INR 1
+    // amount: 1000,
     name: "Turf Booking",
     description:
       "Welcome to Rebounce You can pay with RazorPay and book your turf Ground",

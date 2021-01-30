@@ -38,7 +38,6 @@ export function tConvert(time) {
 
 export const convertDate = (data) => {
   if (data) {
-    console.log(data);
     var date = data;
     var dateArr = date.split("-");
     return dateArr[2] + "-" + dateArr[1] + "-" + dateArr[0];
