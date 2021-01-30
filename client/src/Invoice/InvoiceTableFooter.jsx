@@ -13,22 +13,22 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
   },
   description: {
-    width: "85%",
+    width: "80%",
     textAlign: "right",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     paddingRight: 8,
   },
   total: {
-    width: "15%",
-    textAlign: "right",
+    width: "20%",
+    textAlign: "center",
     paddingRight: 8,
   },
 });
 
-const InvoiceTableFooter = ({ items }) => {
+const InvoiceTableFooter = ({ items = [] }) => {
   const total = items
-    .map((item) => item.qty * item.rate)
+    .map((item) => item.price)
     .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   return (
     <View style={styles.row}>

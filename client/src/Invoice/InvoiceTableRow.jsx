@@ -12,8 +12,8 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
   },
   description: {
-    width: "60%",
-    textAlign: "left",
+    width: "30%",
+    textAlign: "center",
     borderRightColor: borderColor,
     borderRightWidth: 1,
     paddingLeft: 8,
@@ -22,32 +22,37 @@ const styles = StyleSheet.create({
     width: "10%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    textAlign: "right",
+    textAlign: "center",
     paddingRight: 8,
   },
   rate: {
-    width: "15%",
+    width: "20%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
-    textAlign: "right",
+    textAlign: "center",
     paddingRight: 8,
   },
   amount: {
-    width: "15%",
-    textAlign: "right",
+    width: "20%",
+    textAlign: "center",
     paddingRight: 8,
   },
 });
 
-const InvoiceTableRow = ({ items }) => {
-  const rows = items.map((item) => (
-    <View style={styles.row} key={item.sno.toString()}>
-      <Text style={styles.description}>{item.desc}</Text>
-      <Text style={styles.qty}>{item.qty}</Text>
-      <Text style={styles.rate}>{item.rate}</Text>
-      <Text style={styles.amount}>{(item.qty * item.rate).toFixed(2)}</Text>
-    </View>
-  ));
+const InvoiceTableRow = ({ items = [] }) => {
+  const rows = items.map((item, index) => {
+    return (
+      <View style={styles.row} key={index}>
+        <Text style={styles.rate}>{item.bookingId}</Text>
+        <Text style={styles.rate}>{item.date}</Text>
+        <Text style={styles.qty}>{item.turfId}</Text>
+        <Text style={styles.description}>
+          {item.startTime + " to " + item.endTime}
+        </Text>
+        <Text style={styles.amount}>{item.price}</Text>
+      </View>
+    );
+  });
   return <Fragment>{rows}</Fragment>;
 };
 

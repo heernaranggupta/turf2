@@ -14,15 +14,14 @@ import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Signup from "../pages/Signup";
 import Checkout from "../pages/Checkout";
-import Invoice from "../components/invoice";
 import PaymentSuccess from "../pages/PaymentSuccess";
-import { invoiceData } from "../data/invoice";
-import InvoiceGenerator from "../Invoice";
 import { Context } from "../data/context";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import PrintInvoice from "../Invoice/PrintInvoice";
 
 const Routes = () => {
-  const { setIsLoggedIn, setCartId, setPhoneNumber } = useContext(Context);
+  const { setIsLoggedIn, setCartId, setPhoneNumber, setUserData } = useContext(
+    Context
+  );
 
   const checkAuth = useCallback(async () => {
     const data = await localStorage.getItem("turfUserDetails");
@@ -30,11 +29,13 @@ const Routes = () => {
 
     setCartId(() => (cartLocalId ? cartLocalId : null));
 
+    setUserData(data.user);
+
     setPhoneNumber(() =>
       data?.user?.phoneNumber ? data.user.phoneNumber : null
     );
     setIsLoggedIn(() => (data !== null ? true : false));
-  }, [setIsLoggedIn, setCartId, setPhoneNumber]);
+  }, [setIsLoggedIn, setCartId, setPhoneNumber, setUserData]);
 
   useEffect(() => {
     checkAuth();
@@ -47,9 +48,9 @@ const Routes = () => {
         <Route path="/cart" exact component={Cart} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
-        <Route path="/invoice/:id" exact component={Invoice} />
+        <Route path="/invoice/:id" exact component={PrintInvoice} />
 
-        <Route
+        {/* <Route
           path="/pdf"
           exact
           render={() => {
@@ -81,7 +82,7 @@ const Routes = () => {
               </PDFDownloadLink>
             );
           }}
-        />
+        /> */}
 
         <ProtectedRoutes path="/profile">
           <Profile />
@@ -100,8 +101,7 @@ const Routes = () => {
           exact
           render={() => {
             setIsLoggedIn(false);
-            localStorage.removeItem("turfUserDetails");
-            localStorage.removeItem("turfCart");
+            localStorage.clear();
             return <Redirect to="/" />;
           }}
         />

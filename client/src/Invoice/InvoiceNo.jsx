@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     fontStyle: "bold",
   },
   label: {
-    width: 60,
+    width: "auto",
   },
 });
 
@@ -27,7 +27,9 @@ const InvoiceNo = ({ invoice }) => (
       <Text style={styles.invoiceDate}>{invoice.invoice_no}</Text>
     </View>
     <View style={styles.invoiceDateContainer}>
-      <Text style={styles.label}>Date: </Text>
+      <Text style={styles.label}>
+        Date: {new Date(invoice.date).toDateString()}
+      </Text>
       <Text>{invoice.trans_date}</Text>
     </View>
   </Fragment>

@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   description: {
-    width: "60%",
+    width: "30%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
@@ -25,20 +25,21 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
   },
   rate: {
-    width: "15%",
+    width: "20%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
   amount: {
-    width: "15%",
+    width: "20%",
   },
 });
 
 const InvoiceTableHeader = () => (
   <View style={styles.container}>
-    <Text style={styles.description}>Item Description</Text>
-    <Text style={styles.qty}>Qty</Text>
-    <Text style={styles.rate}>@</Text>
+    <Text style={styles.rate}>Booking Id</Text>
+    <Text style={styles.rate}>Date</Text>
+    <Text style={styles.qty}>Ground</Text>
+    <Text style={styles.description}>Slots</Text>
     <Text style={styles.amount}>Amount</Text>
   </View>
 );

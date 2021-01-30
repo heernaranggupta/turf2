@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import classnames from "classnames";
 import styles from "../css/BookingSummary.module.css";
 import axios from "axios";
@@ -6,6 +6,7 @@ import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
 import BookingSummaryElement from "./BookingSummaryElement";
 import { SlotCardItem } from "./SlotCardItem";
+import { Context } from "../data/context";
 
 // eslint-disable-next-line no-unused-vars
 import Header from "../config/razorHeader";
@@ -13,6 +14,8 @@ import Header from "../config/razorHeader";
 const BookingSummary = () => {
   const [history, setHistory] = useState([]);
   const [upcoming, setUpComing] = useState([]);
+
+  const { userData } = useContext(Context);
 
   const bookingSummary = useCallback(() => {
     const data = JSON.parse(localStorage.getItem("turfUserDetails"));
@@ -44,27 +47,27 @@ const BookingSummary = () => {
   }, []);
 
   const handleOnClickView = (index, ground, id, item) => {
-    console.log(item);
     axios
       .get(
-        api + "/common/order/slot-list?orderId=" + item.orderId,
+        api + "common/order/slot-list?orderId=" + item.orderId,
         headerWithToken
       )
-      .then(async (res) => {
-        console.log("invoice", res);
+      .then((res) => {
+        console.log("invoice", res.data);
+        console.log(userData);
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err.message);
       });
 
-    axios
-      .get(api + "payment/details?orderId=" + item.orderId, headerWithToken)
-      .then(async (res) => {
-        console.log("invoice", res);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+    // axios
+    //   .get(api + "payment/details?orderId=" + item.orderId, headerWithToken)
+    //   .then(async (res) => {
+    //     console.log("invoice", res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   });
   };
 
   const handleOnClick = (index, ground, id, item) => {

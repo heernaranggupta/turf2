@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   description: {
-    width: "60%",
+    width: "50%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
@@ -23,12 +23,12 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
   },
   rate: {
-    width: "15%",
+    width: "20%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
   amount: {
-    width: "15%",
+    width: "20%",
   },
 });
 
