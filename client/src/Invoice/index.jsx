@@ -1,11 +1,5 @@
-import React from "react";
-import {
-  Page,
-  Document,
-  Image,
-  StyleSheet,
-  PDFViewer,
-} from "@react-pdf/renderer";
+import React, { useEffect } from "react";
+import { Page, Document, Image, StyleSheet } from "@react-pdf/renderer";
 import InvoiceTitle from "./InvoiceTitle";
 import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
@@ -30,23 +24,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const Invoice = ({ invoice }) => (
-  <PDFViewer
-    width={window.innerWidth}
-    height={window.innerHeight}
-    className="app"
-  >
+const Invoice = ({ invoice }) => {
+  useEffect(() => {
+    document.querySelector(".navbar").style.display = "none";
+  }, []);
+
+  return (
     <Document>
       <Page size="A4" style={styles.page}>
         <Image style={styles.logo} src="" />
-        <InvoiceTitle title="Invoice" />
+        <InvoiceTitle title="INVOICE" />
         <InvoiceNo invoice={invoice} />
         <BillTo invoice={invoice} />
         <InvoiceItemsTable invoice={invoice} />
         <InvoiceThankYouMsg />
       </Page>
     </Document>
-  </PDFViewer>
-);
+  );
+};
 
 export default Invoice;

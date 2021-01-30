@@ -5,21 +5,21 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import ProtectedRoutes from "./protected.routes";
 import Cart from "../pages/Cart";
 import Headers from "../components/Headers";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
-import ProtectedRoutes from "./protected.routes";
-import { ToastContainer } from "react-toastify";
 import Signup from "../pages/Signup";
-import { Context } from "../data/context";
 import Checkout from "../pages/Checkout";
 import Invoice from "../components/invoice";
 import PaymentSuccess from "../pages/PaymentSuccess";
-import InvoiceGenerator from "../Invoice";
 import { invoiceData } from "../data/invoice";
-import { PDFViewer } from "@react-pdf/renderer";
+import InvoiceGenerator from "../Invoice";
+import { Context } from "../data/context";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 
 const Routes = () => {
   const { setIsLoggedIn, setCartId, setPhoneNumber } = useContext(Context);
@@ -48,11 +48,38 @@ const Routes = () => {
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/invoice/:id" exact component={Invoice} />
+
         <Route
           path="/pdf"
           exact
           render={() => {
-            return <InvoiceGenerator invoice={invoiceData} />;
+            return (
+              <div>
+                <PDFViewer
+                  height={window.innerHeight}
+                  width={window.innerWidth}
+                >
+                  <InvoiceGenerator invoice={invoiceData} />
+                </PDFViewer>
+              </div>
+            );
+          }}
+        />
+
+        <Route
+          path="/try"
+          exact
+          render={() => {
+            return (
+              <PDFDownloadLink
+                document={<InvoiceGenerator invoice={invoiceData} />}
+                fileName="somename.pdf"
+              >
+                {({ blob, url, loading, error }) =>
+                  loading ? "Loading document..." : "Download now!"
+                }
+              </PDFDownloadLink>
+            );
           }}
         />
 
