@@ -41,6 +41,14 @@ const BookingSummary = () => {
 
   const handleOnClickView = (index, ground, id, item) =>{
     console.log(item)
+    axios.get(api + "/common/order/slot-list?orderId=" + item.orderId,headerWithToken).then(async res =>{
+      console.log("invoice",res)
+    })
+    .catch(err =>{
+      console.log(err.response)
+    })
+
+
     axios.get(api + "payment/details?orderId=" + item.orderId,headerWithToken).then(async res =>{
       console.log("invoice",res)
     })
