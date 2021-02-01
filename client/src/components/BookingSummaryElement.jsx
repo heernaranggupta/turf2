@@ -10,17 +10,12 @@ const BookingSummaryElement = ({
   item,
   index,
   handleOnClick,
-  handleOnClickView,
   id,
   isHistory = false,
 }) => {
   const history = useHistory();
   return (
-    <div
-      //   onClick={() => handleOnClick(index, id, item.id, item)}
-      className={classnames("card is-clickable", styles.cardItem)}
-      key={index}
-    >
+    <div className={classnames("card", styles.cardItem)} key={index}>
       <div className={classnames(styles.cardItemContent)}>
         <div
           className={classnames(
@@ -59,36 +54,29 @@ const BookingSummaryElement = ({
             </span>
             <span>{item.price}</span>
           </p>
-          <div className={styles.action}>
-            <span onClick={() => handleOnClick(index, id, item.id, item)}>
-              <MdDelete size={30} color={"#fff"} />
-            </span>
-            <span>
-              <BiFile
-                size={30}
-                color={"#fff"}
-                onClick={() => history.push(`/invoice/${item.orderId}`)}
-              />
-            </span>
-          </div>
+
+          {!isHistory && (
+            <div className={classnames("is-clickable", styles.action)}>
+              <span onClick={() => handleOnClick(index, id, item.id, item)}>
+                <MdDelete size={30} color={"#FFF"} />
+              </span>
+            </div>
+          )}
         </div>
-        {/* <div className={styles.currencyWrapper}>
-          <p className={(styles.slotPriceWrapper, "title is-4")}>
-            <span onClick={() => handleOnClick(index, id, item.id, item)}>
-              <MdDelete size={20} color={"#000"} />
-            </span>
-            <span></span>
-          </p>
-        </div>
-        <div className={styles.currencyWrapper}>
-          <p className={(styles.slotPriceWrapper, "title is-4")}>
-            <span onClick={() => handleOnClickView(index, id, item.id, item)}>
-              <BiFile size={20} color={"#000"} />
-            </span>
-            <span></span>
-          </p>
-        </div> */}
       </div>
+
+      <footer className="card-footer">
+        <span
+          className="card-footer-item is-clickable"
+          onClick={() => history.push(`/invoice/${item.orderId}`)}
+        >
+          <BiFile
+            size={30}
+            onClick={() => history.push(`/invoice/${item.orderId}`)}
+          />
+          Download Invoice
+        </span>
+      </footer>
     </div>
   );
 };

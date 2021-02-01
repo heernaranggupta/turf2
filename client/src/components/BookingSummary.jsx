@@ -8,8 +8,6 @@ import BookingSummaryElement from "./BookingSummaryElement";
 import { SlotCardItem } from "./SlotCardItem";
 import { Context } from "../data/context";
 
-// eslint-disable-next-line no-unused-vars
-import Header from "../config/razorHeader";
 import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate";
 
 const BookingSummary = () => {
@@ -116,14 +114,14 @@ const BookingSummary = () => {
         <div className={classnames("card-content", styles.historygrid)}>
           {history &&
             history.map((item, index) => (
-              <SlotCardItem
+              <BookingSummaryElement
                 key={index}
                 item={item}
                 index={index}
                 handleOnClick={() => {}}
                 handleOnClickView={() => {}}
-                id={1}
                 isHistory={true}
+                id={1}
               />
             ))}
         </div>

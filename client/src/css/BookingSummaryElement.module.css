@@ -1,111 +1,113 @@
 .slotHeaderWrapper {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-    z-index: 10;
-    background: #437520;
-    border-radius: 15px;
-  }
-  .addHorizontalBar {
-    width: 60%;
-    height: 5px;
-    background: #507f2e;
-  }
-  .slotTitle {
-    padding: 20px;
-    background: #153311;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    
-    font-family: Conv_Ailerons;
-  }
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  z-index: 10;
+  background: #437520;
+  border-radius: 15px;
+}
+.addHorizontalBar {
+  width: 60%;
+  height: 5px;
+  background: #507f2e;
+}
+.slotTitle {
+  padding: 20px;
+  background: #153311;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+  font-family: Conv_Ailerons;
+}
+.slotContentWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.cardItemContent,
+.slotPriceWrapper {
+  height: 75%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.slotTimeWrapper {
+  width: 70%;
+  padding: 1.5rem;
+}
+.currencyWrapper {
+  width: 50%;
+  border-left: 2px solid black;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+}
+
+.cardItem {
+  width: 100%;
+  margin: 15px;
+  border-radius: 15px !important;
+  max-width: 350px;
+}
+
+.cardClicked {
+  background-color: #000 !important;
+  color: white !important;
+}
+.groundName {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+.contentWrapper {
+  width: 100%;
+  height: 100%;
+}
+.action {
+  display: flex;
+  background: #d13232;
+  height: 105%;
+  position: relative;
+  padding: 10px;
+  right: -20px;
+  padding-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.contentWrapper .slotHeaderWrapper {
+  width: 100%;
+  height: 100px;
+  position: sticky;
+  top: 0;
+}
+@media only screen and (max-width: 1350px) {
   .slotContentWrapper {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
-  .cardItemContent,
-  .slotPriceWrapper {
-    height: 100%;
-    width: 100%;
-    display: flex ;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .slotTimeWrapper {
-    width: 70%;
-    padding: 1.5rem;
-  }
-  .currencyWrapper {
-    width: 50%;
-    border-left: 2px solid black;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2px;
-  }
-  
-  .cardItem {
-    margin: 15px;
-    border-radius: 15px !important;
-    max-width: 350px;
-  }
-  
-  .cardClicked {
-    background-color: #000 !important;
-    color: white !important;
-  }
-  .groundName{
-    font-size: 25px;
-    margin-bottom: 5px;
-  }
-  .contentWrapper {
-    width: 100%;
-    height: 100%;
-  }
-  .action{
+}
+
+@media only screen and (max-width: 768px) {
+  .slotContentWrapper {
     display: grid;
-    background: #d13232;
-    height: 105%;
-    position: relative;
-    padding: 10px;
-    right: -20px;
-    padding-top: 10px;
+    grid-template-columns: repeat(2, 1fr);
   }
-  .contentWrapper .slotHeaderWrapper {
-    width: 100%;
-    height: 100px;
-    position: sticky;
-    top: 0;
+  .action {
+    right: -7px;
   }
-  @media only screen and (max-width: 1350px) {
-    .slotContentWrapper {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
+}
+@media only screen and (max-width: 600px) {
+  .slotContentWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  @media only screen and (max-width: 768px) {
-    .slotContentWrapper {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .action{
-      right: -7px;
-    }
+}
+@media only screen and (max-width: 450px) {
+  .slotContentWrapper {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
   }
-  @media only screen and (max-width: 600px) {
-    .slotContentWrapper {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-  @media only screen and (max-width: 450px) {
-    .slotContentWrapper {
-      display: grid;
-      grid-template-columns: repeat(1, 1fr);
-    }
-  }
-  
+}
