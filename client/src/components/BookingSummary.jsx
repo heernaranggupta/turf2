@@ -10,6 +10,7 @@ import { Context } from "../data/context";
 
 // eslint-disable-next-line no-unused-vars
 import Header from "../config/razorHeader";
+import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate";
 
 const BookingSummary = () => {
   const [history, setHistory] = useState([]);
@@ -28,18 +29,19 @@ const BookingSummary = () => {
         console.log(res.data.body);
         const bookSlots = res.data?.body?.bookedTimeSlots || [];
 
-        const filterUpComing = bookSlots.filter((item) => {
-          return (
-            new Date().toDateString() <= new Date(item.date).toDateString()
-          );
-        });
-        setUpComing(filterUpComing);
+        const upComingList = [];
+        const historyList = [];
+        bookSlots.forEach((item) => {
+          const data = compareDateWithCurrentDate(item.date);
 
-        const filterHistory = bookSlots.filter(
-          (item) =>
-            new Date().toDateString() > new Date(item.date).toDateString()
-        );
-        setHistory(filterHistory);
+          if (data) {
+            upComingList.push(item);
+          } else {
+            historyList.push(item);
+          }
+        });
+        setUpComing(upComingList);
+        setHistory(historyList);
       })
       .catch((err) => {
         console.log(err);
