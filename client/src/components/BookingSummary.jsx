@@ -5,7 +5,6 @@ import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
 import BookingSummaryElement from "./BookingSummaryElement";
-import { SlotCardItem } from "./SlotCardItem";
 import { Context } from "../data/context";
 
 import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate";

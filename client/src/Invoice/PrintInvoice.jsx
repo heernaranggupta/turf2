@@ -2,7 +2,6 @@ import React, { useEffect, useContext, useCallback, useState } from "react";
 import {
   Page,
   Document,
-  Image,
   StyleSheet,
   PDFViewer,
   PDFDownloadLink,

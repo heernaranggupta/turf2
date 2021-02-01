@@ -19,7 +19,9 @@ const Login = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const { isLoggedIn, setIsLoggedIn, setUserData } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, setUserData, cartId } = useContext(
+    Context
+  );
   const phoneRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -36,6 +38,7 @@ const Login = () => {
     const values = {
       username: phoneRef.current.value,
       password: passwordRef.current.value,
+      cartId: cartId,
     };
 
     axios

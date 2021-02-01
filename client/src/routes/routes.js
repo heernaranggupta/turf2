@@ -27,11 +27,9 @@ const Routes = () => {
 
     data = JSON.parse(data);
     if (data !== null && data.token && data.user) {
-      console.log("Here");
       setIsLoggedIn(true);
       setUserData(data.user);
     } else {
-      console.log("Not Here");
       setIsLoggedIn(false);
       setUserData(null);
     }
