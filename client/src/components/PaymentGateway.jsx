@@ -32,7 +32,7 @@ const PaymentGateway = () => {
       setResponce(response.razorpay_payment_id);
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const body = {
-        userId: data.user.phoneNumber,
+        userId: data?.user?.phoneNumber,
         transactionId: response.razorpay_payment_id,
         timeSlots: allData,
       };

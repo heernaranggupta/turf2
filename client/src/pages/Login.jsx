@@ -19,7 +19,7 @@ const Login = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, setUserData } = useContext(Context);
   const phoneRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -42,6 +42,7 @@ const Login = () => {
       .post(api + "user/login", values, headerWithoutToken)
       .then(async (res) => {
         if (res.data.code === 200) {
+          console.log(res.data);
           await localStorage.setItem(
             "turfUserDetails",
             JSON.stringify(res.data.body)
@@ -49,6 +50,7 @@ const Login = () => {
           if (localStorage.getItem("turfCart") !== null) {
             localStorage.removeItem("turfCart");
           }
+          setUserData(res.data?.body?.user);
           setIsLoggedIn(true);
           history.push(state?.from || "/");
         }

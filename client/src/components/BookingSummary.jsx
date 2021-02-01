@@ -22,7 +22,7 @@ const BookingSummary = () => {
     const data = JSON.parse(localStorage.getItem("turfUserDetails"));
     axios
       .get(
-        api + "user/booking-history?userPhoneNumber=" + data.user.phoneNumber,
+        api + "user/booking-history?userPhoneNumber=" + data?.user?.phoneNumber,
         headerWithToken
       )
       .then((res) => {

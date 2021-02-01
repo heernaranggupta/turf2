@@ -22,7 +22,7 @@ const Signup = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, setUserData } = useContext(Context);
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -89,6 +89,7 @@ const Signup = () => {
           if (localStorage.getItem("turfCart") !== null) {
             localStorage.removeItem("turfCart");
           }
+          setUserData(res.data?.body?.user);
           setIsLoggedIn(true);
           history.push(state?.from || "/");
         }

@@ -10,7 +10,6 @@ export const ContextProvider = ({ children }) => {
   const [bookDate, setBookDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
-  const [phoneNumber, setPhoneNumber] = useState(null);
   const [cartId, setCartId] = useState(null);
   const [cartData, setCartData] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -31,8 +30,6 @@ export const ContextProvider = ({ children }) => {
         setTotalTime,
         bookDate,
         setBookDate,
-        phoneNumber,
-        setPhoneNumber,
         cartId,
         setCartId,
         cartData,
@@ -44,7 +41,7 @@ export const ContextProvider = ({ children }) => {
         isCartEmpty,
         setIsCartEmpty,
         userData,
-        setUserData
+        setUserData,
       }}
     >
       {children}

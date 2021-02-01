@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import classnames from "classnames";
 import { ToastContainer } from "react-toastify";
 import CartSummary from "../components/CartSummary";
 import CartRightSideComponent from "../components/CartRightSideComponent";
 import styles from "../css/Cart.module.css";
 import PaymentGateway from "../components/PaymentGateway";
+import { Context } from "../data/context";
+import { Redirect } from "react-router-dom";
 
 const Cart = () => {
+  const { isLoggedIn, userData } = useContext(Context);
+
+  if (!isLoggedIn || userData === null) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: {
+            from: "/cart",
+          },
+        }}
+      />
+    );
+  }
   return (
     <div className={classnames("section", styles.CartWrapper)}>
       <div
