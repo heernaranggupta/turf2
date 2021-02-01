@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { View, StyleSheet } from "@react-pdf/renderer";
 import InvoiceTableHeader from "./InvoiceTableHeader";
@@ -22,9 +23,9 @@ const InvoiceItemsTable = ({ invoice }) => {
     <View style={styles.tableContainer}>
       <InvoiceTableHeader />
       <InvoiceTableRow items={invoice.items} />
-      {/* <InvoiceTableBlankSpace
-        rowsCount={tableRowsCount - invoice.items.length}
-      /> */}
+      <InvoiceTableBlankSpace
+        rowsCount={tableRowsCount - (invoice?.items?.length || 0)}
+      />
       <InvoiceTableFooter items={invoice.items} />
     </View>
   );

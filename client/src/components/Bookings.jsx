@@ -27,7 +27,6 @@ const Bookings = () => {
     bookDate,
     setBookDate,
     setCartId,
-    setPhoneNumber,
     setCartData,
     setTotalSlots,
   } = useContext(Context);
@@ -112,18 +111,6 @@ const Bookings = () => {
 
       setCartId(() => (cartLocalId ? cartLocalId : null));
 
-      setPhoneNumber(() =>
-        data?.user?.phoneNumber ? data.user.phoneNumber : null
-      );
-
-      // if (data === null && cartLocalId === null) {
-      //   setCartId(null);
-      // } else if (data === null && cartLocalId != null) {
-      //   setCartId(cartLocalId);
-      // } else {
-      //   setPhoneNumber(data.user.phoneNumber);
-      // }
-
       if (data === null) {
         axios
           .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
@@ -136,7 +123,7 @@ const Bookings = () => {
       } else {
         axios
           .get(
-            api + "user/cart?phoneNumber=" + data.user.phoneNumber,
+            api + "user/cart?phoneNumber=" + data?.user?.phoneNumber,
             headerWithoutToken
           )
           .then((res) => {
@@ -147,7 +134,7 @@ const Bookings = () => {
           });
       }
     },
-    [handleFetchedData, setCartId, setPhoneNumber]
+    [handleFetchedData, setCartId]
   );
 
   const getAllSlotsByDateTime = useCallback(() => {
@@ -210,21 +197,10 @@ const Bookings = () => {
     fetchCartData,
   ]);
 
-  const setUserData = useCallback(() => {
-    const turfcartId = localStorage.getItem("turfCart");
-    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
-
-    setCartId(() => (turfcartId ? turfcartId : null));
-    setPhoneNumber(() =>
-      data?.user?.phoneNumber ? data?.user?.phoneNumber : null
-    );
-  }, [setCartId, setPhoneNumber]);
-
   useEffect(() => {
     getMaxAllowedMonth(setMaxAllowedDate);
-    setUserData();
     getAllSlotsByDateTime();
-  }, [getAllSlotsByDateTime, setUserData]);
+  }, [getAllSlotsByDateTime]);
 
   return (
     <div className={classnames("container is-fluid")}>

@@ -2,17 +2,16 @@ import React, { useEffect, useContext, useCallback, useState } from "react";
 import {
   Page,
   Document,
-  Image,
   StyleSheet,
   PDFViewer,
   PDFDownloadLink,
 } from "@react-pdf/renderer";
+import { Link } from "react-router-dom";
 import InvoiceTitle from "./InvoiceTitle";
 import BillTo from "./BillTo";
 import InvoiceNo from "./InvoiceNo";
 import InvoiceItemsTable from "./InvoiceItemsTable";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
-import { invoiceData as invoice } from "../data/invoice";
 import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
@@ -38,22 +37,23 @@ const styles = StyleSheet.create({
 
 const PrintInvoice = ({ match }) => {
   const [invoiceData, setInvoiceData] = useState({});
+  const [showError, setShowError] = useState(false);
   const orderId = match?.params?.id;
 
   const { userData } = useContext(Context);
 
   const fetchData = useCallback(() => {
     if (orderId) {
+      setShowError(false);
       axios
         .get(api + "common/order/slot-list?orderId=" + orderId, headerWithToken)
         .then((res) => {
-          console.log("invoice", res.data);
           const InvoiceData = {
-            id: orderId,
-            invoice_no: orderId,
-            company: userData.name,
-            email: userData.emailId,
-            phone: userData.phoneNumber,
+            id: orderId || "",
+            invoice_no: orderId || "",
+            company: userData.name || "",
+            email: userData.emailId || "",
+            phone: userData.phoneNumber || "",
             address: "",
             date: res.data?.body[0]?.timestamp || "",
             items: res.data.body || [],
@@ -62,14 +62,45 @@ const PrintInvoice = ({ match }) => {
         })
         .catch((err) => {
           console.log(err.message);
+          setShowError(true);
         });
     }
   }, [orderId, userData]);
 
   useEffect(() => {
-    document.querySelector(".navbar").style.display = "none";
+    if (showError === false) {
+      document.querySelector(".navbar").style.display = "none";
+    } else {
+      document.querySelector(".navbar").style.display = "flex";
+    }
     fetchData();
-  }, [fetchData]);
+  }, [fetchData, showError]);
+
+  if (showError) {
+    return (
+      <div className="container mt-6">
+        <div className="columns">
+          <div className="column"></div>
+          <div className="column">
+            <div className="column card">
+              <div className="card-content">
+                <p className="title has-text-centered">Invalid Invoice Id</p>
+              </div>
+              <footer className="card-footer">
+                <p className="card-footer-item is-clickable">
+                  <Link to="/">Home</Link>
+                </p>
+                <p className="card-footer-item is-clickable">
+                  <Link to="/profile">Profile</Link>
+                </p>
+              </footer>
+            </div>
+          </div>
+          <div className="column"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -86,7 +117,7 @@ const PrintInvoice = ({ match }) => {
             </Page>
           </Document>
         }
-        fileName="somename.pdf"
+        fileName={"Rebounce_Invoice_" + orderId + ".pdf"}
       >
         {({ blob, url, loading, error }) =>
           loading ? (

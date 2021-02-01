@@ -5,11 +5,9 @@ import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
 import BookingSummaryElement from "./BookingSummaryElement";
-import { SlotCardItem } from "./SlotCardItem";
 import { Context } from "../data/context";
 
-// eslint-disable-next-line no-unused-vars
-import Header from "../config/razorHeader";
+import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate";
 
 const BookingSummary = () => {
   const [history, setHistory] = useState([]);
@@ -21,25 +19,26 @@ const BookingSummary = () => {
     const data = JSON.parse(localStorage.getItem("turfUserDetails"));
     axios
       .get(
-        api + "user/booking-history?userPhoneNumber=" + data.user.phoneNumber,
+        api + "user/booking-history?userPhoneNumber=" + data?.user?.phoneNumber,
         headerWithToken
       )
       .then((res) => {
         console.log(res.data.body);
         const bookSlots = res.data?.body?.bookedTimeSlots || [];
 
-        const filterUpComing = bookSlots.filter((item) => {
-          return (
-            new Date().toDateString() <= new Date(item.date).toDateString()
-          );
-        });
-        setUpComing(filterUpComing);
+        const upComingList = [];
+        const historyList = [];
+        bookSlots.forEach((item) => {
+          const data = compareDateWithCurrentDate(item.date);
 
-        const filterHistory = bookSlots.filter(
-          (item) =>
-            new Date().toDateString() > new Date(item.date).toDateString()
-        );
-        setHistory(filterHistory);
+          if (data) {
+            upComingList.push(item);
+          } else {
+            historyList.push(item);
+          }
+        });
+        setUpComing(upComingList);
+        setHistory(historyList);
       })
       .catch((err) => {
         console.log(err);
@@ -114,14 +113,14 @@ const BookingSummary = () => {
         <div className={classnames("card-content", styles.historygrid)}>
           {history &&
             history.map((item, index) => (
-              <SlotCardItem
+              <BookingSummaryElement
                 key={index}
                 item={item}
                 index={index}
                 handleOnClick={() => {}}
                 handleOnClickView={() => {}}
-                id={1}
                 isHistory={true}
+                id={1}
               />
             ))}
         </div>

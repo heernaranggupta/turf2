@@ -11,12 +11,12 @@ import { tConvert } from "../utils/TimeConverter";
 import styles from "../css/CartElement.module.css";
 
 const CartElement = ({ data, label, reloadData }) => {
-  const { phoneNumber, cartId, setTotalTime } = useContext(Context);
+  const { userData, cartId, setTotalTime } = useContext(Context);
 
   const onRemoveSlots = (e) => {
     const body = {
       cartId: cartId,
-      userPhoneNumber: phoneNumber,
+      userPhoneNumber: userData.phoneNumber,
       removeSlot: e,
     };
     const url = api + "user/cart/remove";

@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   description: {
-    width: "50%",
+    width: "30%",
     borderRightColor: borderColor,
     borderRightWidth: 1,
   },
@@ -32,13 +32,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const InvoiceTableBlankSpace = ({ rowsCount }) => {
+const InvoiceTableBlankSpace = ({ rowsCount = 0 }) => {
+  if (rowsCount < 0) {
+    rowsCount = 0;
+  }
   const blankRows = Array(rowsCount).fill(0);
   const rows = blankRows.map((x, i) => (
     <View style={styles.row} key={`BR${i}`}>
-      <Text style={styles.description}>-</Text>
-      <Text style={styles.qty}>-</Text>
       <Text style={styles.rate}>-</Text>
+      <Text style={styles.rate}>-</Text>
+      <Text style={styles.qty}>-</Text>
+      <Text style={styles.description}>-</Text>
       <Text style={styles.amount}>-</Text>
     </View>
   ));

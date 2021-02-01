@@ -22,7 +22,9 @@ const Signup = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const { isLoggedIn, setIsLoggedIn } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, setUserData, cartId } = useContext(
+    Context
+  );
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -75,6 +77,7 @@ const Signup = () => {
       phoneNumber: phoneRef.current.value,
       password: passwordRef.current.value,
       role: "USER",
+      cartId: cartId,
     };
 
     axios
@@ -89,6 +92,7 @@ const Signup = () => {
           if (localStorage.getItem("turfCart") !== null) {
             localStorage.removeItem("turfCart");
           }
+          setUserData(res.data?.body?.user);
           setIsLoggedIn(true);
           history.push(state?.from || "/");
         }

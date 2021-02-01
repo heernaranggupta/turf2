@@ -18,7 +18,7 @@
   background: #153311;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
-  
+
   font-family: Conv_Ailerons;
 }
 .slotContentWrapper {
@@ -57,7 +57,7 @@
   background-color: #000 !important;
   color: white !important;
 }
-.groundName{
+.groundName {
   font-size: 25px;
   margin-bottom: 5px;
 }

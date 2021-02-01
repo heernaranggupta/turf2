@@ -14,7 +14,6 @@ const CartRightSideComponent = () => {
     setCartId,
     setCartData,
     cartData,
-    setPhoneNumber,
     setTotalAmount,
     setTotalSlots,
     setIsCartEmpty,
@@ -59,18 +58,6 @@ const CartRightSideComponent = () => {
 
     setCartId(() => (cartLocalId ? cartLocalId : null));
 
-    setPhoneNumber(() =>
-      data?.user?.phoneNumber ? data.user.phoneNumber : null
-    );
-
-    // if (data === null && cartLocalId === null) {
-    //   setCartId(null);
-    // } else if (data === null && cartLocalId != null) {
-    //   setCartId(cartLocalId);
-    // } else {
-    //   setPhoneNumber(data.user.phoneNumber);
-    // }
-
     if (data === null) {
       axios
         .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
@@ -83,7 +70,7 @@ const CartRightSideComponent = () => {
     } else {
       axios
         .get(
-          api + "user/cart?phoneNumber=" + data.user.phoneNumber,
+          api + "user/cart?phoneNumber=" + data?.user?.phoneNumber,
           headerWithoutToken
         )
         .then((res) => {
@@ -93,7 +80,7 @@ const CartRightSideComponent = () => {
           console.log(err);
         });
     }
-  }, [handleFetchedData, setCartId, setPhoneNumber]);
+  }, [handleFetchedData, setCartId]);
 
   useEffect(() => {
     fetchCartData();

@@ -19,23 +19,22 @@ import { Context } from "../data/context";
 import PrintInvoice from "../Invoice/PrintInvoice";
 
 const Routes = () => {
-  const { setIsLoggedIn, setCartId, setPhoneNumber, setUserData } = useContext(
-    Context
-  );
+  const { setIsLoggedIn, setCartId, setUserData } = useContext(Context);
 
   const checkAuth = useCallback(async () => {
-    const data = await localStorage.getItem("turfUserDetails");
+    var data = await localStorage.getItem("turfUserDetails");
     const cartLocalId = localStorage.getItem("turfCart");
 
+    data = JSON.parse(data);
+    if (data !== null && data.token && data.user) {
+      setIsLoggedIn(true);
+      setUserData(data.user);
+    } else {
+      setIsLoggedIn(false);
+      setUserData(null);
+    }
     setCartId(() => (cartLocalId ? cartLocalId : null));
-
-    setUserData(data.user);
-
-    setPhoneNumber(() =>
-      data?.user?.phoneNumber ? data.user.phoneNumber : null
-    );
-    setIsLoggedIn(() => (data !== null ? true : false));
-  }, [setIsLoggedIn, setCartId, setPhoneNumber, setUserData]);
+  }, [setIsLoggedIn, setCartId, setUserData]);
 
   useEffect(() => {
     checkAuth();
@@ -100,8 +99,9 @@ const Routes = () => {
           path="/logout"
           exact
           render={() => {
-            setIsLoggedIn(false);
             localStorage.clear();
+            setIsLoggedIn(false);
+            setUserData(null);
             return <Redirect to="/" />;
           }}
         />

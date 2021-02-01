@@ -16,7 +16,7 @@ const SlotItems = () => {
     setTotalTime,
     cartId,
     setCartId,
-    phoneNumber,
+    userData,
     setTotalSlots,
   } = useContext(Context);
 
@@ -36,7 +36,7 @@ const SlotItems = () => {
     if (selectedSlot !== null) {
       const body = {
         cartId: cartId,
-        userPhoneNumber: phoneNumber,
+        userPhoneNumber: userData?.phoneNumber || null,
         selectedSlots: [selectedSlot],
       };
 
@@ -66,7 +66,7 @@ const SlotItems = () => {
   const removeFromCart = (index, ground, id, item) => {
     const body = {
       cartId: cartId,
-      userPhoneNumber: phoneNumber,
+      userPhoneNumber: userData?.phoneNumber || null,
       removeSlot: item,
     };
     const url = api + "user/cart/remove";
