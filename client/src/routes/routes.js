@@ -19,9 +19,12 @@ import { Context } from "../data/context";
 import PrintInvoice from "../Invoice/PrintInvoice";
 
 const Routes = () => {
-  const { setIsLoggedIn, setCartId, setUserData } = useContext(Context);
+  const { setIsLoggedIn, setCartId, setUserData, setIsLoading } = useContext(
+    Context
+  );
 
   const checkAuth = useCallback(async () => {
+    setIsLoading(true);
     var data = await localStorage.getItem("turfUserDetails");
     const cartLocalId = localStorage.getItem("turfCart");
 
@@ -34,7 +37,8 @@ const Routes = () => {
       setUserData(null);
     }
     setCartId(() => (cartLocalId ? cartLocalId : null));
-  }, [setIsLoggedIn, setCartId, setUserData]);
+    setIsLoading(false);
+  }, [setIsLoggedIn, setCartId, setUserData, setIsLoading]);
 
   useEffect(() => {
     checkAuth();

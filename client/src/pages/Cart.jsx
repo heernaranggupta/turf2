@@ -9,8 +9,15 @@ import { Context } from "../data/context";
 import { Redirect } from "react-router-dom";
 
 const Cart = () => {
-  const { isLoggedIn, userData } = useContext(Context);
+  const { isLoggedIn, userData, isLoading } = useContext(Context);
 
+  if (isLoading) {
+    return (
+      <div>
+        <h1>Loading</h1>
+      </div>
+    );
+  }
   if (!isLoggedIn || userData === null) {
     return (
       <Redirect

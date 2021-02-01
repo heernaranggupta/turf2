@@ -3,6 +3,8 @@ import React, { createContext, useState } from "react";
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [groundData, setGroundData] = useState({});
   const [sortedData, setSortedData] = useState({});
@@ -42,6 +44,8 @@ export const ContextProvider = ({ children }) => {
         setIsCartEmpty,
         userData,
         setUserData,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}
