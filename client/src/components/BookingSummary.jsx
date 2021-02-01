@@ -79,11 +79,21 @@ const BookingSummary = () => {
       startTime: item.startTime,
       endTime: item.endTime,
     };
-    axios
-      .post(api + "user/cancel-booking", body, headerWithToken)
-      .then((res) => {
-        console.log(res.data);
-      });
+    window.confirm('Are you sure you wish to delete this item?') ?  
+      axios
+        .post(api + "user/cancel-booking", body, headerWithToken)
+        .then((res) => {
+          if(res.data.body.status === 'CANCELLED_BY_USER'){
+            window.location.reload(false)
+          }
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+
+      : console.log("cancel")
+
   };
 
   useEffect(() => {
