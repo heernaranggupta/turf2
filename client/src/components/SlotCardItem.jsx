@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import { BiRupee } from "react-icons/bi";
+import ReactTooltip from "react-tooltip";
 import styles from "../css/SlotItems.module.css";
 import { tConvert, convertDate } from "../utils/TimeConverter";
 
@@ -10,11 +11,17 @@ export const SlotCardItem = ({
   handleOnClick,
   id,
   isHistory = false,
+  isDisabled = false,
 }) => {
   return (
     <div
       onClick={() => handleOnClick(index, id, item.id, item)}
-      className={classnames("card is-clickable", styles.cardItem)}
+      className={classnames(
+        "card is-clickable",
+        styles.cardItem,
+        isDisabled && styles.disabled
+      )}
+      data-tip={isDisabled ? "Not Available" : "Add To Cart"}
       key={index}
     >
       <div className={classnames(styles.cardItemContent)}>
@@ -63,6 +70,7 @@ export const SlotCardItem = ({
           </p>
         </div>
       </div>
+      <ReactTooltip />
     </div>
   );
 };

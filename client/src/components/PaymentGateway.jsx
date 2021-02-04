@@ -102,7 +102,7 @@ const PaymentGateway = () => {
     <div className={styles.PaymentWrapper}>
       {totalAmount > 0 ? (
         <div>
-          <figure
+          <div
             className="image is-clickable"
             style={{ width: "250px" }}
             onClick={() => {
@@ -117,13 +117,8 @@ const PaymentGateway = () => {
               <input type = "radio" value={payFull} onChange={e => {setPayFull(e.target.value);console.log(e.target.value)}} name="amt"/><lable>Pay Full Payment</lable><br/>
               <input type = "radio" value={payHalf} onChange={e => {setPayHalf(e.target.value),console.log(e.target.value)}} name="amt"/><lable>Pay 30% Payment</lable>
             </fieldset> */}
-            <button className="button is-success p-5">
-              <img
-                src="https://razorpay.com/assets/razorpay-logo-white.svg"
-                alt="Razor Pay"
-              />
-            </button>
-          </figure>
+            <button className="button is-success p-5 is-large">Pay Now</button>
+          </div>
         </div>
       ) : (
         <span></span>

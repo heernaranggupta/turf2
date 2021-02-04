@@ -26,7 +26,7 @@ const Headers = () => {
 
   return (
     <nav
-      className={classnames(styles.headerWrapper, "navbar")}
+      className={classnames(styles.headerWrapper, "navbar is-fixed-top")}
       role="navigation"
       aria-label="main navigation"
     >

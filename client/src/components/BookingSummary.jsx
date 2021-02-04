@@ -6,12 +6,14 @@ import api from "../config/api";
 import headerWithToken from "../config/headerWithToken";
 import BookingSummaryElement from "./BookingSummaryElement";
 import { Context } from "../data/context";
+import { toast } from "react-toastify";
 
 import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate";
 
 const BookingSummary = () => {
   const [history, setHistory] = useState([]);
   const [upcoming, setUpComing] = useState([]);
+  const [cancelSlots, setCancelSlots] = useState([]);
 
   const { userData } = useContext(Context);
 
@@ -28,15 +30,26 @@ const BookingSummary = () => {
 
         const upComingList = [];
         const historyList = [];
+        const cancelledList = [];
+
         bookSlots.forEach((item) => {
           const data = compareDateWithCurrentDate(item.date);
 
           if (data) {
-            upComingList.push(item);
+            if (item.status === "CANCELLED_BY_USER") {
+              cancelledList.push(item);
+            } else {
+              upComingList.push(item);
+            }
           } else {
-            historyList.push(item);
+            if (item.status === "CANCELLED_BY_USER") {
+              cancelledList.push(item);
+            } else {
+              historyList.push(item);
+            }
           }
         });
+        setCancelSlots(cancelledList);
         setUpComing(upComingList);
         setHistory(historyList);
       })
@@ -83,6 +96,8 @@ const BookingSummary = () => {
       .post(api + "user/cancel-booking", body, headerWithToken)
       .then((res) => {
         console.log(res.data);
+        toast.success("Slot Cancelled");
+        bookingSummary();
       });
   };
 
@@ -113,6 +128,24 @@ const BookingSummary = () => {
         <div className={classnames("card-content", styles.historygrid)}>
           {history &&
             history.map((item, index) => (
+              <BookingSummaryElement
+                key={index}
+                item={item}
+                index={index}
+                handleOnClick={() => {}}
+                handleOnClickView={() => {}}
+                isHistory={true}
+                id={1}
+              />
+            ))}
+        </div>
+      </div>
+
+      <div className={classnames("box", styles.dateCardWrapper)}>
+        <p className="card-header title has-text-white p-5">Cancel Booking</p>
+        <div className={classnames("card-content", styles.historygrid)}>
+          {cancelSlots &&
+            cancelSlots.map((item, index) => (
               <BookingSummaryElement
                 key={index}
                 item={item}

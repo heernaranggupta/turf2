@@ -131,6 +131,61 @@ const SlotItems = () => {
     }
   };
 
+  const GenerateSlots = (item, index, id) => {
+    if (item.status === "AVAILABLE") {
+      if (compareDate(item.date)) {
+        // Future Dates
+        return (
+          <SlotCardItem
+            key={index}
+            item={item}
+            index={index}
+            handleOnClick={handleOnClick}
+            id={id}
+          />
+        );
+      } else {
+        // For Today
+        if (compareTime(item.startTime)) {
+          // If Today In Future Time
+          return (
+            <SlotCardItem
+              key={index}
+              item={item}
+              index={index}
+              handleOnClick={handleOnClick}
+              id={id}
+            />
+          );
+        } else {
+          // If Today In Past Time  [Disabled]
+          return (
+            <SlotCardItem
+              key={index}
+              item={item}
+              index={index}
+              handleOnClick={() => {}}
+              id={id}
+              isDisabled={true}
+            />
+          );
+        }
+      }
+    } else {
+      // If Slots are Not Available [Disabled]
+      return (
+        <SlotCardItem
+          key={index}
+          item={item}
+          index={index}
+          handleOnClick={() => {}}
+          isDisabled={true}
+          id={id}
+        />
+      );
+    }
+  };
+
   return (
     <div>
       <div className={styles.contentWrapper}>
@@ -152,32 +207,7 @@ const SlotItems = () => {
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf01 &&
             groundData.turf01.map((item, index) => {
-              if (item.status === "AVAILABLE") {
-                if (compareDate(item.date)) {
-                  return (
-                    <SlotCardItem
-                      key={index}
-                      item={item}
-                      index={index}
-                      handleOnClick={handleOnClick}
-                      id={1}
-                    />
-                  );
-                } else {
-                  if (compareTime(item.startTime)) {
-                    return (
-                      <SlotCardItem
-                        key={index}
-                        item={item}
-                        index={index}
-                        handleOnClick={handleOnClick}
-                        id={1}
-                      />
-                    );
-                  }
-                }
-              }
-              return <span style={{ display: "none" }} key={index}></span>;
+              return GenerateSlots(item, index, 1);
             })}
         </div>
       </div>
@@ -201,32 +231,7 @@ const SlotItems = () => {
         <div className={classnames(styles.slotContentWrapper)}>
           {groundData.turf02 &&
             groundData.turf02.map((item, index) => {
-              if (item.status === "AVAILABLE") {
-                if (compareDate(item.date)) {
-                  return (
-                    <SlotCardItem
-                      key={index}
-                      item={item}
-                      index={index}
-                      handleOnClick={handleOnClick}
-                      id={2}
-                    />
-                  );
-                } else {
-                  if (compareTime(item.startTime)) {
-                    return (
-                      <SlotCardItem
-                        key={index}
-                        item={item}
-                        index={index}
-                        handleOnClick={handleOnClick}
-                        id={2}
-                      />
-                    );
-                  }
-                }
-              }
-              return <span style={{ display: "none" }} key={index}></span>;
+              return GenerateSlots(item, index, 2);
             })}
         </div>
       </div>
@@ -250,32 +255,7 @@ const SlotItems = () => {
         <div className={classnames(styles.slotContentWrapper, "mb-6")}>
           {groundData.turf03 &&
             groundData.turf03.map((item, index) => {
-              if (item.status === "AVAILABLE") {
-                if (compareDate(item.date)) {
-                  return (
-                    <SlotCardItem
-                      key={index}
-                      item={item}
-                      index={index}
-                      handleOnClick={handleOnClick}
-                      id={3}
-                    />
-                  );
-                } else {
-                  if (compareTime(item.startTime)) {
-                    return (
-                      <SlotCardItem
-                        key={index}
-                        item={item}
-                        index={index}
-                        handleOnClick={handleOnClick}
-                        id={3}
-                      />
-                    );
-                  }
-                }
-              }
-              return <span style={{ display: "none" }} key={index}></span>;
+              return GenerateSlots(item, index, 3);
             })}
           <div className="mb-6"></div>
         </div>

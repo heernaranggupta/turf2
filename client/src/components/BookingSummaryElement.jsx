@@ -32,6 +32,9 @@ const BookingSummaryElement = ({
             {item.turfId === "turf03" ? "Ground 3" : <span></span>}
           </p>
 
+          {item.status === "CANCELLED_BY_USER" && (
+            <p className="has-text-danger">CANCELLED</p>
+          )}
           <p
             style={{ color: item.isSelected ? "white" : "black" }}
             className="my-1"
@@ -56,8 +59,11 @@ const BookingSummaryElement = ({
           </p>
 
           {!isHistory && (
-            <div className={classnames("is-clickable", styles.action)}>
-              <span onClick={() => handleOnClick(index, id, item.id, item)}>
+            <div
+              className={classnames("is-clickable", styles.action)}
+              onClick={() => handleOnClick(index, id, item.id, item)}
+            >
+              <span>
                 <MdDelete size={30} color={"#FFF"} />
               </span>
             </div>

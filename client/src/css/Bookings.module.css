@@ -16,6 +16,7 @@
   padding: 10px;
 }
 .columnsWrapper {
+  margin-top: 10vh;
   position: relative;
 }
 .addGroundBackground {
@@ -27,7 +28,7 @@
   background: #5f8d47;
   /* background: hsl(140, 70%, 60%); */
   position: sticky;
-  top: 0%;
+  top: 10vh;
 }
 .addBookingBackground {
   position: relative;
@@ -104,10 +105,10 @@
   .addGroundBackground {
     height: 30vh;
     position: relative;
-  }
-  .addGroundBackground {
     flex-direction: row;
+    top: 0%;
   }
+
   .GroundImage {
     height: 110px !important;
     width: 180px !important;

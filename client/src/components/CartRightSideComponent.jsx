@@ -9,6 +9,7 @@ import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { Link } from "react-router-dom";
 
+var IS_MOUNTED = false;
 const CartRightSideComponent = () => {
   const {
     setCartId,
@@ -30,11 +31,13 @@ const CartRightSideComponent = () => {
         if (res?.data?.body) {
           if (res.data.body.selectedSlots.length) {
             const [sortedData, dateArry] = filterData(res.data.body);
-            setTotalSlots(res.data.body.selectedSlots.length);
-            setCartData(sortedData);
-            setTotalAmount(res.data.body.cartTotal);
-            setDateArray([...dateArry]);
-            setIsCartEmpty(false);
+            if (IS_MOUNTED) {
+              setTotalSlots(res.data.body.selectedSlots.length);
+              setCartData(sortedData);
+              setTotalAmount(res.data.body.cartTotal);
+              setDateArray([...dateArry]);
+              setIsCartEmpty(false);
+            }
           } else {
             setIsCartEmpty(true);
             setTotalAmount(0);
@@ -88,7 +91,15 @@ const CartRightSideComponent = () => {
   }, [handleFetchedData, setCartId]);
 
   useEffect(() => {
-    fetchCartData();
+    IS_MOUNTED = true;
+
+    if (IS_MOUNTED) {
+      fetchCartData();
+    }
+
+    return () => {
+      IS_MOUNTED = false;
+    };
   }, [fetchCartData]);
 
   if (isCartEmpty) {
