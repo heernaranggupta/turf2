@@ -13,9 +13,9 @@
   border-radius: 50%;
   background: #fff;
 }
-.headerlogo{
+.headerlogo {
   font-family: HolidayFree;
 }
-.logorebounce{
-  max-height: 2.85rem !important;
+.logorebounce {
+  max-height: 4rem !important;
 }

@@ -1,24 +1,21 @@
 import React from "react";
 import classnames from "classnames";
-import { BiRupee,BiFile } from "react-icons/bi";
+import { BiRupee, BiFile } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
-import styles from "../css/BookingSummaryElement.module.css";
 import { tConvert, convertDate } from "../utils/TimeConverter";
+import { useHistory } from "react-router-dom";
+import styles from "../css/BookingSummaryElement.module.css";
 
 const BookingSummaryElement = ({
   item,
   index,
   handleOnClick,
-  handleOnClickView,
   id,
   isHistory = false,
 }) => {
+  const history = useHistory();
   return (
-    <div
-    //   onClick={() => handleOnClick(index, id, item.id, item)}
-      className={classnames("card is-clickable", styles.cardItem)}
-      key={index}
-    >
+    <div className={classnames("card", styles.cardItem)} key={index}>
       <div className={classnames(styles.cardItemContent)}>
         <div
           className={classnames(
@@ -26,28 +23,25 @@ const BookingSummaryElement = ({
             item.isSelected && styles.cardClicked
           )}
         >
-          {isHistory ? (
-            <p
-              className={styles.groundName}
-              style={{ color: item.isSelected ? "white" : "black" }}
-            >
-              {item.turfId === "turf01" ? "Ground 1" : <span></span>}
-              {item.turfId === "turf02" ? "Ground 2" : <span></span>}
-              {item.turfId === "turf03" ? "Ground 3" : <span></span>}
-            </p>
-          ) : (
-            ""
+          <p
+            className={styles.groundName}
+            style={{ color: item.isSelected ? "white" : "black" }}
+          >
+            {item.turfId === "turf01" ? "Ground 1" : <span></span>}
+            {item.turfId === "turf02" ? "Ground 2" : <span></span>}
+            {item.turfId === "turf03" ? "Ground 3" : <span></span>}
+          </p>
+
+          {item.status === "CANCELLED_BY_USER" && (
+            <p className="has-text-danger">CANCELLED</p>
           )}
-          {isHistory ? (
-            <p
-              style={{ color: item.isSelected ? "white" : "black" }}
-              className="my-1"
-            >
-              {convertDate(item.date)}
-            </p>
-          ) : (
-            ""
-          )}
+          <p
+            style={{ color: item.isSelected ? "white" : "black" }}
+            className="my-1"
+          >
+            {convertDate(item.date)}
+          </p>
+
           <p style={{ color: item.isSelected ? "white" : "black" }}>
             {tConvert(item.startTime)}
           </p>
@@ -63,32 +57,32 @@ const BookingSummaryElement = ({
             </span>
             <span>{item.price}</span>
           </p>
-          <div className={styles.action}>
-            <span onClick={() => handleOnClick(index, id, item.id, item)}>
-              <MdDelete size={30} color={"#fff"} />
-            </span>
-            <span onClick={() => handleOnClickView(index, id, item.id, item)}>
-              <BiFile size={30} color={"#fff"} />
-            </span>
+
+          {!isHistory && (
+            <div
+              className={classnames("is-clickable", styles.action)}
+              onClick={() => handleOnClick(index, id, item.id, item)}
+            >
+              <span>
+                <MdDelete size={30} color={"#FFF"} />
+              </span>
             </div>
+          )}
         </div>
-        {/* <div className={styles.currencyWrapper}>
-          <p className={(styles.slotPriceWrapper, "title is-4")}>
-            <span onClick={() => handleOnClick(index, id, item.id, item)}>
-              <MdDelete size={20} color={"#000"} />
-            </span>
-            <span></span>
-          </p>
-        </div>
-        <div className={styles.currencyWrapper}>
-          <p className={(styles.slotPriceWrapper, "title is-4")}>
-            <span onClick={() => handleOnClickView(index, id, item.id, item)}>
-              <BiFile size={20} color={"#000"} />
-            </span>
-            <span></span>
-          </p>
-        </div> */}
       </div>
+
+      <footer className="card-footer">
+        <span
+          className="card-footer-item is-clickable"
+          onClick={() => history.push(`/invoice/${item.orderId}`)}
+        >
+          <BiFile
+            size={30}
+            onClick={() => history.push(`/invoice/${item.orderId}`)}
+          />
+          Download Invoice
+        </span>
+      </footer>
     </div>
   );
 };

@@ -10,8 +10,6 @@ import styles from "../css/Payment.module.css";
 const PaymentGateway = () => {
   const { cartData, totalAmount, isLoggedIn, userData } = useContext(Context);
   const allData = ListData(cartData);
-  const [payFull, setPayFull] = useState();
-  const [payHalf, setPayHalf] = useState();
 
   const history = useHistory();
 
@@ -23,8 +21,8 @@ const PaymentGateway = () => {
     // key: 'rzp_live_VMGLEhEd6uLVJm',
     // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
-    // amount: totalAmount * 100, //  = INR 1
-    amount: 1000,
+    amount: totalAmount * 100, //  = INR 1
+    // amount: 1000,
     name: "Turf Booking",
     description:
       "Welcome to Rebounce You can pay with RazorPay and book your turf Ground",
@@ -34,22 +32,18 @@ const PaymentGateway = () => {
       setResponce(response.razorpay_payment_id);
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const body = {
-        userId: data.user.phoneNumber,
+        userId: data?.user?.phoneNumber,
         transactionId: response.razorpay_payment_id,
         timeSlots: allData,
       };
       console.log(body);
       axios
         .post(api + "common/order", body, headerWithToken)
-        .then(async (res) => {
+        .then((res) => {
           console.log(res.data);
           if (res.data.success) {
-            const response = await fetch(mailapi, {
+            fetch(mailapi, {
               method: "post",
-              headers: {
-                "Content-Type": "application/json",
-                accept: "application/json",
-              },
               body: JSON.stringify({
                 name: userData.name,
                 email: userData.emailId,
@@ -57,13 +51,11 @@ const PaymentGateway = () => {
                 paymentId: res.data?.body?.paymentId,
               }),
             });
-            const responseData = await response.json();
-            console.log(responseData);
             history.push("/payment-success");
           }
         })
         .catch((err) => {
-          console.log(err.response);
+          console.log(err.message);
         });
     },
     prefill: {
@@ -110,7 +102,7 @@ const PaymentGateway = () => {
     <div className={styles.PaymentWrapper}>
       {totalAmount > 0 ? (
         <div>
-          <figure
+          <div
             className="image is-clickable"
             style={{ width: "250px" }}
             onClick={() => {
@@ -125,13 +117,8 @@ const PaymentGateway = () => {
               <input type = "radio" value={payFull} onChange={e => {setPayFull(e.target.value);console.log(e.target.value)}} name="amt"/><lable>Pay Full Payment</lable><br/>
               <input type = "radio" value={payHalf} onChange={e => {setPayHalf(e.target.value),console.log(e.target.value)}} name="amt"/><lable>Pay 30% Payment</lable>
             </fieldset> */}
-            <button className="button is-success p-5">
-              <img
-                src="https://razorpay.com/assets/razorpay-logo-white.svg"
-                alt="Razor Pay"
-              />
-            </button>
-          </figure>
+            <button className="button is-success p-5 is-large">Pay Now</button>
+          </div>
         </div>
       ) : (
         <span></span>

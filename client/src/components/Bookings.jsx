@@ -27,7 +27,6 @@ const Bookings = () => {
     bookDate,
     setBookDate,
     setCartId,
-    setPhoneNumber,
     setCartData,
     setTotalSlots,
   } = useContext(Context);
@@ -37,7 +36,7 @@ const Bookings = () => {
   const [isGroundSelected3, setIsGroundSelected3] = useState(false);
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
   const [startTime, setStartTime] = useState(getCurrentTime());
-  const [endTime, setEndTime] = useState("12:00:00");
+  const [endTime, setEndTime] = useState("12:00");
 
   const handleFetchedData = useCallback(
     (res, FetchgroundData) => {
@@ -112,18 +111,6 @@ const Bookings = () => {
 
       setCartId(() => (cartLocalId ? cartLocalId : null));
 
-      setPhoneNumber(() =>
-        data?.user?.phoneNumber ? data.user.phoneNumber : null
-      );
-
-      // if (data === null && cartLocalId === null) {
-      //   setCartId(null);
-      // } else if (data === null && cartLocalId != null) {
-      //   setCartId(cartLocalId);
-      // } else {
-      //   setPhoneNumber(data.user.phoneNumber);
-      // }
-
       if (data === null) {
         axios
           .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
@@ -136,7 +123,7 @@ const Bookings = () => {
       } else {
         axios
           .get(
-            api + "user/cart?phoneNumber=" + data.user.phoneNumber,
+            api + "user/cart?phoneNumber=" + data?.user?.phoneNumber,
             headerWithoutToken
           )
           .then((res) => {
@@ -147,7 +134,7 @@ const Bookings = () => {
           });
       }
     },
-    [handleFetchedData, setCartId, setPhoneNumber]
+    [handleFetchedData, setCartId]
   );
 
   const getAllSlotsByDateTime = useCallback(() => {
@@ -210,28 +197,17 @@ const Bookings = () => {
     fetchCartData,
   ]);
 
-  const setUserData = useCallback(() => {
-    const turfcartId = localStorage.getItem("turfCart");
-    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
-
-    setCartId(() => (turfcartId ? turfcartId : null));
-    setPhoneNumber(() =>
-      data?.user?.phoneNumber ? data?.user?.phoneNumber : null
-    );
-  }, [setCartId, setPhoneNumber]);
-
   useEffect(() => {
     getMaxAllowedMonth(setMaxAllowedDate);
-    setUserData();
     getAllSlotsByDateTime();
-  }, [getAllSlotsByDateTime, setUserData]);
+  }, [getAllSlotsByDateTime]);
 
   return (
     <div className={classnames("container is-fluid")}>
       <div className={classnames("columns", styles.columnsWrapper)}>
         <div className={classnames("column box", styles.addGroundBackground)}>
           <figure
-            className={classnames("image", styles.rotate1)}
+            className={classnames("image is-clickable", styles.rotate1)}
             onClick={() => {
               setIsGroundSelected1(!isGroundSelected1);
             }}
@@ -252,7 +228,7 @@ const Bookings = () => {
           </figure>
 
           <figure
-            className={classnames("image", styles.rotate)}
+            className={classnames("image is-clickable", styles.rotate)}
             onClick={() => {
               setIsGroundSelected2(!isGroundSelected2);
             }}
@@ -273,7 +249,7 @@ const Bookings = () => {
           </figure>
 
           <figure
-            className={classnames("image", styles.rotate)}
+            className={classnames("image is-clickable", styles.rotate)}
             onClick={() => {
               setIsGroundSelected3(!isGroundSelected3);
             }}
@@ -329,8 +305,9 @@ const Bookings = () => {
                   className="input "
                   type="time"
                   placeholder="Pick Start Time"
-                  readOnly
+                  step="3600"
                   value={startTime}
+                  readOnly
                   onChange={(event) => setStartTime(event.target.value)}
                 />
               </div>
@@ -339,6 +316,7 @@ const Bookings = () => {
                   className="input ml-3"
                   type="time"
                   placeholder="Pick End Time"
+                  step="3600"
                   value={endTime}
                   onChange={(event) => {
                     setEndTime(event.target.value);

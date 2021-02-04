@@ -9,12 +9,12 @@ import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { Link } from "react-router-dom";
 
+var IS_MOUNTED = false;
 const CartRightSideComponent = () => {
   const {
     setCartId,
     setCartData,
     cartData,
-    setPhoneNumber,
     setTotalAmount,
     setTotalSlots,
     setIsCartEmpty,
@@ -26,16 +26,18 @@ const CartRightSideComponent = () => {
 
   const handleFetchedData = useCallback(
     (res) => {
-      console.log("cart length",res)
-      if (res.data.success) {
-        if (res.data.body) {
+      console.log("cart length", res);
+      if (res?.data?.success) {
+        if (res?.data?.body) {
           if (res.data.body.selectedSlots.length) {
             const [sortedData, dateArry] = filterData(res.data.body);
-            setTotalSlots(res.data.body.selectedSlots.length);
-            setCartData(sortedData);
-            setTotalAmount(res.data.body.cartTotal);
-            setDateArray([...dateArry]);
-            setIsCartEmpty(false);
+            if (IS_MOUNTED) {
+              setTotalSlots(res.data.body.selectedSlots.length);
+              setCartData(sortedData);
+              setTotalAmount(res.data.body.cartTotal);
+              setDateArray([...dateArry]);
+              setIsCartEmpty(false);
+            }
           } else {
             setIsCartEmpty(true);
             setTotalAmount(0);
@@ -48,6 +50,11 @@ const CartRightSideComponent = () => {
           setTotalSlots(0);
           setTotalTime(0);
         }
+      } else {
+        setIsCartEmpty(true);
+        setTotalAmount(0);
+        setTotalSlots(0);
+        setTotalTime(0);
       }
     },
     [setCartData, setIsCartEmpty, setTotalAmount, setTotalSlots, setTotalTime]
@@ -58,18 +65,6 @@ const CartRightSideComponent = () => {
     const cartLocalId = localStorage.getItem("turfCart");
 
     setCartId(() => (cartLocalId ? cartLocalId : null));
-
-    setPhoneNumber(() =>
-      data?.user?.phoneNumber ? data.user.phoneNumber : null
-    );
-
-    // if (data === null && cartLocalId === null) {
-    //   setCartId(null);
-    // } else if (data === null && cartLocalId != null) {
-    //   setCartId(cartLocalId);
-    // } else {
-    //   setPhoneNumber(data.user.phoneNumber);
-    // }
 
     if (data === null) {
       axios
@@ -83,7 +78,7 @@ const CartRightSideComponent = () => {
     } else {
       axios
         .get(
-          api + "user/cart?phoneNumber=" + data.user.phoneNumber,
+          api + "user/cart?phoneNumber=" + data?.user?.phoneNumber,
           headerWithoutToken
         )
         .then((res) => {
@@ -93,10 +88,18 @@ const CartRightSideComponent = () => {
           console.log(err);
         });
     }
-  }, [handleFetchedData, setCartId, setPhoneNumber]);
+  }, [handleFetchedData, setCartId]);
 
   useEffect(() => {
-    fetchCartData();
+    IS_MOUNTED = true;
+
+    if (IS_MOUNTED) {
+      fetchCartData();
+    }
+
+    return () => {
+      IS_MOUNTED = false;
+    };
   }, [fetchCartData]);
 
   if (isCartEmpty) {

@@ -3,6 +3,8 @@ import React, { createContext, useState } from "react";
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [groundData, setGroundData] = useState({});
   const [sortedData, setSortedData] = useState({});
@@ -10,7 +12,6 @@ export const ContextProvider = ({ children }) => {
   const [bookDate, setBookDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
-  const [phoneNumber, setPhoneNumber] = useState(null);
   const [cartId, setCartId] = useState(null);
   const [cartData, setCartData] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
@@ -31,8 +32,6 @@ export const ContextProvider = ({ children }) => {
         setTotalTime,
         bookDate,
         setBookDate,
-        phoneNumber,
-        setPhoneNumber,
         cartId,
         setCartId,
         cartData,
@@ -44,7 +43,9 @@ export const ContextProvider = ({ children }) => {
         isCartEmpty,
         setIsCartEmpty,
         userData,
-        setUserData
+        setUserData,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

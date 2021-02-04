@@ -11,6 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.set("view engine", "ejs");
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -24,7 +25,8 @@ app.use((req, res, next) => {
 var router = express.Router();
 
 var transport = {
-  host: "smtp.gmail.com",
+  host: creds.SMTP,
+  port: creds.PORT,
   auth: {
     user: creds.USER,
     pass: creds.PASS,
@@ -42,6 +44,8 @@ transporter.verify((error, success) => {
 });
 
 router.post("/send", (req, res, next) => {
+  console.log(req.body);
+
   var name = req.body.name || "";
   var email = req.body.email;
   var slots = req.body.slots || [];
@@ -56,7 +60,7 @@ router.post("/send", (req, res, next) => {
           console.log(err);
         } else {
           var mainOptions = {
-            from: '"Ferin Patel" fnpatel.spt@gmail.com',
+            from: `"Ferin Patel" neha.smartypantstech@gmail.com`,
             to: email,
             subject: "Booking Successfull",
             html: data,
@@ -71,6 +75,7 @@ router.post("/send", (req, res, next) => {
                 success: false,
               });
             } else {
+              console.log(info);
               res.json({
                 message: "",
                 success: true,

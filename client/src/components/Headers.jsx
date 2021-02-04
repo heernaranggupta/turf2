@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-  useLayoutEffect,
-} from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { BiCart } from "react-icons/bi";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
@@ -15,23 +9,16 @@ import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
 
 const Headers = () => {
-  const { isLoggedIn, setIsLoggedIn, totalSlots } = useContext(Context);
-  const [userName, setUserName] = useState("");
-
-  const fetchUserData = useCallback(async () => {
-    if (isLoggedIn) {
-      var data = await JSON.parse(localStorage.getItem("turfUserDetails"));
-      setUserName(data?.user?.name);
-    }
-  }, [isLoggedIn]);
-
-  useEffect(() => {
-    fetchUserData();
-  }, [fetchUserData]);
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    totalSlots,
+    userData,
+    setUserData,
+  } = useContext(Context);
 
   useLayoutEffect(() => {
     document.querySelector(".navbar-burger").addEventListener("click", () => {
-      console.log("Clicked");
       document.querySelector(".navbar-burger").classList.toggle("is-active");
       document.querySelector(".navbar-menu").classList.toggle("is-active");
     });
@@ -39,7 +26,7 @@ const Headers = () => {
 
   return (
     <nav
-      className={classnames(styles.headerWrapper, "navbar")}
+      className={classnames(styles.headerWrapper, "navbar is-fixed-top")}
       role="navigation"
       aria-label="main navigation"
     >
@@ -76,7 +63,7 @@ const Headers = () => {
                     styles.btnBackGround
                   )}
                 >
-                  Hello, {userName}
+                  Hello, {userData?.name}
                 </p>
                 <div className="navbar-dropdown is-boxed">
                   <Link
@@ -88,8 +75,9 @@ const Headers = () => {
                   </Link>
                   <p
                     onClick={async () => {
-                      await localStorage.removeItem("turfUserDetails");
+                      await localStorage.clear();
                       setIsLoggedIn(false);
+                      setUserData(null);
                     }}
                     className="navbar-item is-clickable"
                   >

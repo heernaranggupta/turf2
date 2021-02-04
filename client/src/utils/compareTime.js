@@ -3,7 +3,7 @@ export const getCurrentTime = () => {
   const date = time.toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
-    second: "numeric",
+    // second: "numeric",
     hour12: false,
   });
   return date;
@@ -21,7 +21,7 @@ export const compareTime = (startTime, secondTime = "") => {
     parseInt("01", 10),
     parseInt(aa1[0], 10),
     parseInt(aa1[1], 10),
-    parseInt(aa1[2], 10)
+    parseInt(aa1[2] || 0, 10)
   );
   var d2 = new Date(
     parseInt("2001", 10),
@@ -29,7 +29,7 @@ export const compareTime = (startTime, secondTime = "") => {
     parseInt("01", 10),
     parseInt(aa2[0], 10),
     parseInt(aa2[1], 10),
-    parseInt(aa2[2], 10)
+    parseInt(aa2[2] || 0, 10)
   );
   var dd1 = d1.valueOf();
   var dd2 = d2.valueOf();
@@ -45,5 +45,5 @@ export const compareTime = (startTime, secondTime = "") => {
 export const compareDate = (date) => {
   var x = new Date();
   var y = new Date(date);
-  return y.getDate() > x.getDate() ? true : false;
+  return y > x ? true : false;
 };
