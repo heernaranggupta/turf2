@@ -30,7 +30,7 @@ const Home = () => {
         <div
           className={classnames("container is-fluid", styles.overRideContainer)}
         >
-          <div className={classnames(styles.HomeTitleWrapper, "my-6")}>
+          <div className={classnames(styles.HomeTitleWrapper, "my-6 ")}>
             <img src={titleBanner} alt="title" />
           </div>
 

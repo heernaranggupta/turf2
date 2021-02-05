@@ -1,20 +1,23 @@
 .HomeSectionWrapper {
   min-height: 100vh;
   width: 100%;
-  height: auto;
+  height: 100vh;
   background: url("../images/HomeBackground.png") !important;
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
 }
+
 .HomeTitleWrapper {
-  width: 100%;
+  width: 30%;
   height: auto;
+  margin: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .HomeHeader {
   height: 10vh;
   width: 100%;
@@ -22,6 +25,10 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+.HomeHeader img{
+  height: 80px;
+}
+
 .buttonWrapper {
   width: 100%;
   display: flex;
@@ -29,6 +36,7 @@
   align-items: center;
   margin-top: 50px;
 }
+
 .button {
   width: 15%;
   background: #fff;
@@ -39,4 +47,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* .addHomeBackground {
+  height: 100vh;
+  min-height: 40rem;
+  padding-bottom: 0;
+} */
+.overRideContainer{
+  width: 74% !important;
+  margin: auto !important;
 }

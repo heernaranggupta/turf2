@@ -37,13 +37,13 @@ h1 h2 h3 h4 h5 h6 {
   align-items: center !important;
 }
 .react-multi-carousel-item img {
-  height: 262px !important;
-  width: 185px !important;
+  height: 110px !important;
+  width: auto !important;
   opacity: 0.3;
   transition: all 0.5s ease-in-out;
 }
 .react-multi-carousel-item--active img {
-  height: 466px !important;
-  width: 698px !important;
+  height: 300px !important;
+  width: auto !important;
   opacity: 1;
 }
