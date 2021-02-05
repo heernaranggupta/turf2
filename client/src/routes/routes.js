@@ -9,7 +9,7 @@ import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./protected.routes";
 import Cart from "../pages/Cart";
 import Headers from "../components/Headers";
-import Home from "../pages/Home";
+import Bookings from "../pages/Bookings";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
 import Signup from "../pages/Signup";
@@ -17,6 +17,7 @@ import Checkout from "../pages/Checkout";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import { Context } from "../data/context";
 import PrintInvoice from "../Invoice/PrintInvoice";
+import Home from "../pages/Home";
 
 const Routes = () => {
   const { setIsLoggedIn, setCartId, setUserData, setIsLoading } = useContext(
@@ -50,6 +51,7 @@ const Routes = () => {
       <Headers />
       <Switch>
         <Route path="/" exact component={Home} />
+        <Route path="/book" exact component={Bookings} />
         <Route path="/cart" exact component={Cart} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
