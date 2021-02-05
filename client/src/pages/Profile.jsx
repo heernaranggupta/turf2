@@ -17,7 +17,7 @@ import BookingSummary from "../components/BookingSummary";
 
 const config = {
   bucketName: "turf-user-profile-images",
-  dirName: "profilePhoto" /* optional */,
+  dirName: "profilePhoto",
   region: "us-east-2",
   accessKeyId: "AKIAJ7GWNHL5K3SRFJTQ",
   secretAccessKey: "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",
@@ -36,7 +36,11 @@ const Profile = () => {
 
   const fetchUserData = useCallback(async () => {
     var data = await JSON.parse(localStorage.getItem("turfUserDetails"));
+    console.log(data);
     setUserData(data.user);
+    nameRef.current.value = data?.user?.name || "";
+    emailRef.current.value = data?.user?.emailId || "";
+    DOBRef.current.value = data?.user?.dateOfBirth || "";
   }, [setUserData]);
 
   const handleFilePicker = () => {
@@ -52,24 +56,31 @@ const Profile = () => {
         fileExt === "image/jpeg"
       ) {
         ReactS3Client.uploadFile(file, userData.phoneNumber)
-          .then((data) => {
+          .then(async (data) => {
+            console.log(data.location);
             axios
               .put(
                 api + "user/update-profile/",
-                { downloadUrl: data.location },
+                {
+                  downloadUrl: data.location,
+                  phoneNumber: userData.phoneNumber,
+                },
                 headerWithToken
               )
               .then(async (res) => {
+                console.log(res);
                 if (res.data.success) {
-                  toast("Profile Changes saved successfully");
-                  await localStorage.removeItem("turfUserDetails");
+                  var data = await localStorage.getItem("turfUserDetails");
+                  data = await JSON.parse(data);
+                  data.user = res.data.body.user;
                   await localStorage.setItem(
                     "turfUserDetails",
-                    JSON.stringify({ user: res.data.body })
+                    JSON.stringify(data)
                   );
-                  console.log(res.data.body);
-                  setUserData(res.data.body);
-                  setisModalOpen(false);
+                  setUserData(res.data.body.user);
+                  toast("Profile Changes saved successfully");
+                } else {
+                  console.log(res);
                 }
               })
               .catch((err) => {
@@ -86,38 +97,33 @@ const Profile = () => {
   };
 
   const handleSaveProfileChanges = () => {
-    if (!nameRef.current.value.trim().length) {
-      toast.error("Name Cannot be empty");
-      return;
+    const data = {};
+
+    if (nameRef.current.value.trim().length) {
+      data.name = nameRef.current.value;
     }
     if (!emailRef.current.value.trim().length) {
-      toast.error("Email Cannot be empty");
-      return;
+      data.emailId = emailRef.current.value;
     }
     if (!DOBRef.current.value.trim().length) {
-      toast.error("Date of Birth Cannot be empty");
-      return;
+      data.dateOfBirth = DOBRef.current.value;
     }
 
-    const data = {
-      name: nameRef.current.value,
-      emailId: emailRef.current.value,
-      dateOfBirth: DOBRef.current.value,
-      phoneNumber: userData.phoneNumber,
-    };
+    if (!userData.phoneNumber) {
+      return;
+    }
+    data.phoneNumber = userData.phoneNumber;
 
     axios
       .put(api + "user/update-profile/", data, headerWithToken)
       .then(async (res) => {
         if (res.data.success) {
+          var data = await localStorage.getItem("turfUserDetails");
+          data = await JSON.parse(data);
+          data.user = res.data.body.user;
+          await localStorage.setItem("turfUserDetails", JSON.stringify(data));
+          setUserData(res.data.body.user);
           toast("Profile Changes saved successfully");
-          await localStorage.removeItem("turfUserDetails");
-          await localStorage.setItem(
-            "turfUserDetails",
-            JSON.stringify({ user: res.data.body })
-          );
-          console.log(res.data.body);
-          setUserData(res.data.body);
           setisModalOpen(false);
         }
       })
@@ -150,7 +156,13 @@ const Profile = () => {
                 "my-5 is-clickable"
               )}
             >
-              <img src="https://placeimg.com/640/480/any" alt="Profile " />
+              <img
+                src={
+                  userData?.displayImageUrl ||
+                  "https://placeimg.com/640/480/any"
+                }
+                alt="Profile "
+              />
             </figure>
 
             <p
@@ -177,8 +189,9 @@ const Profile = () => {
                 Edit
               </button>
               <button
-                onClick={async () => {
-                  await localStorage.removeItem("turfUserDetails");
+                onClick={() => {
+                  console.log("Clearing from profile");
+                  localStorage.clear();
                   setIsLoggedIn(false);
                 }}
                 className="button is-danger"

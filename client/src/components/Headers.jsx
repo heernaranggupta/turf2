@@ -75,6 +75,7 @@ const Headers = () => {
                   </Link>
                   <p
                     onClick={async () => {
+                      console.log("Clearing from header");
                       await localStorage.clear();
                       setIsLoggedIn(false);
                       setUserData(null);

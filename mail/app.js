@@ -32,7 +32,6 @@ var transport = {
     pass: creds.PASS,
   },
 };
-
 var transporter = nodemailer.createTransport(transport);
 
 transporter.verify((error, success) => {
@@ -60,11 +59,12 @@ router.post("/send", (req, res, next) => {
           console.log(err);
         } else {
           var mainOptions = {
-            from: `"Ferin Patel" neha.smartypantstech@gmail.com`,
+            from: `"Ferin Patel" somnium_nostri@snproweb.com`,
             to: email,
             subject: "Booking Successfull",
             html: data,
           };
+
           //console.log("html data ======================>", mainOptions.html);
 
           transporter.sendMail(mainOptions, function (err, info) {

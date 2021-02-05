@@ -29,12 +29,14 @@ const Routes = () => {
     const cartLocalId = localStorage.getItem("turfCart");
 
     data = JSON.parse(data);
+    console.log(data);
     if (data !== null && data.token && data.user) {
       setIsLoggedIn(true);
       setUserData(data.user);
     } else {
       setIsLoggedIn(false);
       setUserData(null);
+      localStorage.clear();
     }
     setCartId(() => (cartLocalId ? cartLocalId : null));
     setIsLoading(false);
@@ -103,6 +105,7 @@ const Routes = () => {
           path="/logout"
           exact
           render={() => {
+            console.log("Clearing from routes");
             localStorage.clear();
             setIsLoggedIn(false);
             setUserData(null);
