@@ -46,9 +46,10 @@ const Login = () => {
       .then(async (res) => {
         if (res.data.code === 200) {
           console.log(res.data);
+          await localStorage.setItem("token", res.data.body.token);
           await localStorage.setItem(
             "turfUserDetails",
-            JSON.stringify(res.data.body)
+            JSON.stringify(res.data.body.user)
           );
           if (localStorage.getItem("turfCart") !== null) {
             localStorage.removeItem("turfCart");

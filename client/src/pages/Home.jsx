@@ -100,7 +100,7 @@ const Home = () => {
 
           <div className={styles.buttonWrapper}>
             <button
-              class="button is-large is-rounded"
+              className="button is-large is-rounded"
               onClick={() => history.push("/book")}
             >
               Book Now

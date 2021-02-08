@@ -5,6 +5,7 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import ProtectedRoutes from "./protected.routes";
 import Cart from "../pages/Cart";
 import Headers from "../components/Headers";
@@ -19,28 +20,52 @@ import PrintInvoice from "../Invoice/PrintInvoice";
 import Home from "../pages/Home";
 
 const Routes = () => {
-  const { setIsLoggedIn, setCartId, setUserData, setIsLoading } = useContext(
-    Context
-  );
+  const {
+    setIsLoggedIn,
+    setCartId,
+    setUserData,
+    setIsLoading,
+    setToken,
+  } = useContext(Context);
 
   const checkAuth = useCallback(async () => {
     setIsLoading(true);
     var data = await localStorage.getItem("turfUserDetails");
+    var token = await localStorage.getItem("token");
     const cartLocalId = localStorage.getItem("turfCart");
 
     data = JSON.parse(data);
-    console.log(data);
-    if (data !== null && data.token && data.user) {
-      setIsLoggedIn(true);
-      setUserData(data.user);
+
+    if (token) {
+      var decoded = await jwt_decode(token);
+      if (decoded.exp > Date.now()) {
+        setToken(token);
+      } else {
+        setIsLoggedIn(false);
+        setUserData(null);
+        setToken(null);
+        localStorage.clear();
+      }
     } else {
       setIsLoggedIn(false);
       setUserData(null);
+      setToken(null);
       localStorage.clear();
     }
+
+    if (data !== null) {
+      setIsLoggedIn(true);
+      setUserData(data);
+    } else {
+      setIsLoggedIn(false);
+      setUserData(null);
+      setToken(null);
+      localStorage.clear();
+    }
+
     setCartId(() => (cartLocalId ? cartLocalId : null));
     setIsLoading(false);
-  }, [setIsLoggedIn, setCartId, setUserData, setIsLoading]);
+  }, [setIsLoggedIn, setCartId, setUserData, setIsLoading, setToken]);
 
   useEffect(() => {
     checkAuth();

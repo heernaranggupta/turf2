@@ -85,9 +85,10 @@ const Signup = () => {
       .then(async (res) => {
         console.log(res.data);
         if (res.data.code === 200) {
+          await localStorage.setItem("token", res.data.body.token);
           await localStorage.setItem(
             "turfUserDetails",
-            JSON.stringify(res.data.body)
+            JSON.stringify(res.data.body.user)
           );
           if (localStorage.getItem("turfCart") !== null) {
             localStorage.removeItem("turfCart");

@@ -18,6 +18,7 @@ export const ContextProvider = ({ children }) => {
   const [totalSlots, setTotalSlots] = useState(0);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [token, setToken] = useState(null);
 
   return (
     <Context.Provider
@@ -46,6 +47,8 @@ export const ContextProvider = ({ children }) => {
         setUserData,
         isLoading,
         setIsLoading,
+        token,
+        setToken,
       }}
     >
       {children}

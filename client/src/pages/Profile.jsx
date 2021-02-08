@@ -37,11 +37,10 @@ const Profile = () => {
   const fetchUserData = useCallback(async () => {
     var data = await JSON.parse(localStorage.getItem("turfUserDetails"));
     console.log(data);
-    setUserData(data.user);
-    nameRef.current.value = data?.user?.name || "";
-    emailRef.current.value = data?.user?.emailId || "";
-    DOBRef.current.value = data?.user?.dateOfBirth || "";
-  }, [setUserData]);
+    nameRef.current.value = userData?.user?.name || "";
+    emailRef.current.value = userData?.user?.emailId || "";
+    DOBRef.current.value = userData?.user?.dateOfBirth || "";
+  }, [userData]);
 
   const handleFilePicker = () => {
     var input = document.createElement("input");
@@ -70,12 +69,9 @@ const Profile = () => {
               .then(async (res) => {
                 console.log(res);
                 if (res.data.success) {
-                  var data = await localStorage.getItem("turfUserDetails");
-                  data = await JSON.parse(data);
-                  data.user = res.data.body.user;
                   await localStorage.setItem(
                     "turfUserDetails",
-                    JSON.stringify(data)
+                    JSON.stringify(res.data.body.user)
                   );
                   setUserData(res.data.body.user);
                   toast("Profile Changes saved successfully");
@@ -118,10 +114,10 @@ const Profile = () => {
       .put(api + "user/update-profile/", data, headerWithToken)
       .then(async (res) => {
         if (res.data.success) {
-          var data = await localStorage.getItem("turfUserDetails");
-          data = await JSON.parse(data);
-          data.user = res.data.body.user;
-          await localStorage.setItem("turfUserDetails", JSON.stringify(data));
+          await localStorage.setItem(
+            "turfUserDetails",
+            JSON.stringify(res.data.body.user)
+          );
           setUserData(res.data.body.user);
           toast("Profile Changes saved successfully");
           setisModalOpen(false);
