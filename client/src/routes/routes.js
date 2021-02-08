@@ -35,7 +35,6 @@ const Routes = () => {
     const cartLocalId = localStorage.getItem("turfCart");
 
     data = JSON.parse(data);
-
     if (token) {
       var decoded = await jwt_decode(token);
       if (decoded.exp > Date.now()) {

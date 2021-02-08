@@ -17,6 +17,7 @@ import {
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/filterData";
 import { getCurrentTime } from "../utils/compareTime";
+import headerWithToken from "../config/headerWithToken";
 
 const Bookings = () => {
   const {
@@ -29,7 +30,10 @@ const Bookings = () => {
     setCartId,
     setCartData,
     setTotalSlots,
+    token,
   } = useContext(Context);
+
+  console.log(token);
 
   const [isGroundSelected1, setIsGroundSelected1] = useState(true);
   const [isGroundSelected2, setIsGroundSelected2] = useState(false);
@@ -113,7 +117,10 @@ const Bookings = () => {
 
       if (data === null) {
         axios
-          .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
+          .get(
+            api + "user/guest-cart?cartId=" + cartLocalId,
+            headerWithoutToken
+          )
           .then((res) => {
             handleFetchedData(res, FetchgroundData);
           })
@@ -123,8 +130,8 @@ const Bookings = () => {
       } else {
         axios
           .get(
-            api + "user/cart?phoneNumber=" + data?.user?.phoneNumber,
-            headerWithoutToken
+            api + "user/cart?phoneNumber=" + data?.phoneNumber || "",
+            headerWithToken
           )
           .then((res) => {
             handleFetchedData(res, FetchgroundData);

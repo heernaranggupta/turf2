@@ -18,12 +18,8 @@ const BookingSummary = () => {
   const { userData } = useContext(Context);
 
   const bookingSummary = useCallback(() => {
-    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
     axios
-      .get(
-        api + "user/booking-history?userPhoneNumber=" + data?.user?.phoneNumber,
-        headerWithToken
-      )
+      .get(api + "user/booking-history", headerWithToken)
       .then((res) => {
         console.log(res.data.body);
         const bookSlots = res.data?.body?.bookedTimeSlots || [];

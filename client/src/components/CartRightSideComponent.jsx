@@ -8,6 +8,7 @@ import axios from "axios";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { Link } from "react-router-dom";
+import headerWithToken from "../config/headerWithToken";
 
 var IS_MOUNTED = false;
 const CartRightSideComponent = () => {
@@ -68,7 +69,7 @@ const CartRightSideComponent = () => {
 
     if (data === null) {
       axios
-        .get(api + "user/cart?cartId=" + cartLocalId, headerWithoutToken)
+        .get(api + "user/guest-cart?cartId=" + cartLocalId, headerWithoutToken)
         .then((res) => {
           handleFetchedData(res);
         })
@@ -78,8 +79,8 @@ const CartRightSideComponent = () => {
     } else {
       axios
         .get(
-          api + "user/cart?phoneNumber=" + data?.user?.phoneNumber,
-          headerWithoutToken
+          api + "user/cart?phoneNumber=" + data?.phoneNumber || "",
+          headerWithToken
         )
         .then((res) => {
           handleFetchedData(res);
