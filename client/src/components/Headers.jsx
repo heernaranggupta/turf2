@@ -66,11 +66,7 @@ const Headers = () => {
                   Hello, {userData?.name}
                 </p>
                 <div className="navbar-dropdown is-boxed">
-                  <Link
-                    to="/profile"
-                    className="navbar-item"
-                    href="https://bulma.io/documentation/overview/start/"
-                  >
+                  <Link to="/profile" className="navbar-item">
                     Profile
                   </Link>
                   <p

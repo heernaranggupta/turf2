@@ -5,7 +5,6 @@ import {
   Redirect,
   Route,
 } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import ProtectedRoutes from "./protected.routes";
 import Cart from "../pages/Cart";
 import Headers from "../components/Headers";
@@ -50,12 +49,12 @@ const Routes = () => {
     <Router>
       <Headers />
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/book" exact component={Bookings} />
-        <Route path="/cart" exact component={Cart} />
-        <Route path="/login" exact component={Login} />
-        <Route path="/signup" exact component={Signup} />
-        <Route path="/invoice/:id" exact component={PrintInvoice} />
+        <Route exact path="/" component={Home} />
+        <Route exact path="/book" component={Bookings} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
+        <Route exact path="/invoice/:id" component={PrintInvoice} />
 
         {/* <Route
           path="/pdf"
@@ -117,7 +116,6 @@ const Routes = () => {
 
         <Redirect to="/" />
       </Switch>
-      <ToastContainer pauseOnHover={false} autoClose={3000} />
     </Router>
   );
 };

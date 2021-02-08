@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import classnames from "classnames";
 import { BiCart } from "react-icons/bi";
 import Carousel from "react-multi-carousel";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import styles from "../css/Home.module.css";
 import "react-multi-carousel/lib/styles.css";
@@ -16,17 +16,27 @@ import Slider5 from "../images/index_5.png";
 import logo from "../images/logo.png";
 
 const Home = () => {
+  const history = useHistory();
   useEffect(() => {
     document.querySelector(".navbar").style.display = "none";
+    return () => {
+      document.querySelector(".navbar").style.display = "flex";
+    };
   }, []);
 
   return (
     <div className={classnames(styles.addHomeBackground)}>
       <div className={classnames("section", styles.HomeSectionWrapper)}>
-        <div className={classnames(styles.HomeHeader)}>
-          <img src={logo} alt="Home Header" />
-          <BiCart size={45} color="#FFF" />
+        <div className={classnames(styles.HomeHeader, "is-clickable")}>
+          <Link to="/">
+            <img src={logo} alt="Home Header" />
+          </Link>
+
+          <Link to="/cart">
+            <BiCart size={45} color="#FFF" className="is-clickable" />
+          </Link>
         </div>
+
         <div
           className={classnames("container is-fluid", styles.overRideContainer)}
         >
@@ -89,9 +99,12 @@ const Home = () => {
           </Carousel>
 
           <div className={styles.buttonWrapper}>
-            <div className={styles.button}>
-              <Link className="has-text-black">Book Now</Link>
-            </div>
+            <button
+              class="button is-large is-rounded"
+              onClick={() => history.push("/book")}
+            >
+              Book Now
+            </button>
           </div>
         </div>
       </div>
