@@ -34,6 +34,6 @@ jobs:
         host: ${{ secrets.TURF_FRONTEND_IP }}
         username: ubuntu
         key: ${{ secrets.TURF_FRONTEND_KEY }}
-        source: "/client/build"
+        source: "client/build/"
         target: "/var/www/rebounce_turf_build_1"
                 
