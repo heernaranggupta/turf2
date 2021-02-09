@@ -36,5 +36,6 @@ jobs:
         username: ubuntu
         key: ${{ secrets.TURF_FRONTEND_KEY }}
         source: "build"
-        target: "build"
+        target: "/"
+    
                 
