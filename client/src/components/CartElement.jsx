@@ -7,33 +7,50 @@ import { toast } from "react-toastify";
 import { Context } from "../data/context";
 import api from "../config/api";
 import { tConvert } from "../utils/TimeConverter";
+import headerWithoutToken from "../config/headerWithoutToken";
 import styles from "../css/CartElement.module.css";
 
 const CartElement = ({ data, label, reloadData }) => {
-  const { userData, cartId, setTotalTime, token } = useContext(Context);
+  const { userData, cartId, setTotalTime, token, isLoggedIn } = useContext(
+    Context
+  );
 
   const onRemoveSlots = (e) => {
     const body = {
       cartId: cartId,
-      userPhoneNumber: userData?.phoneNumber || "",
+      userPhoneNumber: userData?.phoneNumber || null,
       removeSlot: e,
     };
-    const url = api + "user/cart/remove";
-    axios
-      .post(url, body, {
-        headers: {
-          "Content-Type": "Application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(() => {
-        toast.success("Removed from Cart");
-        setTotalTime((oldTime) => oldTime - 30);
-        reloadData();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (isLoggedIn) {
+      const url = api + "user/cart/remove";
+      axios
+        .post(url, body, {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          toast.warn("Removed from Cart");
+          setTotalTime((oldTime) => oldTime - 30);
+          reloadData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      const url = api + "user/cart/guest/remove";
+      axios
+        .post(url, body, headerWithoutToken)
+        .then(() => {
+          toast.warn("Removed from Cart");
+          setTotalTime((oldTime) => oldTime - 30);
+          reloadData();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   return (
     <div className={classnames("box", styles.groundWrapper)}>
