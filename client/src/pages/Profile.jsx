@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import S3 from "react-aws-s3";
 import api from "../config/api";
-import headerWithToken from "../config/headerWithToken";
 import BookingSummary from "../components/BookingSummary";
 
 const config = {
@@ -28,19 +27,18 @@ const ReactS3Client = new S3(config);
 const Profile = () => {
   const [isModalOpen, setisModalOpen] = useState(false);
 
-  const { setIsLoggedIn, userData, setUserData } = useContext(Context);
+  const { setIsLoggedIn, userData, setUserData, token } = useContext(Context);
 
   const nameRef = useRef(userData?.name || "");
   const emailRef = useRef(userData?.emailId || "");
   const DOBRef = useRef(null);
 
   const fetchUserData = useCallback(async () => {
-    var data = await JSON.parse(localStorage.getItem("turfUserDetails"));
-    console.log(data);
-    nameRef.current.value = userData?.user?.name || "";
-    emailRef.current.value = userData?.user?.emailId || "";
-    DOBRef.current.value = userData?.user?.dateOfBirth || "";
-  }, [userData]);
+    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+    nameRef.current.value = data?.name || "";
+    emailRef.current.value = data?.emailId || "";
+    DOBRef.current.value = data?.dateOfBirth || "";
+  }, []);
 
   const handleFilePicker = () => {
     var input = document.createElement("input");
@@ -64,7 +62,12 @@ const Profile = () => {
                   downloadUrl: data.location,
                   phoneNumber: userData.phoneNumber,
                 },
-                headerWithToken
+                {
+                  headers: {
+                    "Content-Type": "Application/json",
+                    Authorization: `Bearer ${token}`,
+                  },
+                }
               )
               .then(async (res) => {
                 console.log(res);
@@ -98,10 +101,10 @@ const Profile = () => {
     if (nameRef.current.value.trim().length) {
       data.name = nameRef.current.value;
     }
-    if (!emailRef.current.value.trim().length) {
+    if (emailRef.current.value.trim().length) {
       data.emailId = emailRef.current.value;
     }
-    if (!DOBRef.current.value.trim().length) {
+    if (DOBRef.current.value.trim().length) {
       data.dateOfBirth = DOBRef.current.value;
     }
 
@@ -110,10 +113,17 @@ const Profile = () => {
     }
     data.phoneNumber = userData.phoneNumber;
 
+    console.log(data);
     axios
-      .put(api + "user/update-profile/", data, headerWithToken)
+      .put(api + "user/update-profile/", data, {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(async (res) => {
         if (res.data.success) {
+          console.log(res.data.body.user);
           await localStorage.setItem(
             "turfUserDetails",
             JSON.stringify(res.data.body.user)

@@ -18,9 +18,13 @@ import logo from "../images/logo.png";
 const Home = () => {
   const history = useHistory();
   useEffect(() => {
-    document.querySelector(".navbar").style.display = "none";
+    try {
+      document.querySelector(".navbar").style.display = "none";
+    } catch (error) {}
     return () => {
-      document.querySelector(".navbar").style.display = "flex";
+      try {
+        document.querySelector(".navbar").style.display = "flex";
+      } catch (error) {}
     };
   }, []);
 

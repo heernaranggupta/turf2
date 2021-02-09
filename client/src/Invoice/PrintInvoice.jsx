@@ -14,7 +14,6 @@ import InvoiceItemsTable from "./InvoiceItemsTable";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
 import axios from "axios";
 import api from "../config/api";
-import headerWithToken from "../config/headerWithToken";
 import { Context } from "../data/context";
 
 const styles = StyleSheet.create({
@@ -40,13 +39,18 @@ const PrintInvoice = ({ match }) => {
   const [showError, setShowError] = useState(false);
   const orderId = match?.params?.id;
 
-  const { userData } = useContext(Context);
+  const { userData, token } = useContext(Context);
 
   const fetchData = useCallback(() => {
     if (orderId) {
       setShowError(false);
       axios
-        .get(api + "common/order/slot-list?orderId=" + orderId, headerWithToken)
+        .get(api + "common/order/slot-list?orderId=" + orderId, {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
           const InvoiceData = {
             id: orderId || "",
@@ -65,7 +69,7 @@ const PrintInvoice = ({ match }) => {
           setShowError(true);
         });
     }
-  }, [orderId, userData]);
+  }, [orderId, userData, token]);
 
   useEffect(() => {
     if (showError === false) {

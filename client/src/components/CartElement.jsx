@@ -6,22 +6,26 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Context } from "../data/context";
 import api from "../config/api";
-import headerWithToken from "../config/headerWithToken";
 import { tConvert } from "../utils/TimeConverter";
 import styles from "../css/CartElement.module.css";
 
 const CartElement = ({ data, label, reloadData }) => {
-  const { userData, cartId, setTotalTime } = useContext(Context);
+  const { userData, cartId, setTotalTime, token } = useContext(Context);
 
   const onRemoveSlots = (e) => {
     const body = {
       cartId: cartId,
-      userPhoneNumber: userData.phoneNumber,
+      userPhoneNumber: userData?.phoneNumber || "",
       removeSlot: e,
     };
     const url = api + "user/cart/remove";
     axios
-      .post(url, body, headerWithToken)
+      .post(url, body, {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(() => {
         toast.success("Removed from Cart");
         setTotalTime((oldTime) => oldTime - 30);

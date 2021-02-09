@@ -12,13 +12,15 @@ export const ContextProvider = ({ children }) => {
   const [bookDate, setBookDate] = useState(
     new Date().toISOString().slice(0, 10)
   );
-  const [cartId, setCartId] = useState(null);
+  const [cartId, setCartId] = useState(localStorage.getItem("turfCart") || "");
   const [cartData, setCartData] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [totalSlots, setTotalSlots] = useState(0);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
-  const [userData, setUserData] = useState(null);
-  const [token, setToken] = useState(null);
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("turfUserDetails")) || null
+  );
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
 
   return (
     <Context.Provider

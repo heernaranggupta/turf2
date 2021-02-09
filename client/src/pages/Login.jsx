@@ -19,9 +19,13 @@ const Login = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const { isLoggedIn, setIsLoggedIn, setUserData, cartId } = useContext(
-    Context
-  );
+  const {
+    isLoggedIn,
+    setIsLoggedIn,
+    setUserData,
+    cartId,
+    setToken,
+  } = useContext(Context);
   const phoneRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -54,6 +58,7 @@ const Login = () => {
           if (localStorage.getItem("turfCart") !== null) {
             localStorage.removeItem("turfCart");
           }
+          setToken(res.data.body.token);
           setUserData(res.data?.body?.user);
           setIsLoggedIn(true);
           history.push(state?.from || "/");

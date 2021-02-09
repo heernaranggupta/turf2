@@ -71,18 +71,20 @@ const BookingSummaryElement = ({
         </div>
       </div>
 
-      <footer className="card-footer">
-        <span
-          className="card-footer-item is-clickable"
-          onClick={() => history.push(`/invoice/${item.orderId}`)}
-        >
-          <BiFile
-            size={30}
+      {item.status !== "CANCELLED_BY_USER" && (
+        <footer className="card-footer">
+          <span
+            className="card-footer-item is-clickable"
             onClick={() => history.push(`/invoice/${item.orderId}`)}
-          />
-          Download Invoice
-        </span>
-      </footer>
+          >
+            <BiFile
+              size={30}
+              onClick={() => history.push(`/invoice/${item.orderId}`)}
+            />
+            Download Invoice
+          </span>
+        </footer>
+      )}
     </div>
   );
 };

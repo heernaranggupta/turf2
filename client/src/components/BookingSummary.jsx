@@ -1,25 +1,28 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import classnames from "classnames";
-import styles from "../css/BookingSummary.module.css";
 import axios from "axios";
+import { toast } from "react-toastify";
 import api from "../config/api";
-import headerWithToken from "../config/headerWithToken";
 import BookingSummaryElement from "./BookingSummaryElement";
 import { Context } from "../data/context";
-import { toast } from "react-toastify";
-
 import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate";
+import styles from "../css/BookingSummary.module.css";
 
 const BookingSummary = () => {
   const [history, setHistory] = useState([]);
   const [upcoming, setUpComing] = useState([]);
   const [cancelSlots, setCancelSlots] = useState([]);
 
-  const { userData } = useContext(Context);
+  const { userData, token } = useContext(Context);
 
   const bookingSummary = useCallback(() => {
     axios
-      .get(api + "user/booking-history", headerWithToken)
+      .get(api + "user/booking-history", {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data.body);
         const bookSlots = res.data?.body?.bookedTimeSlots || [];
@@ -52,14 +55,16 @@ const BookingSummary = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [token]);
 
   const handleOnClickView = (index, ground, id, item) => {
     axios
-      .get(
-        api + "common/order/slot-list?orderId=" + item.orderId,
-        headerWithToken
-      )
+      .get(api + "common/order/slot-list?orderId=" + item.orderId, {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log("invoice", res.data);
         console.log(userData);
@@ -89,7 +94,12 @@ const BookingSummary = () => {
       endTime: item.endTime,
     };
     axios
-      .post(api + "user/cancel-booking", body, headerWithToken)
+      .post(api + "user/cancel-booking", body, {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data);
         toast.success("Slot Cancelled");

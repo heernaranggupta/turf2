@@ -17,10 +17,11 @@ import {
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/filterData";
 import { getCurrentTime } from "../utils/compareTime";
-import headerWithToken from "../config/headerWithToken";
+import Loading from "./Loading";
 
 const Bookings = () => {
   const {
+    isLoading,
     setSortedData,
     setGroundData,
     setTotalTime,
@@ -32,8 +33,6 @@ const Bookings = () => {
     setTotalSlots,
     token,
   } = useContext(Context);
-
-  console.log(token);
 
   const [isGroundSelected1, setIsGroundSelected1] = useState(true);
   const [isGroundSelected2, setIsGroundSelected2] = useState(false);
@@ -113,12 +112,12 @@ const Bookings = () => {
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const cartLocalId = localStorage.getItem("turfCart");
 
-      setCartId(() => (cartLocalId ? cartLocalId : null));
+      setCartId(() => (cartLocalId ? cartLocalId : ""));
 
       if (data === null) {
         axios
           .get(
-            api + "user/guest-cart?cartId=" + cartLocalId,
+            api + "user/cart/guest?cartId=" + cartLocalId,
             headerWithoutToken
           )
           .then((res) => {
@@ -129,10 +128,12 @@ const Bookings = () => {
           });
       } else {
         axios
-          .get(
-            api + "user/cart?phoneNumber=" + data?.phoneNumber || "",
-            headerWithToken
-          )
+          .get(api + "user/cart?phoneNumber=" + data?.phoneNumber || "", {
+            headers: {
+              "Content-Type": "Application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
           .then((res) => {
             handleFetchedData(res, FetchgroundData);
           })
@@ -141,7 +142,7 @@ const Bookings = () => {
           });
       }
     },
-    [handleFetchedData, setCartId]
+    [handleFetchedData, setCartId, token]
   );
 
   const getAllSlotsByDateTime = useCallback(() => {
@@ -208,6 +209,10 @@ const Bookings = () => {
     getMaxAllowedMonth(setMaxAllowedDate);
     getAllSlotsByDateTime();
   }, [getAllSlotsByDateTime]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className={classnames("container is-fluid")}>

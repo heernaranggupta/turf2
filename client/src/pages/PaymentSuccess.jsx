@@ -23,7 +23,7 @@ const PaymentSuccess = () => {
         >
           <p className="subtitle is-2">Enjoy Your Day</p>
           <div>
-            <Link to="/" className="button is-primary">
+            <Link to="/book" className="button is-primary">
               Continue Booking
             </Link>
             <Link to="/profile" className="button is-primary mx-3">

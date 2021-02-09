@@ -8,7 +8,6 @@ import axios from "axios";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { Link } from "react-router-dom";
-import headerWithToken from "../config/headerWithToken";
 
 var IS_MOUNTED = false;
 const CartRightSideComponent = () => {
@@ -21,6 +20,7 @@ const CartRightSideComponent = () => {
     setIsCartEmpty,
     isCartEmpty,
     setTotalTime,
+    token,
   } = useContext(Context);
 
   const [dateArray, setDateArray] = useState([]);
@@ -69,7 +69,7 @@ const CartRightSideComponent = () => {
 
     if (data === null) {
       axios
-        .get(api + "user/guest-cart?cartId=" + cartLocalId, headerWithoutToken)
+        .get(api + "user/cart/guest?cartId=" + cartLocalId, headerWithoutToken)
         .then((res) => {
           handleFetchedData(res);
         })
@@ -78,10 +78,12 @@ const CartRightSideComponent = () => {
         });
     } else {
       axios
-        .get(
-          api + "user/cart?phoneNumber=" + data?.phoneNumber || "",
-          headerWithToken
-        )
+        .get(api + "user/cart?phoneNumber=" + data?.phoneNumber || "", {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
           handleFetchedData(res);
         })
@@ -89,7 +91,7 @@ const CartRightSideComponent = () => {
           console.log(err);
         });
     }
-  }, [handleFetchedData, setCartId]);
+  }, [handleFetchedData, setCartId, token]);
 
   useEffect(() => {
     IS_MOUNTED = true;
@@ -111,7 +113,7 @@ const CartRightSideComponent = () => {
             <p>Message</p>
           </div>
           <div className="message-body">Your Cart is Empty</div>
-          <Link to="/" className="button is-success m-5">
+          <Link to="/book" className="button is-success m-5">
             Book Slots
           </Link>
         </article>
@@ -146,7 +148,7 @@ const CartRightSideComponent = () => {
                   reloadData={fetchCartData}
                 />
               ) : (
-                <span></span>
+                <span style={{ display: "none" }}></span>
               )}
               {turf02.length ? (
                 <CartElement
@@ -155,7 +157,7 @@ const CartRightSideComponent = () => {
                   reloadData={fetchCartData}
                 />
               ) : (
-                <span></span>
+                <span style={{ display: "none" }}></span>
               )}
 
               {turf03.length ? (
@@ -165,7 +167,7 @@ const CartRightSideComponent = () => {
                   reloadData={fetchCartData}
                 />
               ) : (
-                <span></span>
+                <span style={{ display: "none" }}></span>
               )}
             </div>
           </div>

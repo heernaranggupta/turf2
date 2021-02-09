@@ -6,8 +6,8 @@ import { SlotCardItem } from "./SlotCardItem";
 import { toast } from "react-toastify";
 import api from "../config/api";
 import axios from "axios";
-import headerWithToken from "../config/headerWithToken";
 import { compareDate, compareTime } from "../utils/compareTime";
+import headerWithoutToken from "../config/headerWithoutToken";
 
 const SlotItems = () => {
   const {
@@ -18,6 +18,8 @@ const SlotItems = () => {
     setCartId,
     userData,
     setTotalSlots,
+    token,
+    isLoggedIn,
   } = useContext(Context);
 
   const addToCart = (index, ground) => {
@@ -40,24 +42,50 @@ const SlotItems = () => {
         selectedSlots: [selectedSlot],
       };
 
-      const url = api + "user/cart";
-      axios
-        .post(url, body, headerWithToken)
-        .then(async (res) => {
-          if (res.data.body.phoneNumber === undefined || null) {
-            await localStorage.setItem("turfCart", res.data.body._cartId);
-            setCartId(res.data.body._cartId);
-          }
+      if (isLoggedIn) {
+        const url = api + "user/cart";
+        axios
+          .post(url, body, {
+            headers: {
+              "Content-Type": "Application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then(async (res) => {
+            if (res.data.body.phoneNumber === undefined || null) {
+              await localStorage.setItem("turfCart", res.data.body._cartId);
+              setCartId(res.data.body._cartId);
+            }
 
-          if (res.data.success === true) {
-            // toast.success("Added Successfully to Cart");
-            setTotalSlots((old) => old + 1);
-          }
-        })
-        .catch((error) => {
-          toast.error(error.message);
-          console.log(error.message);
-        });
+            if (res.data.success === true) {
+              // toast.success("Added Successfully to Cart");
+              setTotalSlots((old) => old + 1);
+            }
+          })
+          .catch((error) => {
+            toast.error(error.message);
+            console.log(error.message);
+          });
+      } else {
+        const url = api + "user/cart/guest";
+        axios
+          .post(url, body, headerWithoutToken)
+          .then(async (res) => {
+            if (res.data.body.phoneNumber === undefined || null) {
+              await localStorage.setItem("turfCart", res.data.body._cartId);
+              setCartId(res.data.body._cartId);
+            }
+
+            if (res.data.success === true) {
+              // toast.success("Added Successfully to Cart");
+              setTotalSlots((old) => old + 1);
+            }
+          })
+          .catch((error) => {
+            toast.error(error.message);
+            console.log(error.message);
+          });
+      }
     }
 
     setTotalTime((i) => i + 30);
@@ -69,16 +97,35 @@ const SlotItems = () => {
       userPhoneNumber: userData?.phoneNumber || null,
       removeSlot: item,
     };
-    const url = api + "user/cart/remove";
-    axios
-      .post(url, body, headerWithToken)
-      .then(() => {
-        // toast.warning("Removed from Cart");
-        setTotalSlots((old) => old - 1);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+
+    if (isLoggedIn) {
+      const url = api + "user/cart/remove";
+      axios
+        .post(url, body, {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          // toast.warning("Removed from Cart");
+          setTotalSlots((old) => old - 1);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      const url = api + "user/cart/guest/remove";
+      axios
+        .post(url, body, headerWithoutToken)
+        .then(() => {
+          // toast.warning("Removed from Cart");
+          setTotalSlots((old) => old - 1);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
     setTotalTime((i) => i - 30);
   };
 

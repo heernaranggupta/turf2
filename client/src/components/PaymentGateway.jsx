@@ -1,14 +1,15 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import headerWithToken from "../config/headerWithToken";
 import { Context } from "../data/context";
 import api, { mailapi } from "../config/api";
 import { ListData } from "../utils/ListData";
 import styles from "../css/Payment.module.css";
 
 const PaymentGateway = () => {
-  const { cartData, totalAmount, isLoggedIn, userData } = useContext(Context);
+  const { cartData, totalAmount, isLoggedIn, userData, token } = useContext(
+    Context
+  );
   const allData = ListData(cartData);
 
   const history = useHistory();
@@ -38,7 +39,12 @@ const PaymentGateway = () => {
       };
       console.log(body);
       axios
-        .post(api + "common/order", body, headerWithToken)
+        .post(api + "common/order", body, {
+          headers: {
+            "Content-Type": "Application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
         .then((res) => {
           console.log(res.data);
           if (res.data.success) {
@@ -78,7 +84,12 @@ const PaymentGateway = () => {
       timeSlotRequestList: allData,
     };
     axios
-      .post(api + "common/validate", postData, headerWithToken)
+      .post(api + "common/validate", postData, {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         const validateSlots = res.data.body.timeSlotResponses.filter(function (
           item

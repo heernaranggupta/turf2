@@ -1,17 +1,51 @@
-import React from "react";
-import { ContextProvider } from "./data/context";
-import Routes from "./routes/routes";
-import "./App.css";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useCallback, useContext, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import jwt_decode from "jwt-decode";
+import Routes from "./routes/routes";
+import { Context } from "./data/context";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
+import Loading from "./components/Loading";
 
-function App() {
+const App = () => {
+  const {
+    isLoading,
+    setIsLoggedIn,
+    setIsLoading,
+    token,
+    userData,
+  } = useContext(Context);
+
+  const checkAuth = useCallback(async () => {
+    setIsLoading(true);
+
+    if (token) {
+      var decoded = await jwt_decode(token);
+      if (decoded.exp < Date.now() && userData !== null) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    } else {
+      setIsLoggedIn(false);
+    }
+    setIsLoading(false);
+  }, [setIsLoggedIn, setIsLoading, token, userData]);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <ContextProvider>
+    <>
       <Routes />
       <ToastContainer pauseOnHover={false} autoClose={3000} />
-    </ContextProvider>
+    </>
   );
-}
+};
 
 export default App;
