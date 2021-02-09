@@ -36,5 +36,5 @@ jobs:
         username: ubuntu
         key: ${{ secrets.TURF_FRONTEND_KEY }}
         source: "build"
-        target: "/var/www/rebounce_turf_build_1"
+        target: "build"
                 
