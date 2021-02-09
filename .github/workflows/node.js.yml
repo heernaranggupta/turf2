@@ -46,4 +46,6 @@ jobs:
         key: ${{ secrets.TURF_FRONTEND_KEY }}
         script: |
           sudo cp -R /home/ubuntu/target/build /var/www/
-                
+          sudo cd /var/www
+          sudo pm2 serve build 4000 --spa
+          
