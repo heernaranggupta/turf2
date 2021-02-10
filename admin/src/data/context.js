@@ -1,16 +1,19 @@
 import React, { createContext, useState } from "react";
+import { getMinMonth } from "../utils/dates";
 
 export const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [companyName, setCompanyName] = useState("");
-  const [role, setRole] = useState("");
-  const [username, setUsername] = useState("");
-  const [phoneNumber, setphoneNumber] = useState("");
+  const [token, setToken] = useState(
+    localStorage.getItem("adminToken") || null
+  );
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("turfAdminDetails")) || null
+  );
   const [viewAllBookingList, setviewAllBookingList] = useState([]);
   const [toDate, setToDate] = useState(new Date().toISOString().slice(0, 10));
-  const [fromDate, setFromDate] = useState(new Date().toISOString().slice(0, 10));
+  const [fromDate, setFromDate] = useState(getMinMonth());
   const [status, setStatus] = useState("BOOKED_BY_USER");
 
   return (
@@ -18,14 +21,10 @@ export const ContextProvider = ({ children }) => {
       value={{
         isLoggedIn,
         setIsLoggedIn,
-        companyName,
-        setCompanyName,
-        role,
-        setRole,
-        username,
-        setUsername,
-        phoneNumber,
-        setphoneNumber,
+        token,
+        setToken,
+        userData,
+        setUserData,
         viewAllBookingList,
         setviewAllBookingList,
         toDate,
@@ -33,7 +32,7 @@ export const ContextProvider = ({ children }) => {
         fromDate,
         setFromDate,
         status,
-        setStatus
+        setStatus,
       }}
     >
       {children}

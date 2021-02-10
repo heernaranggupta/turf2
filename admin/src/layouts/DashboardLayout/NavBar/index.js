@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React, { useEffect, useContext } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -32,24 +34,25 @@ const items = [
   },
   {
     href: "/viewBookings",
-    icon: UsersIcon,
-    title: "Booking List",
+    icon: ShoppingBagIcon,
+    title: "Bookings",
   },
-  // {
-  //   href: "/products",
-  //   icon: ShoppingBagIcon,
-  //   title: "Products",
-  // },
+
   {
     href: "/addManager",
     icon: UserIcon,
     title: "Add Manager",
   },
-  // {
-  //   href: "/settings",
-  //   icon: SettingsIcon,
-  //   title: "Settings",
-  // },
+  {
+    href: "/managers",
+    icon: UsersIcon,
+    title: "Manage Managers",
+  },
+  {
+    href: "/settings",
+    icon: SettingsIcon,
+    title: "Settings",
+  },
   // {
   //   href: "/login",
   //   icon: LockIcon,
@@ -87,7 +90,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
   const classes = useStyles();
   const location = useLocation();
 
-  const { username, phoneNumber } = useContext(Context);
+  const { userData } = useContext(Context);
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -105,11 +108,16 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           src="https://placeimg.com/640/480/any"
           to="/account"
         />
-        <Typography className={classes.name} color="textPrimary" variant="h5">
-          {username}
+        <Typography
+          className={classes.name}
+          style={{ marginTop: 15 }}
+          color="textPrimary"
+          variant="h5"
+        >
+          {userData.username}
         </Typography>
         <Typography color="textSecondary" variant="body2">
-          {phoneNumber}
+          {userData.phoneNumber}
         </Typography>
       </Box>
       <Divider />

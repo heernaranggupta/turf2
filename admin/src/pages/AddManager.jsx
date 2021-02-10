@@ -1,40 +1,56 @@
-import React, { useRef } from "react";
-import classnames from "classnames";
-import styles from "../css/AddManager.module.css";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import api from "../config/api";
 import headerWithToken from "../config/headerWithToken.js";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  TextField,
+} from "@material-ui/core";
 
 const AddManager = () => {
-  const phoneRef = useRef(null);
-  const usernameRef = useRef(null);
-  const companynameRef = useRef(null);
-  const passwordRef = useRef(null);
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [repeat, setRepeat] = useState("");
+  const [company, setCompany] = useState("Rebounce");
 
   const handleAddManagerBtnClicked = () => {
-    if (!phoneRef.current.value.trim().length) {
-      toast.error("Phone Number Cannot be empty");
-      return;
-    }
-    if (!passwordRef.current.value.trim().length) {
-      toast.error("Password Cannot be empty");
-      return;
-    }
-    if (!usernameRef.current.value.trim().length) {
+    if (!username.trim().length) {
       toast.error("User Name Cannot be empty");
       return;
     }
-    if (!companynameRef.current.value.trim().length) {
+    if (!phone.trim().length) {
+      toast.error("Phone Number Cannot be empty");
+      return;
+    }
+    if (!password.trim().length) {
+      toast.error("Password Cannot be empty");
+      return;
+    }
+    if (!repeat.trim().length) {
+      toast.error("Confirm Password Cannot be empty");
+      return;
+    }
+    if (repeat.trim() !== password.trim()) {
+      toast.error("Passwords does not match");
+      return;
+    }
+    if (!company.trim().length) {
       toast.error("Comapny Name Cannot be empty");
       return;
     }
-
     const values = {
-      username: usernameRef.current.value,
-      phoneNumber: phoneRef.current.value,
-      companyName: companynameRef.current.value,
-      password: passwordRef.current.value,
+      username: username,
+      phoneNumber: phone,
+      companyName: company,
+      password: password,
       role: "MANAGER",
     };
 
@@ -42,7 +58,12 @@ const AddManager = () => {
       .post(api + "business/signup", values, headerWithToken)
       .then(async (res) => {
         if (res.data.code === 200) {
-          window.location = "/";
+          toast("Manager Created Successfully");
+          setUsername("");
+          setPhone("");
+          setPassword("");
+          setRepeat("");
+          setCompany("Rebounce");
         }
         if (res.data.code === 404) {
           toast.error(res.data.message);
@@ -58,59 +79,87 @@ const AddManager = () => {
   };
 
   return (
-    <div>
-      Add Manager Form
-      <div className="my-5 mx-3">
-        <div className="field my-3">
-          <div className="control">
-            <input
-              className={classnames("input", styles.AddManagerInputs)}
-              type="text"
-              placeholder="UserName"
-              required
-              ref={usernameRef}
-            />
-          </div>
+    <div style={{ padding: 50 }}>
+      <Card>
+        <CardHeader subheader="Add Managers" title="Manager" />
+        <Divider />
+        <CardContent>
+          <Grid container spacing={3}>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                helperText="Please specify the user name"
+                label="Username"
+                name="username"
+                required
+                variant="outlined"
+                onChange={(event) => setUsername(event.target.value)}
+                value={username}
+              />
+            </Grid>
 
-          <div className="control">
-            <input
-              className={classnames("input", styles.AddManagerInputs)}
-              type="text"
-              placeholder="Phone Number"
-              required
-              ref={phoneRef}
-            />
-          </div>
-          <div className="control">
-            <input
-              className={classnames("input", styles.AddManagerInputs)}
-              type="text"
-              placeholder="Company Name"
-              required
-              ref={companynameRef}
-            />
-          </div>
-
-          <div className="control">
-            <input
-              className={classnames("input mt-3", styles.AddManagerInputs)}
-              type="password"
-              placeholder="Password"
-              required
-              ref={passwordRef}
-            />
-          </div>
-        </div>
-
-        <div className="has-text-centered my-6">
-          <button
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Phone Number"
+                name="phone"
+                type="number"
+                variant="outlined"
+                required
+                onChange={(event) => setPhone(event.target.value)}
+                value={phone}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                required
+                variant="outlined"
+                type="password"
+                onChange={(event) => setPassword(event.target.value)}
+                value={password}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Confirm Password"
+                name="repeatPassword"
+                required
+                variant="outlined"
+                type="password"
+                onChange={(event) => {
+                  setRepeat(event.target.value);
+                }}
+                value={repeat}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                fullWidth
+                label="Company Name"
+                name="company"
+                variant="outlined"
+                required
+                onChange={(event) => setCompany(event.target.value)}
+                value={company}
+              />
+            </Grid>
+          </Grid>
+        </CardContent>
+        <Divider />
+        <Box display="flex" justifyContent="flex-end" p={2}>
+          <Button
+            color="primary"
+            variant="contained"
             onClick={() => handleAddManagerBtnClicked()}
-            className={classnames(styles.AddManagerBtn, "is-clickable")}
           >
-            Add Manager
-          </button>
-        </div>
-      </div>
+            Create Manager
+          </Button>
+        </Box>
+      </Card>
     </div>
   );
 };

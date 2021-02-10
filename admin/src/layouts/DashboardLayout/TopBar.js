@@ -28,10 +28,9 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
 
-  const onLogout = () =>{
-    <RouterLink to="/logout" />
-
-  }
+  const onLogout = () => {
+    <RouterLink to="/logout" />;
+  };
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -47,7 +46,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
               color="primary"
               variant="dot"
             >
-              {/* <NotificationsIcon /> */}
+              <NotificationsIcon />
             </Badge>
           </IconButton>
           <IconButton color="inherit">
@@ -56,7 +55,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
         </Hidden>
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
-            <MenuIcon onClick={() => onLogout()}/>
+            <MenuIcon onClick={() => onLogout()} />
           </IconButton>
         </Hidden>
       </Toolbar>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import clsx from "clsx";
 import PropTypes from "prop-types";
@@ -17,7 +18,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import { Edit as Edit, Repeat as Repeat } from "react-feather";
+import { Edit, Repeat } from "react-feather";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -28,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Results = ({ className, customers, ...rest }) => {
   const classes = useStyles();
-  console.log("from result", customers);
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -107,23 +107,29 @@ const Results = ({ className, customers, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.slice(0, limit).map((customer) => (
-                <TableRow
-                  hover
-                  key={customer.bookingId}
-                  selected={
-                    selectedCustomerIds.indexOf(customer.bookingId) !== -1
-                  }
-                >
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      checked={selectedCustomerIds.indexOf(customer.bookingId) !== -1}
-                      onChange={(event) => handleSelectOne(event, customer.bookingId)}
-                      value="true"
-                    />
-                  </TableCell> */}
-                  <TableCell>
-                    {/* <Box alignItems="center" display="flex">
+              {customers
+                .slice(page * limit, page * limit + limit)
+                .map((customer) => (
+                  <TableRow
+                    hover
+                    key={customer.bookingId}
+                    selected={
+                      selectedCustomerIds.indexOf(customer.bookingId) !== -1
+                    }
+                  >
+                    {/* <TableCell padding="checkbox">
+                      <Checkbox
+                        checked={
+                          selectedCustomerIds.indexOf(customer.bookingId) !== -1
+                        }
+                        onChange={(event) =>
+                          handleSelectOne(event, customer.bookingId)
+                        }
+                        value="true"
+                      />
+                    </TableCell> */}
+                    <TableCell>
+                      {/* <Box alignItems="center" display="flex">
                       <Avatar
                         className={classes.avatar}
                         src={customer.avatarUrl}
@@ -131,35 +137,34 @@ const Results = ({ className, customers, ...rest }) => {
                         {customer.userId}
                       </Avatar>
                       <Typography color="textPrimary" variant="body1"> */}
-                    {customer.userId}
-                    {/* </Typography>
+                      <Typography variant="h5">{customer.userId}</Typography>
+
+                      {/* </Typography>
                     </Box> */}
-                  </TableCell>
-                  <TableCell>{customer.date}</TableCell>
-                  <TableCell>{customer.turfId}</TableCell>
-                  <TableCell>{customer.status}</TableCell>
-                  <TableCell>
-                      <div>Total Amount:{customer.price}</div>
-                      <div>Panding Amount: 50</div>
-                      <div>Paid Amount: 50</div>
-                  </TableCell>
-                  <TableCell>
-                    <Box alignItems="center" display="flex">
-                      <Typography color="textPrimary" variant="body1">
-                        <Edit />
-                      </Typography>
-                      <Typography color="textPrimary" variant="body1">
-                        <Repeat />
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                    <TableCell>{customer.date}</TableCell>
+                    <TableCell>{customer.turfId}</TableCell>
+                    <TableCell>{customer.status}</TableCell>
+                    <TableCell>
+                      <Typography variant="h4">{customer.price}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Box alignItems="center" display="flex">
+                        <Typography color="textPrimary" variant="body1">
+                          <Edit />
+                        </Typography>
+                        <Typography color="textPrimary" variant="body1">
+                          <Repeat />
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </Box>
       </PerfectScrollbar>
-      {/* <TablePagination
+      <TablePagination
         component="div"
         count={customers.length}
         onChangePage={handlePageChange}
@@ -167,7 +172,7 @@ const Results = ({ className, customers, ...rest }) => {
         page={page}
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
-      /> */}
+      />
     </Card>
   );
 };

@@ -1,17 +1,11 @@
 import React, { useContext } from "react";
-import {
-  Link as RouterLink,
-  Redirect,
-  useHistory,
-  useLocation,
-} from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import axios from "axios";
 import { Formik } from "formik";
 import {
   Box,
   Button,
   Container,
-  Link,
   TextField,
   Typography,
   makeStyles,
@@ -25,9 +19,7 @@ import headerWithoutToken from "../../config/headerWithoutToken";
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.dark,
-    height: "100%",
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3),
+    height: "90vh",
   },
 }));
 
@@ -37,14 +29,9 @@ const Login = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const {
-    isLoggedIn,
-    setIsLoggedIn,
-    setCompanyName,
-    setRole,
-    setUsername,
-    setphoneNumber,
-  } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, setToken, setUserData } = useContext(
+    Context
+  );
 
   const handleSignInBtnClicked = (phone, password) => {
     if (!phone.trim().length) {
@@ -66,15 +53,14 @@ const Login = () => {
       .then(async (res) => {
         console.log(res.data);
         if (res.data.code === 200) {
+          await localStorage.setItem("adminToken", res.data.body.token);
           await localStorage.setItem(
             "turfAdminDetails",
-            JSON.stringify(res.data.body)
+            JSON.stringify(res.data.body.businessResponse)
           );
+          setUserData(res.data.body.businessResponse);
+          setToken(res.data.body.token);
           setIsLoggedIn(true);
-          setCompanyName(res.data.body.businessResponse.companyName);
-          setRole(res.data.body.businessResponse.role);
-          setUsername(res.data.body.businessResponse.username);
-          setphoneNumber(res.data.body.businessResponse.phoneNumber);
           history.push(state?.from || "/");
         }
         if (res.data.code === 404) {
@@ -82,8 +68,7 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("error here", err);
-        console.log("res", err.response);
+        console.log("error here", err.message);
         if (err.response.code === 500) {
           toast.error(err.response.data.message);
         }
@@ -117,14 +102,13 @@ const Login = () => {
               handleBlur,
               handleChange,
               handleSubmit,
-              isSubmitting,
               touched,
               values,
             }) => (
               <form onSubmit={handleSubmit}>
                 <Box mb={3}>
                   <Typography color="textPrimary" variant="h2">
-                    Sign in
+                    Sign In
                   </Typography>
                 </Box>
                 <TextField
@@ -154,7 +138,6 @@ const Login = () => {
                 <Box my={2}>
                   <Button
                     color="primary"
-                    disabled={isSubmitting}
                     fullWidth
                     size="large"
                     type="submit"
@@ -163,12 +146,12 @@ const Login = () => {
                     Sign in now
                   </Button>
                 </Box>
-                <Typography color="textSecondary" variant="body1">
+                {/* <Typography color="textSecondary" variant="body1">
                   Don&apos;t have an account?{" "}
                   <Link component={RouterLink} to="/register" variant="h6">
                     Sign up
                   </Link>
-                </Typography>
+                </Typography> */}
               </form>
             )}
           </Formik>

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useCallback } from "react";
+import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,55 +9,23 @@ import { ToastContainer } from "react-toastify";
 import Home from "../pages/Home";
 import ProtectedRoutes from "./protected.routes";
 import Login from "../pages/Auth/Login";
-import ViewAllBookings from "../pages/ViewAllBookings";
-import AddManager from "../pages/AddManager";
-import { Context } from "../data/context";
-import DashboardView from "../pages/Reports";
+import DashboardView from "../pages/Dashboard";
 import DashboardLayout from "../layouts/DashboardLayout";
-import CustomerListView from "../pages/Booking List";
-import Account from "../pages/Account";
+import BookingsViews from "../pages/Bookings";
 import Settings from "../pages/Settings";
 import Products from "../pages/Products";
 import NotFoundView from "../pages/errors/NotFoundView";
 import MainLayout from "../layouts/MainLayout";
+import AccountView from "../pages/Account";
+import { Context } from "../data/context";
+import AddManager from "../pages/AddManager";
+import Managers from "../pages/Managers";
+
+// eslint-disable-next-line no-unused-vars
+import Register from "../pages/Auth/Register";
 
 const Routes = () => {
-  const {
-    setIsLoggedIn,
-    setCompanyName,
-    setRole,
-    setUsername,
-    setphoneNumber,
-  } = useContext(Context);
-
-  const fetchUserData = useCallback(async () => {
-    const data = await localStorage.getItem("turfAdminDetails");
-    const newData = await JSON.parse(data);
-    if (newData) {
-      try {
-        setIsLoggedIn(true);
-        setCompanyName(newData.businessResponse.companyName);
-        setRole(newData.businessResponse.role);
-        setUsername(newData.businessResponse.username);
-        setphoneNumber(newData.businessResponse.phoneNumber);
-      } catch (error) {
-        setIsLoggedIn(false);
-        setCompanyName("");
-        setRole("");
-        setUsername("");
-      }
-    } else {
-      setIsLoggedIn(false);
-      setCompanyName("");
-      setRole("");
-      setUsername("");
-    }
-  }, [setIsLoggedIn, setCompanyName, setRole, setUsername, setphoneNumber]);
-
-  useEffect(() => {
-    fetchUserData();
-  }, [fetchUserData]);
-
+  const { setIsLoggedIn } = useContext(Context);
   return (
     <Router>
       <Switch>
@@ -71,14 +39,27 @@ const Routes = () => {
             </MainLayout>
           )}
         />
+        {/* <Route
+          path="/register"
+          exact
+          render={() => (
+            <MainLayout>
+              <Register />
+            </MainLayout>
+          )}
+        /> */}
 
-        {/* <ProtectedRoutes path="/addManager">
-          <AddManager />
-        </ProtectedRoutes> */}
+        <ProtectedRoutes path="/account">
+          <DashboardLayout>
+            <AccountView />
+          </DashboardLayout>
+        </ProtectedRoutes>
 
-        {/* <ProtectedRoutes path="/viewBookings">
-          <ViewAllBookings />
-        </ProtectedRoutes> */}
+        <ProtectedRoutes path="/managers">
+          <DashboardLayout>
+            <Managers />
+          </DashboardLayout>
+        </ProtectedRoutes>
 
         <ProtectedRoutes path="/dashboard">
           <DashboardLayout>
@@ -88,13 +69,13 @@ const Routes = () => {
 
         <ProtectedRoutes path="/viewBookings">
           <DashboardLayout>
-            <CustomerListView />
+            <BookingsViews />
           </DashboardLayout>
         </ProtectedRoutes>
 
         <ProtectedRoutes path="/addManager">
           <DashboardLayout>
-            <Account />
+            <AddManager />
           </DashboardLayout>
         </ProtectedRoutes>
 
@@ -129,7 +110,7 @@ const Routes = () => {
             localStorage.removeItem("turfCart");
             return <Redirect to="/" />;
           }}
-        />    
+        />
 
         <Redirect to="/404" />
       </Switch>
