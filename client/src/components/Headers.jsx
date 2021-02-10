@@ -56,12 +56,21 @@ const Headers = () => {
         {isLoggedIn ? (
           <div className="navbar-end">
             <div className="navbar-item">
+              <Link
+                to="/book"
+                className={classnames("control button", styles.btnBackGround)}
+              >
+                <span className="has-text-white">Book Slots</span>
+              </Link>
+            </div>
+            <div className="navbar-item">
               <div className="navbar-item has-dropdown is-hoverable">
                 <p
                   className={classnames(
                     "control button navbar-item has-text-white is-capitalized",
                     styles.btnBackGround
                   )}
+                  style={{ width: "max-content" }}
                 >
                   Hello, {userData?.name}
                 </p>
@@ -96,6 +105,14 @@ const Headers = () => {
           </div>
         ) : (
           <div className="navbar-end">
+            <div className="navbar-item">
+              <Link
+                to="/book"
+                className={classnames("control button", styles.btnBackGround)}
+              >
+                <span className="has-text-white">Book Slots</span>
+              </Link>
+            </div>
             <div className="navbar-item">
               <Link
                 to="/login"

@@ -24,17 +24,14 @@
   position: relative;
 }
 
-.cartSummaryWrapper {
-  background-color: #5f8d47;
-  border-radius: 15px;
-}
-
 .dateCardWrapper {
   background: transparent;
 }
 
 .cartSummaryWrapper {
-  height: 100vh;
+  background-color: #5f8d47;
+  border-radius: 15px;
+  height: 90vh;
   position: sticky !important;
   top: 0%;
 }

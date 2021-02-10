@@ -7,7 +7,11 @@ const CartSummary = () => {
   const { totalAmount, totalSlots } = useContext(Context);
   return (
     <>
-      <p className={classnames("subtitle is-1 is-capitalized has-text-white")}>
+      <p
+        className={classnames(
+          "subtitle is-1 my-6 is-capitalized has-text-white"
+        )}
+      >
         cart
       </p>
 

@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import classnames from "classnames";
-import { BiCart } from "react-icons/bi";
 import Carousel from "react-multi-carousel";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import styles from "../css/Home.module.css";
 import "react-multi-carousel/lib/styles.css";
@@ -13,17 +12,18 @@ import Slider2 from "../images/index_2.png";
 import Slider3 from "../images/index_3.png";
 import Slider4 from "../images/index_4.png";
 import Slider5 from "../images/index_5.png";
-import logo from "../images/logo.png";
 
 const Home = () => {
   const history = useHistory();
+
   useEffect(() => {
     try {
-      document.querySelector(".navbar").style.display = "none";
+      document.querySelector(".navbar").style.backgroundColor = "transparent";
     } catch (error) {}
+
     return () => {
       try {
-        document.querySelector(".navbar").style.display = "flex";
+        document.querySelector(".navbar").style.backgroundColor = "#437520";
       } catch (error) {}
     };
   }, []);
@@ -31,16 +31,6 @@ const Home = () => {
   return (
     <div className={classnames(styles.addHomeBackground)}>
       <div className={classnames("section", styles.HomeSectionWrapper)}>
-        <div className={classnames(styles.HomeHeader, "is-clickable")}>
-          <Link to="/">
-            <img src={logo} alt="Home Header" />
-          </Link>
-
-          <Link to="/cart">
-            <BiCart size={45} color="#FFF" className="is-clickable" />
-          </Link>
-        </div>
-
         <div
           className={classnames("container is-fluid", styles.overRideContainer)}
         >
@@ -49,6 +39,7 @@ const Home = () => {
           </div>
 
           <Carousel
+            className={styles.CarouselWrapper}
             additionalTransfrom={0}
             arrows
             autoPlay
