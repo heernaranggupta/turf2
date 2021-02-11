@@ -14,7 +14,7 @@ export const ContextProvider = ({ children }) => {
   const [viewAllBookingList, setviewAllBookingList] = useState([]);
   const [toDate, setToDate] = useState(new Date().toISOString().slice(0, 10));
   const [fromDate, setFromDate] = useState(getMinMonth());
-  const [status, setStatus] = useState("BOOKED_BY_USER");
+  const [status, setStatus] = useState("ALL");
 
   return (
     <Context.Provider

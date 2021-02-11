@@ -47,11 +47,11 @@ const AddManager = () => {
       return;
     }
     const values = {
-      username: username,
+      name: username,
       phoneNumber: phone,
       companyName: company,
       password: password,
-      role: "MANAGER",
+      role: "ADMIN",
     };
 
     axios
@@ -65,16 +65,10 @@ const AddManager = () => {
           setRepeat("");
           setCompany("Rebounce");
         }
-        if (res.data.code === 404) {
-          toast.error(res.data.message);
-        }
       })
       .catch((err) => {
-        console.log("error here", err);
-        console.log("res", err.response);
-        if (err.response.code === 500) {
-          toast.error(err.response.data.message);
-        }
+        console.log("error here", err.response);
+        toast.error(err.response.data.message);
       });
   };
 

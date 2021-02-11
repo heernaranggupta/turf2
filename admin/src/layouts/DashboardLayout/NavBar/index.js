@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 import React, { useEffect, useContext } from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -22,6 +21,7 @@ import {
   User as UserIcon,
   UserPlus as UserPlusIcon,
   Users as UsersIcon,
+  LogOut,
 } from "react-feather";
 import NavItem from "./NavItem";
 import { Context } from "../../../data/context";
@@ -52,6 +52,11 @@ const items = [
     href: "/settings",
     icon: SettingsIcon,
     title: "Settings",
+  },
+  {
+    href: "/logout",
+    icon: LogOut,
+    title: "Logout",
   },
   // {
   //   href: "/login",
@@ -114,7 +119,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
           color="textPrimary"
           variant="h5"
         >
-          {userData.username}
+          {userData.name}
         </Typography>
         <Typography color="textSecondary" variant="body2">
           {userData.phoneNumber}

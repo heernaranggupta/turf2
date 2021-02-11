@@ -103,6 +103,8 @@ const Results = ({ className, customers, ...rest }) => {
                 <TableCell>Ground</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Amount</TableCell>
+                <TableCell>Start Time</TableCell>
+                <TableCell>End Time</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -130,24 +132,25 @@ const Results = ({ className, customers, ...rest }) => {
                     </TableCell> */}
                     <TableCell>
                       {/* <Box alignItems="center" display="flex">
-                      <Avatar
-                        className={classes.avatar}
-                        src={customer.avatarUrl}
-                      >
-                        {customer.userId}
-                      </Avatar>
-                      <Typography color="textPrimary" variant="body1"> */}
-                      <Typography variant="h5">{customer.userId}</Typography>
-
-                      {/* </Typography>
-                    </Box> */}
+                        <Avatar
+                          className={classes.avatar}
+                          src={customer.avatarUrl}
+                        >
+                          {customer.userId}
+                        </Avatar>
+                        <Typography
+                          color="textPrimary"
+                          variant="body1"
+                        ></Typography>
+                      </Box> */}
+                      {customer.userId}
                     </TableCell>
                     <TableCell>{customer.date}</TableCell>
                     <TableCell>{customer.turfId}</TableCell>
                     <TableCell>{customer.status}</TableCell>
-                    <TableCell>
-                      <Typography variant="h4">{customer.price}</Typography>
-                    </TableCell>
+                    <TableCell>{customer.price}</TableCell>
+                    <TableCell>{customer.startTime}</TableCell>
+                    <TableCell>{customer.endTime}</TableCell>
                     <TableCell>
                       <Box alignItems="center" display="flex">
                         <Typography color="textPrimary" variant="body1">

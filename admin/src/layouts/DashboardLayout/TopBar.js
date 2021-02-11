@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import {
@@ -28,9 +28,7 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
   const classes = useStyles();
   const [notifications] = useState([]);
 
-  const onLogout = () => {
-    <RouterLink to="/logout" />;
-  };
+  const history = useHistory();
 
   return (
     <AppBar className={clsx(classes.root, className)} elevation={0} {...rest}>
@@ -49,13 +47,13 @@ const TopBar = ({ className, onMobileNavOpen, ...rest }) => {
               <NotificationsIcon />
             </Badge>
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={() => history.push("/logout")}>
             <InputIcon />
           </IconButton>
         </Hidden>
         <Hidden lgUp>
           <IconButton color="inherit" onClick={onMobileNavOpen}>
-            <MenuIcon onClick={() => onLogout()} />
+            <MenuIcon />
           </IconButton>
         </Hidden>
       </Toolbar>

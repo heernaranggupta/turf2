@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
 }));
 
@@ -50,13 +50,13 @@ const Toolbar = ({ className, ...rest }) => {
 
   return (
     <div className={clsx(classes.root, className)} {...rest}>
-      <Box display="flex" justifyContent="flex-end">
+      {/* <Box display="flex" justifyContent="flex-end">
         <Button className={classes.importButton}>Import</Button>
         <Button className={classes.exportButton}>Export</Button>
         <Button color="primary" variant="contained">
           Add customer
         </Button>
-      </Box>
+      </Box> */}
       <Box mt={3}>
         <Card>
           <CardContent>
@@ -72,19 +72,9 @@ const Toolbar = ({ className, ...rest }) => {
                   onChange={(e) => setStatus(e.target.value)}
                   label="Status"
                 >
-                  <MenuItem value={"BOOKED_BY_USER"}>Booked By User</MenuItem>
-                  <MenuItem value={"BOOKED_BY_BUSINESS"}>
-                    booked by Business
-                  </MenuItem>
-                  <MenuItem value={"CANCELLED_BY_USER"}>
-                    Cancel by User
-                  </MenuItem>
-                  <MenuItem value={"CANCELLED_BY_BUSINESS"}>
-                    Cancel by Business
-                  </MenuItem>
-                  <MenuItem value={"RESCHEDULED_BY_USER"}>
-                    Reshedule by User
-                  </MenuItem>
+                  <MenuItem value={"ALL"}>All</MenuItem>
+                  <MenuItem value={"BOOKED"}>Booked</MenuItem>
+                  <MenuItem value={"CANCELLED"}>Cancelled</MenuItem>
                   <MenuItem value={"RESCHEDULED_BY_BUSINESS"}>
                     Reshedule by Business
                   </MenuItem>
@@ -94,6 +84,7 @@ const Toolbar = ({ className, ...rest }) => {
               </FormControl>
 
               <TextField
+                style={{ marginTop: "8px" }}
                 label="From Date"
                 margin="normal"
                 name="fromDate"
@@ -104,6 +95,7 @@ const Toolbar = ({ className, ...rest }) => {
               />
 
               <TextField
+                style={{ marginTop: "8px" }}
                 label="To Date"
                 margin="normal"
                 name="toDate"

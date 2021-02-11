@@ -56,9 +56,9 @@ const Login = () => {
           await localStorage.setItem("adminToken", res.data.body.token);
           await localStorage.setItem(
             "turfAdminDetails",
-            JSON.stringify(res.data.body.businessResponse)
+            JSON.stringify(res.data.body.user)
           );
-          setUserData(res.data.body.businessResponse);
+          setUserData(res.data.body.user);
           setToken(res.data.body.token);
           setIsLoggedIn(true);
           history.push(state?.from || "/");
@@ -69,9 +69,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.log("error here", err.message);
-        if (err.response.code === 500) {
-          toast.error(err.response.data.message);
-        }
+        toast.error(err.response.data.message);
       });
   };
 

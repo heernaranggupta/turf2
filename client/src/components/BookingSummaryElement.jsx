@@ -5,6 +5,7 @@ import { MdDelete } from "react-icons/md";
 import { tConvert, convertDate } from "../utils/TimeConverter";
 import { useHistory } from "react-router-dom";
 import styles from "../css/BookingSummaryElement.module.css";
+import { toast } from "react-toastify";
 
 const BookingSummaryElement = ({
   item,
@@ -32,9 +33,10 @@ const BookingSummaryElement = ({
             {item.turfId === "turf03" ? "Ground 3" : <span></span>}
           </p>
 
-          {item.status === "CANCELLED_BY_USER" && (
-            <p className="has-text-danger">CANCELLED</p>
-          )}
+          {item.status === "CANCELLED_BY_USER" ||
+            (item.status === "CANCELLED_BY_BUSINESS" && (
+              <p className="has-text-danger">CANCELLED</p>
+            ))}
           <p
             style={{ color: item.isSelected ? "white" : "black" }}
             className="my-1"
@@ -71,20 +73,36 @@ const BookingSummaryElement = ({
         </div>
       </div>
 
-      {item.status !== "CANCELLED_BY_USER" && (
-        <footer className="card-footer">
-          <span
-            className="card-footer-item is-clickable"
-            onClick={() => history.push(`/invoice/${item.orderId}`)}
-          >
-            <BiFile
-              size={30}
-              onClick={() => history.push(`/invoice/${item.orderId}`)}
-            />
-            Download Invoice
-          </span>
-        </footer>
-      )}
+      <footer className="card-footer">
+        <span
+          className="card-footer-item is-clickable"
+          onClick={() => {
+            if (
+              item.status === "CANCELLED_BY_BUSINESS" ||
+              item.status === "CANCELLED_BY_USER"
+            ) {
+              toast.warn("Cannot Generate Invoice for cancelled Slots");
+            } else {
+              history.push(`/invoice/${item.orderId}`);
+            }
+          }}
+        >
+          <BiFile
+            size={30}
+            onClick={() => {
+              if (
+                item.status === "CANCELLED_BY_BUSINESS" ||
+                item.status === "CANCELLED_BY_USER"
+              ) {
+                toast.warn("Cannot Generate Invoice for cancelled Slots");
+              } else {
+                history.push(`/invoice/${item.orderId}`);
+              }
+            }}
+          />
+          Download Invoice
+        </span>
+      </footer>
     </div>
   );
 };

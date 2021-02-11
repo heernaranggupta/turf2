@@ -72,17 +72,6 @@ const ProfileDetails = ({ className, ...rest }) => {
                 variant="outlined"
               />
             </Grid>
-            <Grid item md={6} xs={12}>
-              <TextField
-                fullWidth
-                label="Company Name"
-                name="company"
-                onChange={handleChange}
-                required
-                value={userData.companyName}
-                variant="outlined"
-              />
-            </Grid>
           </Grid>
         </CardContent>
         <Divider />

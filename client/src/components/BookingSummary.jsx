@@ -6,6 +6,7 @@ import api from "../config/api";
 import BookingSummaryElement from "./BookingSummaryElement";
 import { Context } from "../data/context";
 import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate";
+import Loading from "../components/Loading";
 import styles from "../css/BookingSummary.module.css";
 
 const BookingSummary = () => {
@@ -13,7 +14,7 @@ const BookingSummary = () => {
   const [upcoming, setUpComing] = useState([]);
   const [cancelSlots, setCancelSlots] = useState([]);
 
-  const { userData, token } = useContext(Context);
+  const { userData, token, isLoading, setIsLoading } = useContext(Context);
 
   const bookingSummary = useCallback(() => {
     axios
@@ -35,13 +36,19 @@ const BookingSummary = () => {
           const data = compareDateWithCurrentDate(item.date);
 
           if (data) {
-            if (item.status === "CANCELLED_BY_USER") {
+            if (
+              item.status === "CANCELLED_BY_USER" ||
+              item.status === "CANCELLED_BY_BUSINESS"
+            ) {
               cancelledList.push(item);
             } else {
               upComingList.push(item);
             }
           } else {
-            if (item.status === "CANCELLED_BY_USER") {
+            if (
+              item.status === "CANCELLED_BY_USER" ||
+              item.status === "CANCELLED_BY_BUSINESS"
+            ) {
               cancelledList.push(item);
             } else {
               historyList.push(item);
@@ -109,7 +116,11 @@ const BookingSummary = () => {
 
   useEffect(() => {
     bookingSummary();
-  }, [bookingSummary]);
+  }, [bookingSummary, setIsLoading]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
