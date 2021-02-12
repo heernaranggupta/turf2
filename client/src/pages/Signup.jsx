@@ -12,7 +12,7 @@ import { Context } from "../data/context";
 import CartRightSideComponent from "../components/CartRightSideComponent";
 import styles from "../css/Login.module.css";
 import axios from "axios";
-import api from "../config/api";
+import api, { TurfMail } from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 
 // eslint-disable-next-line no-useless-escape
@@ -87,7 +87,6 @@ const Signup = () => {
     axios
       .post(api + "user/sign-up", values, headerWithoutToken)
       .then(async (res) => {
-        console.log(res.data);
         if (res.data.code === 200) {
           await localStorage.setItem("token", res.data.body.token);
           await localStorage.setItem(
@@ -100,15 +99,19 @@ const Signup = () => {
           setToken(res.data.body.token);
           setUserData(res.data?.body?.user);
           setIsLoggedIn(true);
+          axios.post(TurfMail + "welcome", {
+            name: res.data?.body?.user?.name || "",
+            email: res.data?.body?.user?.emailId || "",
+          });
           history.push(state?.from || "/");
         }
       })
       .catch((err) => {
         console.log(err.message);
-        if (err.response.data.code === 500) {
+        if (err?.response?.data?.code === 500) {
           toast.error("Internal Server error");
         }
-        if (err.response.data.code === 400) {
+        if (err?.response?.data?.code === 400) {
           toast.error(err.response.data.message);
         }
       });

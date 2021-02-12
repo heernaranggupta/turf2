@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Context } from "../data/context";
-import api, { mailapi } from "../config/api";
+import api, { TurfMail } from "../config/api";
 import { ListData } from "../utils/ListData";
 import styles from "../css/Payment.module.css";
 
@@ -48,14 +48,11 @@ const PaymentGateway = () => {
         .then((res) => {
           console.log(res.data);
           if (res.data.success) {
-            fetch(mailapi, {
-              method: "post",
-              body: JSON.stringify({
-                name: userData.name,
-                email: userData.emailId,
-                slots: res.data?.body?.timeSlots || [],
-                paymentId: res.data?.body?.paymentId,
-              }),
+            axios.post(TurfMail + "bookings", {
+              name: userData.name,
+              email: userData.emailId,
+              slots: res.data?.body?.timeSlots || [],
+              paymentId: res.data?.body?.paymentId,
             });
             history.push("/payment-success");
           }

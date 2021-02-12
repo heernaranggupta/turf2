@@ -87,10 +87,10 @@ const Results = ({ className, customers, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>Avatar</TableCell>
                 <TableCell>Username</TableCell>
                 <TableCell>Phone Number</TableCell>
-                <TableCell>Role</TableCell>
-                <TableCell>Company Name</TableCell>
+                <TableCell>Email</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -100,11 +100,20 @@ const Results = ({ className, customers, ...rest }) => {
                 .map((customer, index) => (
                   <TableRow hover key={index}>
                     <TableCell>
-                      <Typography variant="h5">{customer.username}</Typography>
+                      <Box alignItems="center" display="flex">
+                        <Avatar
+                          className={classes.avatar}
+                          src={customer.displayImageUrl}
+                        >
+                          {customer.name[0]}
+                        </Avatar>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="h5">{customer.name}</Typography>
                     </TableCell>
                     <TableCell>{customer.phoneNumber}</TableCell>
-                    <TableCell>{customer.role}</TableCell>
-                    <TableCell>{customer.companyName}</TableCell>
+                    <TableCell>{customer.emailId}</TableCell>
                     <TableCell>
                       <Box alignItems="center" display="flex">
                         <Typography color="textPrimary" variant="body1">

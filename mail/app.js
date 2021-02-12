@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 4000;
 const app = express();
 app.use(bodyParser.json());
 
+app.set("views", "./templates");
 app.set("view engine", "ejs");
 
 app.use((req, res, next) => {
@@ -52,7 +53,7 @@ router.post("/send", (req, res, next) => {
 
   try {
     ejs.renderFile(
-      __dirname + "/views/template.ejs",
+      __dirname + "/templates/bookings.ejs",
       { slots: slots, paymentId: paymentId, name },
       function (err, data) {
         if (err) {
@@ -99,7 +100,11 @@ router.post("/show", (req, res) => {
   var slots = req.body.slots || [];
   var paymentId = req.body.paymentId || "";
 
-  res.render("template", { slots: slots, paymentId: paymentId, name });
+  res.render("bookings", {
+    slots: slots,
+    paymentId: paymentId,
+    name,
+  });
 });
 
 app.get("/", (req, res, next) => {

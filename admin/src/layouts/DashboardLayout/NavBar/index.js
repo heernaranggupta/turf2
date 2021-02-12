@@ -110,7 +110,7 @@ const NavBar = ({ onMobileClose, openMobile }) => {
         <Avatar
           className={classes.avatar}
           component={RouterLink}
-          src="https://placeimg.com/640/480/any"
+          src={userData.displayImageUrl || "https://placeimg.com/640/480/any"}
           to="/account"
         />
         <Typography
