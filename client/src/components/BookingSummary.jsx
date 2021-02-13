@@ -9,6 +9,9 @@ import { compareDateWithCurrentDate } from "../utils/compareDateWithCurrentDate"
 import Loading from "../components/Loading";
 import styles from "../css/BookingSummary.module.css";
 
+import { confirmAlert } from "react-confirm-alert"; // Import
+import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+
 const BookingSummary = () => {
   const [history, setHistory] = useState([]);
   const [upcoming, setUpComing] = useState([]);
@@ -91,27 +94,45 @@ const BookingSummary = () => {
   };
 
   const handleOnClick = (index, ground, id, item) => {
-    const body = {
-      bookingId: item.bookingId,
-      price: item.price,
-      turfId: item.turfId,
-      userId: item.userId,
-      date: item.date,
-      startTime: item.startTime,
-      endTime: item.endTime,
-    };
-    axios
-      .post(api + "user/cancel-booking", body, {
-        headers: {
-          "Content-Type": "Application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data);
-        toast.success("Slot Cancelled");
-        bookingSummary();
-      });
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className={styles.customUI}>
+            <h1>Are you sure?</h1>
+            <p>You want to delete this file?</p>
+            <button onClick={onClose}>No</button>
+            <button
+              onClick={() => {
+                const body = {
+                  bookingId: item.bookingId,
+                  price: item.price,
+                  turfId: item.turfId,
+                  userId: item.userId,
+                  date: item.date,
+                  startTime: item.startTime,
+                  endTime: item.endTime,
+                };
+                axios
+                  .post(api + "user/cancel-booking", body, {
+                    headers: {
+                      "Content-Type": "Application/json",
+                      Authorization: `Bearer ${token}`,
+                    },
+                  })
+                  .then((res) => {
+                    console.log(res.data);
+                    toast.success("Slot Cancelled");
+                    bookingSummary();
+                  });
+                onClose();
+              }}
+            >
+              Yes, Delete it!
+            </button>
+          </div>
+        );
+      },
+    });
   };
 
   useEffect(() => {
