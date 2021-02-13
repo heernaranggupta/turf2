@@ -3,9 +3,9 @@ import { ToastContainer } from "react-toastify";
 import jwt_decode from "jwt-decode";
 import Routes from "./routes/routes";
 import { Context } from "./data/context";
+import Loading from "./components/Loading";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import Loading from "./components/Loading";
 
 const App = () => {
   const {

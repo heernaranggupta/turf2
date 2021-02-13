@@ -14,5 +14,4 @@ if user reshedule booking then compair price if more then take extra money else 
 
 
 
-autofill profile
 

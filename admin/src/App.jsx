@@ -3,9 +3,9 @@ import { ThemeProvider } from "@material-ui/core";
 import jwt_decode from "jwt-decode";
 import Routes from "./routes/routes";
 import theme from "./theme";
+import { Context } from "./data/context";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { Context } from "./data/context";
 
 function App() {
   const { setIsLoggedIn, token, userData } = useContext(Context);
