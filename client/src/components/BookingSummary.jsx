@@ -137,7 +137,7 @@ const BookingSummary = () => {
                 onClose();
               }}
             >
-              Yes, Delete it!
+              Yes, Cancel it!
             </button>
           </div>
         );
@@ -164,7 +164,7 @@ const BookingSummary = () => {
             borderRadius: 10,
           }}
         >
-          Upcoming Booking
+          Upcoming Bookings
         </p>
         <div className={classnames("card-content", styles.historygrid)}>
           {upcoming &&
@@ -191,7 +191,7 @@ const BookingSummary = () => {
               borderRadius: 10,
             }}
           >
-            Booking History
+            Bookings History
           </p>
           <div className={classnames("card-content", styles.historygrid)}>
             {history &&
@@ -220,7 +220,7 @@ const BookingSummary = () => {
               borderRadius: 10,
             }}
           >
-            Cancel Booking
+            Cancelled Bookings
           </p>
           <div className={classnames("card-content", styles.historygrid)}>
             {cancelSlots &&
