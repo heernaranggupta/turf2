@@ -79,7 +79,7 @@
   text-align: center;
   width: 500px;
   padding: 40px;
-  background: #28bae6;
+  background: #045a14;
   box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
   color: #fff;
 }
@@ -96,7 +96,7 @@
   cursor: pointer;
   background: none;
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
 }
 @media only screen and (max-width: 1800px) {
   .historygrid {

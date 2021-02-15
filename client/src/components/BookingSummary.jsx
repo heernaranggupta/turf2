@@ -16,6 +16,7 @@ const BookingSummary = () => {
   const [history, setHistory] = useState([]);
   const [upcoming, setUpComing] = useState([]);
   const [cancelSlots, setCancelSlots] = useState([]);
+  const [isBookingCancelled, setIsBookingCancelled] = useState(false);
 
   const { userData, token, isLoading, setIsLoading } = useContext(Context);
 
@@ -98,10 +99,18 @@ const BookingSummary = () => {
       customUI: ({ onClose }) => {
         return (
           <div className={styles.customUI}>
-            <h1>Are you sure?</h1>
-            <p>You want to delete this file?</p>
-            <button onClick={onClose}>No</button>
+            <p className="title has-text-white">Are you sure?</p>
+            <p>You want to cancel this Slot?</p>
+            <p className="subtitle has-text-white">Date: {item.date}</p>
+            <p className="subtitle has-text-white">
+              Start Time: {item.startTime}
+            </p>
+            <p className="subtitle has-text-white">End Time: {item.endTime}</p>
+            <button className="button" onClick={onClose}>
+              No
+            </button>
             <button
+              className="button is-danger"
               onClick={() => {
                 const body = {
                   bookingId: item.bookingId,
@@ -121,6 +130,7 @@ const BookingSummary = () => {
                   })
                   .then((res) => {
                     console.log(res.data);
+                    setIsBookingCancelled(true);
                     toast.success("Slot Cancelled");
                     bookingSummary();
                   });
@@ -228,6 +238,30 @@ const BookingSummary = () => {
           </div>
         </div>
       )}
+
+      <div className={classnames("modal", false ? "is-active" : "")}>
+        <div className="modal-background"></div>
+        <div className="modal-card">
+          <header className="modal-card-head">
+            <p className="modal-card-title">Modal title</p>
+            <button
+              className="delete"
+              onClick={() => setIsBookingCancelled(false)}
+              aria-label="close"
+            ></button>
+          </header>
+          <section className="modal-card-body"></section>
+          <footer className="modal-card-foot">
+            <button className="button is-success">Save changes</button>
+            <button
+              className="button"
+              onClick={() => setIsBookingCancelled(false)}
+            >
+              Ok
+            </button>
+          </footer>
+        </div>
+      </div>
     </>
   );
 };

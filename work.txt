@@ -23,3 +23,7 @@ if user reshedule booking then compair price if more then take extra money else 
 4. SLOTS text spacing
 5. Book Images Padding Issue
 6. 
+
+//
+1. Cancel Pop up
+2. toast error all place

@@ -78,6 +78,11 @@ const PrintInvoice = ({ match }) => {
       document.querySelector(".navbar").style.display = "flex";
     }
     fetchData();
+    return () => {
+      try {
+        document.querySelector(".navbar").style.display = "flex";
+      } catch (error) {}
+    };
   }, [fetchData, showError]);
 
   if (showError) {

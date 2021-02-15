@@ -3,7 +3,6 @@ import classnames from "classnames";
 import { BiRupee, BiFile } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { tConvert, convertDate } from "../utils/TimeConverter";
-import { useHistory } from "react-router-dom";
 import styles from "../css/BookingSummaryElement.module.css";
 import { toast } from "react-toastify";
 
@@ -14,7 +13,6 @@ const BookingSummaryElement = ({
   id,
   isHistory = false,
 }) => {
-  const history = useHistory();
   return (
     <div className={classnames("card", styles.cardItem)} key={index}>
       <div className={classnames(styles.cardItemContent)}>
@@ -83,7 +81,7 @@ const BookingSummaryElement = ({
             ) {
               toast.warn("Cannot Generate Invoice for cancelled Slots");
             } else {
-              history.push(`/invoice/${item.orderId}`);
+              window.open(`/invoice/${item.orderId}`, "_blank");
             }
           }}
         >
@@ -96,7 +94,7 @@ const BookingSummaryElement = ({
               ) {
                 toast.warn("Cannot Generate Invoice for cancelled Slots");
               } else {
-                history.push(`/invoice/${item.orderId}`);
+                window.open(`/invoice/${item.orderId}`, "_blank");
               }
             }}
           />
