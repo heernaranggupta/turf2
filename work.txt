@@ -15,3 +15,11 @@ if user reshedule booking then compair price if more then take extra money else 
 
 
 
+// Deepak
+
+1. Background
+2. Home Page Btn -> Checkout btn (only Styles)
+3. Change Selected Slot color to green
+4. SLOTS text spacing
+5. Book Images Padding Issue
+6. 

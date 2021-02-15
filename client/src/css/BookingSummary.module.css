@@ -1,5 +1,6 @@
 .dateCardWrapper {
-  background: #5f8d47;
+  background: transparent;
+  box-shadow: none;
 }
 .slotHeaderWrapper {
   width: 100%;
@@ -97,12 +98,19 @@
   color: #fff;
   font-size: 14px;
 }
-@media only screen and (max-width: 1570px) {
+@media only screen and (max-width: 1800px) {
   .historygrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 }
+@media only screen and (max-width: 1250px) {
+  .historygrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 @media only screen and (max-width: 1350px) {
   .slotContentWrapper {
     display: grid;
@@ -118,15 +126,9 @@
 
 @media only screen and (max-width: 768px) {
   .historygrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0 !important;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .historygrid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

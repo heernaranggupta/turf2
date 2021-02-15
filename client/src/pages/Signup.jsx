@@ -224,25 +224,28 @@ const Signup = () => {
   }
 
   return (
-    <div className={classnames("section", styles.LoginWrapper)}>
-      <div
-        className={classnames("container is-fluid", styles.overRideContainer)}
-      >
-        <div className={classnames(" columns mt-5", styles.LoginColumns)}>
-          <div className={classnames("column box", styles.LoginLeftWrapper)}>
-            <SignUpSideComponent />
-          </div>
-          <div
-            className={classnames(
-              "column is-two-thirds",
-              styles.LoginCartWrapper
-            )}
-          >
-            <CartRightSideComponent />
+    <>
+      <div className={classnames(styles.addRelationalBackground)}></div>
+      <div className={classnames("section", styles.LoginWrapper)}>
+        <div
+          className={classnames("container is-fluid", styles.overRideContainer)}
+        >
+          <div className={classnames(" columns mt-5", styles.LoginColumns)}>
+            <div className={classnames("column box", styles.LoginLeftWrapper)}>
+              <SignUpSideComponent />
+            </div>
+            <div
+              className={classnames(
+                "column is-two-thirds",
+                styles.LoginCartWrapper
+              )}
+            >
+              <CartRightSideComponent />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

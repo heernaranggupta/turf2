@@ -43,7 +43,7 @@ const App = () => {
   return (
     <>
       <Routes />
-      <ToastContainer pauseOnHover={false} autoClose={3000} />
+      <ToastContainer pauseOnHover={false} autoClose={1500} />
     </>
   );
 };

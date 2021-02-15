@@ -72,10 +72,14 @@ const Headers = () => {
                   )}
                   style={{ width: "max-content" }}
                 >
-                  Hello, {userData?.name}
+                  Hello,
+                  <span style={{ fontWeight: "bold" }}>{userData?.name}</span>
                 </p>
                 <div className="navbar-dropdown is-boxed">
-                  <Link to="/profile" className="navbar-item">
+                  <Link
+                    to="/profile"
+                    className={classnames("navbar-item", styles.headerNavLink)}
+                  >
                     Profile
                   </Link>
                   <p
@@ -85,7 +89,10 @@ const Headers = () => {
                       setIsLoggedIn(false);
                       setUserData(null);
                     }}
-                    className="navbar-item is-clickable"
+                    className={classnames(
+                      "navbar-item is-clickable ",
+                      styles.headerNavLink
+                    )}
                   >
                     Logout
                   </p>

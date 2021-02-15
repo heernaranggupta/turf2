@@ -6,14 +6,17 @@ import LandingPage from "../components/LandingPage";
 
 const Home = () => {
   return (
-    <div className={classnames(styles.addHomeBackground)}>
-      <div
-        className={classnames("container is-fluid", styles.overRideContainer)}
-      >
-        <LandingPage />
-        <Bookings />
+    <>
+      <div className={classnames(styles.addRelationalBackground)}></div>
+      <div className={classnames(styles.addHomeBackground)}>
+        <div
+          className={classnames("container is-fluid", styles.overRideContainer)}
+        >
+          <LandingPage />
+          <Bookings />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -31,33 +31,36 @@ const Cart = () => {
     );
   }
   return (
-    <div className={classnames("section", styles.CartWrapper)}>
-      <div
-        className={classnames("container is-fluid", styles.overRideContainer)}
-      >
-        <div className={classnames(" columns mt-5", styles.cartColumns)}>
-          <div
-            className={classnames(
-              "column box has-text-centered",
-              styles.cartSummaryWrapper
-            )}
-          >
-            <CartSummary />
-            <PaymentGateway />
-          </div>
+    <>
+      <div className={classnames(styles.addRelationalBackground)}></div>
+      <div className={classnames("section", styles.CartWrapper)}>
+        <div
+          className={classnames("container is-fluid", styles.overRideContainer)}
+        >
+          <div className={classnames(" columns mt-5", styles.cartColumns)}>
+            <div
+              className={classnames(
+                "column box has-text-centered",
+                styles.cartSummaryWrapper
+              )}
+            >
+              <CartSummary />
+              <PaymentGateway />
+            </div>
 
-          <div
-            className={classnames(
-              "column is-two-thirds ",
-              styles.SecondColumns
-            )}
-          >
-            <CartRightSideComponent />
+            <div
+              className={classnames(
+                "column is-two-thirds ",
+                styles.SecondColumns
+              )}
+            >
+              <CartRightSideComponent />
+            </div>
           </div>
+          <ToastContainer pauseOnHover={false} autoClose={3000} />
         </div>
-        <ToastContainer pauseOnHover={false} autoClose={3000} />
       </div>
-    </div>
+    </>
   );
 };
 

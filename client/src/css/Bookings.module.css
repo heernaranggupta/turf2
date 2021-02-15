@@ -1,3 +1,10 @@
+.dateInputStyle {
+  font-family: "Conv_Ailerons";
+  font-size: 20px;
+}
+.inputIcons {
+  font-size: 20px;
+}
 .addMinHeight {
   min-height: 100vh !important;
   height: auto !important;
@@ -12,20 +19,23 @@
 .GroundImage {
   height: 250px !important;
   width: 500px !important;
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
 }
 .columnsWrapper {
   margin-top: 10vh;
   position: relative;
 }
 .addGroundBackground {
-  height: 100vh;
+  margin-top: 20px;
+  height: 85vh;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: #5f8d47;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 6px 60px #2b2e2a;
+  /* background: #5f8d47; */
   /* background: hsl(140, 70%, 60%); */
   position: sticky;
   top: 10vh;
@@ -33,19 +43,22 @@
 .addBookingBackground {
   position: relative;
   background: transparent !important;
+  backdrop-filter: blur(10px);
   display: flex;
-
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 .timeBarWrapper {
   width: 100% !important;
-  background-color: #6d9c55;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 6px 25px #2b2e2a;
+  /* background-color: #6d9c55; */
   /* background: hsl(140, 70%, 60%); */
   display: flex;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
   padding: 10px;
   border-radius: 10px;
 }
@@ -54,9 +67,13 @@
   width: 100%;
 }
 .checkoutWrapper {
+  background-color: #045a14;
+  border-radius: 20px;
   width: 67%;
   z-index: 10;
-  position: fixed;
+  -webkit-transform: translateZ(0);
+
+  position: fixed !important;
   top: 100%;
   left: 52%;
   transform: translate(-25%, -100%);
@@ -91,6 +108,9 @@
 }
 
 @media only screen and (max-width: 1100px) {
+  .checkoutbtn {
+    width: 30%;
+  }
   .timeBarWrapper {
     width: 100%;
     flex-direction: column;
@@ -129,6 +149,13 @@
   }
   .checkoutbtn {
     width: 90%;
+  }
+  .dateInputStyle {
+    font-family: "Conv_Ailerons";
+    font-size: 15px;
+  }
+  .inputIcons {
+    font-size: 15px;
   }
 }
 @media only screen and (max-width: 360px) {

@@ -86,48 +86,50 @@ const Login = () => {
         >
           Sign in
         </p>
-        <Link
-          to={{
-            pathname: "/signup",
-            state: {
-              from: state?.from || "/",
-            },
-          }}
-          className={classnames("subtitle is-capitalized has-text-white ")}
-        >
-          New User?
-          <span className={classnames("has-text-info")}>
-            {" "}
-            Create An Account
-          </span>
-        </Link>
+        <div>
+          <Link
+            to={{
+              pathname: "/signup",
+              state: {
+                from: state?.from || "/",
+              },
+            }}
+            className={classnames("subtitle is-capitalized has-text-white ")}
+          >
+            New User?
+            <span className={classnames("has-text-info")}>
+              {" "}
+              Create An Account
+            </span>
+          </Link>
 
-        <div className="field my-3">
-          <div className="control">
-            <input
-              className={classnames("input", styles.LoginInputs)}
-              type="text"
-              placeholder="Phone Number"
-              required
-              ref={phoneRef}
-            />
-          </div>
+          <div className="field my-3">
+            <div className="control">
+              <input
+                className={classnames("input", styles.LoginInputs)}
+                type="text"
+                placeholder="Phone Number"
+                required
+                ref={phoneRef}
+              />
+            </div>
 
-          <div className="control">
-            <input
-              className={classnames("input mt-3", styles.LoginInputs)}
-              type="password"
-              placeholder="Password"
-              required
-              ref={passwordRef}
-            />
-          </div>
+            <div className="control">
+              <input
+                className={classnames("input mt-3", styles.LoginInputs)}
+                type="password"
+                placeholder="Password"
+                required
+                ref={passwordRef}
+              />
+            </div>
 
-          <div className="control">
-            <label className="checkbox has-text-white ">
-              <input type="checkbox" />
-              <span className="is-size-5 ml-3">Keep me signed in</span>
-            </label>
+            <div className="control">
+              <label className="checkbox has-text-white ">
+                <input type="checkbox" />
+                <span className="is-size-5 ml-3">Keep me signed in</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -142,9 +144,7 @@ const Login = () => {
 
         <div className={classnames(styles.dividerWrapper)}>
           <div className={classnames(styles.dividerLine)}></div>
-          <p className={classnames("has-text-white subtitle")}>
-            Or Sign In With
-          </p>
+          <p className={classnames("has-text-white subtitle")}>Follow Us @</p>
           <div className={classnames(styles.dividerLine)}></div>
         </div>
 
@@ -163,25 +163,28 @@ const Login = () => {
   }
 
   return (
-    <div className={classnames("section", styles.LoginWrapper)}>
-      <div
-        className={classnames("container is-fluid", styles.overRideContainer)}
-      >
-        <div className={classnames(" columns mt-5", styles.LoginColumns)}>
-          <div className={classnames("column box", styles.LoginLeftWrapper)}>
-            <LoginSideComponent />
-          </div>
-          <div
-            className={classnames(
-              "column is-two-thirds",
-              styles.LoginCartWrapper
-            )}
-          >
-            <CartRightSideComponent />
+    <>
+      <div className={classnames(styles.addRelationalBackground)}></div>
+      <div className={classnames("section", styles.LoginWrapper)}>
+        <div
+          className={classnames("container is-fluid", styles.overRideContainer)}
+        >
+          <div className={classnames(" columns", styles.LoginColumns)}>
+            <div className={classnames("column box", styles.LoginLeftWrapper)}>
+              <LoginSideComponent />
+            </div>
+            <div
+              className={classnames(
+                "column is-two-thirds",
+                styles.LoginCartWrapper
+              )}
+            >
+              <CartRightSideComponent />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

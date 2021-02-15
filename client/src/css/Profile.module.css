@@ -1,10 +1,28 @@
+.addRelationalBackground {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("../images/Group2.png") !important;
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 .ProfileWrapper {
   position: relative;
-  background: #437520;
+  background: transparent;
+}
+.ProfileColumns {
+  margin-top: 10vh !important;
 }
 .ProfileLeftColumn {
-  background: #5f8d47;
-  height: 100vh;
+  background: transparent;
+  backdrop-filter: blur(10px);
+  box-shadow: 0px 6px 60px #2b2e2a;
+  height: 85vh;
   width: 100%;
   position: sticky;
   top: 0;

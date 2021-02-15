@@ -122,21 +122,18 @@ const CartRightSideComponent = () => {
   }
 
   return (
-    <div>
+    <>
       {dateArray.map((item, index) => {
         const turf01 = cartData[item]?.turf01 || [];
         const turf02 = cartData[item]?.turf02 || [];
         const turf03 = cartData[item]?.turf03 || [];
 
         return (
-          <div
-            key={index}
-            className={classnames("box", styles.dateCardWrapper)}
-          >
-            <header
-              className={classnames(styles.cardheader, "card-header my-3")}
-            >
-              <p className="card-header-title has-text-white">{item}</p>
+          <div key={index} className={classnames(styles.dateCardWrapper)}>
+            <header className={classnames(styles.cardheader, "card-header")}>
+              <p className="card-header-title has-text-black is-size-4">
+                {item}
+              </p>
             </header>
             <div
               className={classnames("card-content", styles.allGroundsWrapper)}
@@ -173,7 +170,7 @@ const CartRightSideComponent = () => {
           </div>
         );
       })}
-    </div>
+    </>
   );
 };
 

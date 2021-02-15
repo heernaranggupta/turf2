@@ -145,8 +145,17 @@ const BookingSummary = () => {
 
   return (
     <>
-      <div className={classnames("box", styles.dateCardWrapper)}>
-        <p className="card-header p-5 title has-text-white">Upcoming Booking</p>
+      <div className={classnames(styles.dateCardWrapper)}>
+        <p
+          className="card-header p-3 title has-text-black has-background-white"
+          style={{
+            fontFamily: "Conv_Ailerons",
+            marginLeft: 25,
+            borderRadius: 10,
+          }}
+        >
+          Upcoming Booking
+        </p>
         <div className={classnames("card-content", styles.historygrid)}>
           {upcoming &&
             upcoming.map((item, index) => (
@@ -161,41 +170,64 @@ const BookingSummary = () => {
             ))}
         </div>
       </div>
-      <div className={classnames("box", styles.dateCardWrapper)}>
-        <p className="card-header title has-text-white p-5">Booking History</p>
-        <div className={classnames("card-content", styles.historygrid)}>
-          {history &&
-            history.map((item, index) => (
-              <BookingSummaryElement
-                key={index}
-                item={item}
-                index={index}
-                handleOnClick={() => {}}
-                handleOnClickView={() => {}}
-                isHistory={true}
-                id={1}
-              />
-            ))}
-        </div>
-      </div>
 
-      <div className={classnames("box", styles.dateCardWrapper)}>
-        <p className="card-header title has-text-white p-5">Cancel Booking</p>
-        <div className={classnames("card-content", styles.historygrid)}>
-          {cancelSlots &&
-            cancelSlots.map((item, index) => (
-              <BookingSummaryElement
-                key={index}
-                item={item}
-                index={index}
-                handleOnClick={() => {}}
-                handleOnClickView={() => {}}
-                isHistory={true}
-                id={1}
-              />
-            ))}
+      {history.length && (
+        <div className={classnames(styles.dateCardWrapper)}>
+          <p
+            className="card-header title has-text-black p-3 has-background-white"
+            style={{
+              fontFamily: "Conv_Ailerons",
+              marginLeft: 25,
+              borderRadius: 10,
+            }}
+          >
+            Booking History
+          </p>
+          <div className={classnames("card-content", styles.historygrid)}>
+            {history &&
+              history.map((item, index) => (
+                <BookingSummaryElement
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnClick={() => {}}
+                  handleOnClickView={() => {}}
+                  isHistory={true}
+                  id={1}
+                />
+              ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {cancelSlots.length && (
+        <div className={classnames(styles.dateCardWrapper)}>
+          <p
+            className="card-header title has-text-black p-3 has-background-white"
+            style={{
+              fontFamily: "Conv_Ailerons",
+              marginLeft: 25,
+              borderRadius: 10,
+            }}
+          >
+            Cancel Booking
+          </p>
+          <div className={classnames("card-content", styles.historygrid)}>
+            {cancelSlots &&
+              cancelSlots.map((item, index) => (
+                <BookingSummaryElement
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnClick={() => {}}
+                  handleOnClickView={() => {}}
+                  isHistory={true}
+                  id={1}
+                />
+              ))}
+          </div>
+        </div>
+      )}
     </>
   );
 };

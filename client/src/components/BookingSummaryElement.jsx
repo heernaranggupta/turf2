@@ -73,7 +73,7 @@ const BookingSummaryElement = ({
         </div>
       </div>
 
-      <footer className="card-footer">
+      <footer className={classnames("card-footer", styles.cardFooter)}>
         <span
           className="card-footer-item is-clickable"
           onClick={() => {

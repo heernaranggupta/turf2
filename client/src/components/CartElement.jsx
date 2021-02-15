@@ -54,7 +54,9 @@ const CartElement = ({ data, label, reloadData }) => {
   };
   return (
     <div className={classnames("box", styles.groundWrapper)}>
-      <p className="title has-text-white">{label}</p>
+      <p className={classnames("title has-text-white", styles.GroundLabel)}>
+        {label}
+      </p>
       <div className={styles.scrollGroundItems}>
         {data.map((item, index) => {
           return (

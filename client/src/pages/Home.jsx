@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import classnames from "classnames";
 import Carousel from "react-multi-carousel";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import styles from "../css/Home.module.css";
 import "react-multi-carousel/lib/styles.css";
@@ -14,8 +14,6 @@ import Slider4 from "../images/index_4.png";
 import Slider5 from "../images/index_5.png";
 
 const Home = () => {
-  const history = useHistory();
-
   useEffect(() => {
     try {
       document.querySelector(".navbar").style.backgroundColor = "transparent";
@@ -23,7 +21,7 @@ const Home = () => {
 
     return () => {
       try {
-        document.querySelector(".navbar").style.backgroundColor = "#437520";
+        document.querySelector(".navbar").style.backgroundColor = "#045a14";
       } catch (error) {}
     };
   }, []);
@@ -92,14 +90,16 @@ const Home = () => {
             <img src={Slider4} alt="slider4" />
             <img src={Slider5} alt="slider5" />
           </Carousel>
-
-          <div className={styles.buttonWrapper}>
-            <button
-              className="button is-large is-rounded"
-              onClick={() => history.push("/book")}
+          <div className={styles.checkoutbtnWrapper}>
+            <Link
+              to="/book"
+              className={classnames(
+                styles.checkoutbtn,
+                "button is-success is-light my-3 is-size-4-mobile is-size-3"
+              )}
             >
-              Book Now
-            </button>
+              Book Slots
+            </Link>
           </div>
         </div>
       </div>

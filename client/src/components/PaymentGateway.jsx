@@ -88,6 +88,7 @@ const PaymentGateway = () => {
         },
       })
       .then((res) => {
+        console.log(res.data);
         const validateSlots = res.data.body.timeSlotResponses.filter(function (
           item
         ) {
@@ -99,7 +100,6 @@ const PaymentGateway = () => {
         } else {
           console.log("some slots is not available");
         }
-        console.log("validate", res);
       })
       .catch((err) => {
         console.log(err.response);
