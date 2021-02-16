@@ -34,7 +34,9 @@ export const compareTime = (startTime, secondTime = "") => {
   var dd1 = d1.valueOf();
   var dd2 = d2.valueOf();
 
-  //   if (dd1 < dd2) {
+  //  dd1 is first arg
+  //  dd2 is second arg
+  //   if (dd1  < dd2) {
   //     alert("b is greater");
   //   } else {
   //     alert("a is greater");

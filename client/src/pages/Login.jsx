@@ -4,8 +4,7 @@ import classnames from "classnames";
 import {
   AiOutlineGoogle,
   AiFillFacebook,
-  AiFillLinkedin,
-  AiOutlineTwitter,
+  AiOutlineInstagram,
 } from "react-icons/ai";
 import { Context } from "../data/context";
 import CartRightSideComponent from "../components/CartRightSideComponent";
@@ -14,6 +13,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
+import { links } from "../config/socialLinks";
 
 const Login = () => {
   const { state } = useLocation();
@@ -68,11 +68,8 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("error here", err);
-        console.log("res", err.response);
-        if (err.response.code === 500) {
-          toast.error(err.response.data.message);
-        }
+        console.log(err);
+        toast.error(err?.response?.data?.message);
       });
   };
 
@@ -86,48 +83,50 @@ const Login = () => {
         >
           Sign in
         </p>
-        <Link
-          to={{
-            pathname: "/signup",
-            state: {
-              from: state?.from || "/",
-            },
-          }}
-          className={classnames("subtitle is-capitalized has-text-white ")}
-        >
-          New User?
-          <span className={classnames("has-text-info")}>
-            {" "}
-            Create An Account
-          </span>
-        </Link>
+        <div>
+          <Link
+            to={{
+              pathname: "/signup",
+              state: {
+                from: state?.from || "/",
+              },
+            }}
+            className={classnames("subtitle is-capitalized has-text-white ")}
+          >
+            New User?
+            <span className={classnames("has-text-info")}>
+              {" "}
+              Create An Account
+            </span>
+          </Link>
 
-        <div className="field my-3">
-          <div className="control">
-            <input
-              className={classnames("input", styles.LoginInputs)}
-              type="text"
-              placeholder="Phone Number"
-              required
-              ref={phoneRef}
-            />
-          </div>
+          <div className="field my-3">
+            <div className="control">
+              <input
+                className={classnames("input", styles.LoginInputs)}
+                type="text"
+                placeholder="Phone Number"
+                required
+                ref={phoneRef}
+              />
+            </div>
 
-          <div className="control">
-            <input
-              className={classnames("input mt-3", styles.LoginInputs)}
-              type="password"
-              placeholder="Password"
-              required
-              ref={passwordRef}
-            />
-          </div>
+            <div className="control">
+              <input
+                className={classnames("input mt-3", styles.LoginInputs)}
+                type="password"
+                placeholder="Password"
+                required
+                ref={passwordRef}
+              />
+            </div>
 
-          <div className="control">
-            <label className="checkbox has-text-white ">
-              <input type="checkbox" />
-              <span className="is-size-5 ml-3">Keep me signed in</span>
-            </label>
+            <div className="control">
+              <label className="checkbox has-text-white ">
+                <input type="checkbox" />
+                <span className="is-size-5 ml-3">Keep me signed in</span>
+              </label>
+            </div>
           </div>
         </div>
 
@@ -142,17 +141,36 @@ const Login = () => {
 
         <div className={classnames(styles.dividerWrapper)}>
           <div className={classnames(styles.dividerLine)}></div>
-          <p className={classnames("has-text-white subtitle")}>
-            Or Sign In With
-          </p>
+          <p className={classnames("has-text-white subtitle")}>Follow Us @</p>
           <div className={classnames(styles.dividerLine)}></div>
         </div>
 
         <div className={classnames("my-6", styles.socialIconsWrapper)}>
-          <AiOutlineGoogle size={40} color="#FFF" />
-          <AiFillFacebook size={40} color="#FFF" />
-          <AiFillLinkedin size={40} color="#FFF" />
-          <AiOutlineTwitter size={40} color="#FFF" />
+          <AiOutlineGoogle
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.google}`, "_blank");
+            }}
+          />
+          <AiFillFacebook
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.facebook}`, "_blank");
+            }}
+          />
+
+          <AiOutlineInstagram
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.instagram}`, "_blank");
+            }}
+          />
         </div>
       </div>
     );
@@ -163,25 +181,28 @@ const Login = () => {
   }
 
   return (
-    <div className={classnames("section", styles.LoginWrapper)}>
-      <div
-        className={classnames("container is-fluid", styles.overRideContainer)}
-      >
-        <div className={classnames(" columns mt-5", styles.LoginColumns)}>
-          <div className={classnames("column box", styles.LoginLeftWrapper)}>
-            <LoginSideComponent />
-          </div>
-          <div
-            className={classnames(
-              "column is-two-thirds",
-              styles.LoginCartWrapper
-            )}
-          >
-            <CartRightSideComponent />
+    <>
+      <div className={classnames(styles.addRelationalBackground)}></div>
+      <div className={classnames("section", styles.LoginWrapper)}>
+        <div
+          className={classnames("container is-fluid", styles.overRideContainer)}
+        >
+          <div className={classnames(" columns", styles.LoginColumns)}>
+            <div className={classnames("column box", styles.LoginLeftWrapper)}>
+              <LoginSideComponent />
+            </div>
+            <div
+              className={classnames(
+                "column is-two-thirds",
+                styles.LoginCartWrapper
+              )}
+            >
+              <CartRightSideComponent />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

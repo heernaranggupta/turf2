@@ -1,5 +1,6 @@
 .dateCardWrapper {
-  background: #5f8d47;
+  background: transparent;
+  box-shadow: none;
 }
 .slotHeaderWrapper {
   width: 100%;
@@ -78,11 +79,18 @@
   text-align: center;
   width: 500px;
   padding: 40px;
-  background: #28bae6;
+  background: #045a14;
   box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
   color: #fff;
 }
-
+.cancelModal {
+  width: 50%;
+}
+.cancelModalBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .customUI > h1 {
   margin-top: 0;
 }
@@ -95,14 +103,21 @@
   cursor: pointer;
   background: none;
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
 }
-@media only screen and (max-width: 1570px) {
+@media only screen and (max-width: 1800px) {
   .historygrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
 }
+@media only screen and (max-width: 1250px) {
+  .historygrid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
 @media only screen and (max-width: 1350px) {
   .slotContentWrapper {
     display: grid;
@@ -118,15 +133,9 @@
 
 @media only screen and (max-width: 768px) {
   .historygrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0 !important;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .historygrid {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

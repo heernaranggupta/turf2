@@ -36,6 +36,7 @@ const CartElement = ({ data, label, reloadData }) => {
           reloadData();
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     } else {
@@ -48,13 +49,16 @@ const CartElement = ({ data, label, reloadData }) => {
           reloadData();
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     }
   };
   return (
     <div className={classnames("box", styles.groundWrapper)}>
-      <p className="title has-text-white">{label}</p>
+      <p className={classnames("title has-text-white", styles.GroundLabel)}>
+        {label}
+      </p>
       <div className={styles.scrollGroundItems}>
         {data.map((item, index) => {
           return (

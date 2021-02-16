@@ -63,7 +63,7 @@ const SlotItems = () => {
             }
           })
           .catch((error) => {
-            toast.error(error.message);
+            toast.error(error?.response?.data?.message);
             console.log(error.message);
           });
       } else {
@@ -82,7 +82,7 @@ const SlotItems = () => {
             }
           })
           .catch((error) => {
-            toast.error(error.message);
+            toast.error(error?.response?.data?.message);
             console.log(error.message);
           });
       }
@@ -112,6 +112,7 @@ const SlotItems = () => {
           setTotalSlots((old) => old - 1);
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     } else {
@@ -123,6 +124,7 @@ const SlotItems = () => {
           setTotalSlots((old) => old - 1);
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     }
@@ -237,7 +239,12 @@ const SlotItems = () => {
     <div>
       <div className={styles.contentWrapper}>
         <div className={classnames(styles.slotHeaderWrapper)}>
-          <p className="is-size-4-desktop is-size-6-touch is-uppercase has-text-white">
+          <p
+            className={classnames(
+              "is-size-2-desktop is-size-5-touch is-uppercase has-text-white",
+              styles.slotsName
+            )}
+          >
             Slots
           </p>
           <div className={classnames(styles.addHorizontalBar)}></div>
@@ -261,7 +268,12 @@ const SlotItems = () => {
 
       <div className={styles.contentWrapper}>
         <div className={classnames(styles.slotHeaderWrapper)}>
-          <p className="is-size-4-desktop is-size-6-touch is-uppercase has-text-white">
+          <p
+            className={classnames(
+              "is-size-2-desktop is-size-5-touch is-uppercase has-text-white",
+              styles.slotsName
+            )}
+          >
             Slots
           </p>
           <div className={classnames(styles.addHorizontalBar)}></div>
@@ -285,7 +297,12 @@ const SlotItems = () => {
 
       <div className={styles.contentWrapper}>
         <div className={classnames(styles.slotHeaderWrapper)}>
-          <p className="is-size-4-desktop is-size-6-touch is-uppercase has-text-white">
+          <p
+            className={classnames(
+              "is-size-2-desktop is-size-5-touch is-uppercase has-text-white",
+              styles.slotsName
+            )}
+          >
             Slots
           </p>
           <div className={classnames(styles.addHorizontalBar)}></div>

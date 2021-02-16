@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import classnames from "classnames";
 import axios from "axios";
-import { BiCalendarWeek } from "react-icons/bi";
+import { BiCalendarWeek, BiTime } from "react-icons/bi";
 import { toast } from "react-toastify";
 import styles from "../css/Bookings.module.css";
 import GroundImage from "../images/ground.png";
@@ -16,7 +16,7 @@ import {
 } from "../utils/TimeConverter";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/filterData";
-import { getCurrentTime } from "../utils/compareTime";
+import { compareTime, getCurrentTime } from "../utils/compareTime";
 import Loading from "./Loading";
 
 const Bookings = () => {
@@ -35,8 +35,8 @@ const Bookings = () => {
   } = useContext(Context);
 
   const [isGroundSelected1, setIsGroundSelected1] = useState(true);
-  const [isGroundSelected2, setIsGroundSelected2] = useState(false);
-  const [isGroundSelected3, setIsGroundSelected3] = useState(false);
+  const [isGroundSelected2, setIsGroundSelected2] = useState(true);
+  const [isGroundSelected3, setIsGroundSelected3] = useState(true);
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
   const [startTime, setStartTime] = useState(getCurrentTime());
   const [endTime, setEndTime] = useState("12:00");
@@ -49,6 +49,7 @@ const Bookings = () => {
         setCartData(sortedData);
         const selectedDateCart = sortedData[bookDate];
         const newData = FetchgroundData;
+
         if (selectedDateCart) {
           if (selectedDateCart.turf01 && newData.turf01) {
             selectedDateCart.turf01.forEach((item) => {
@@ -92,9 +93,43 @@ const Bookings = () => {
             });
           }
         }
+        const newFilterData = {
+          turf01: [],
+          turf02: [],
+          turf03: [],
+        };
+
+        if (newData.turf01) {
+          newData.turf01.forEach((item) => {
+            if (!compareTime(startTime, item.startTime)) {
+              if (!compareTime(item.startTime, endTime)) {
+                newFilterData.turf01.push(item);
+              }
+            }
+          });
+        }
+        if (newData.turf02) {
+          newData.turf02.forEach((item) => {
+            if (!compareTime(startTime, item.startTime)) {
+              if (!compareTime(item.startTime, endTime)) {
+                newFilterData.turf02.push(item);
+              }
+            }
+          });
+        }
+        if (newData.turf03) {
+          newData.turf03.forEach((item) => {
+            if (!compareTime(startTime, item.startTime)) {
+              if (!compareTime(item.startTime, endTime)) {
+                newFilterData.turf03.push(item);
+              }
+            }
+          });
+        }
+
         setSortedData({ ...newData });
 
-        setGroundData({ ...newData });
+        setGroundData({ ...newFilterData });
       }
     },
     [
@@ -104,6 +139,8 @@ const Bookings = () => {
       setSortedData,
       setTotalSlots,
       setTotalTime,
+      endTime,
+      startTime,
     ]
   );
 
@@ -125,6 +162,7 @@ const Bookings = () => {
           })
           .catch((err) => {
             console.log(err);
+            toast.error(err?.response?.data?.message);
           });
       } else {
         axios
@@ -139,6 +177,7 @@ const Bookings = () => {
           })
           .catch((err) => {
             console.log(err);
+            toast.error(err?.response?.data?.message);
           });
       }
     },
@@ -194,7 +233,7 @@ const Bookings = () => {
         }
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error(error?.response?.data?.message);
         console.log(error.message);
       });
   }, [
@@ -284,7 +323,7 @@ const Bookings = () => {
 
         <div
           className={classnames(
-            "column box is-two-thirds",
+            "column  is-two-thirds",
             styles.addMinHeight,
             styles.addBookingBackground
           )}
@@ -294,7 +333,7 @@ const Bookings = () => {
               <BiCalendarWeek size={40} color="#FFF" className="mx-3" />
               <div className="control has-icons-right">
                 <input
-                  className="input"
+                  className={classnames("input", styles.dateInputStyle)}
                   type="date"
                   placeholder="Pick Date"
                   value={bookDate}
@@ -304,28 +343,29 @@ const Bookings = () => {
                     setBookDate(event.target.value);
                   }}
                 />
-                <span className="icon is-small is-right">
+                <span
+                  className={classnames("icon is-right", styles.inputIcons)}
+                >
                   <BiCalendarWeek color="#000" />
                 </span>
               </div>
             </div>
 
             <div style={{ display: "flex" }}>
-              <BiCalendarWeek size={40} color="#FFF" className="mx-3" />
+              <BiTime size={40} color="#FFF" className="mx-3" />
               <div className="control">
                 <input
-                  className="input "
+                  className={classnames("input", styles.dateInputStyle)}
                   type="time"
                   placeholder="Pick Start Time"
                   step="3600"
                   value={startTime}
-                  readOnly
                   onChange={(event) => setStartTime(event.target.value)}
                 />
               </div>
               <div className="control">
                 <input
-                  className="input ml-3"
+                  className={classnames("input ml-3", styles.dateInputStyle)}
                   type="time"
                   placeholder="Pick End Time"
                   step="3600"

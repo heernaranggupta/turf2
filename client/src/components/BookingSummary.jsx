@@ -16,6 +16,7 @@ const BookingSummary = () => {
   const [history, setHistory] = useState([]);
   const [upcoming, setUpComing] = useState([]);
   const [cancelSlots, setCancelSlots] = useState([]);
+  const [isBookingCancelled, setIsBookingCancelled] = useState(false);
 
   const { userData, token, isLoading, setIsLoading } = useContext(Context);
 
@@ -63,6 +64,7 @@ const BookingSummary = () => {
         setHistory(historyList);
       })
       .catch((err) => {
+        toast.error(err?.response?.data?.message);
         console.log(err);
       });
   }, [token]);
@@ -80,7 +82,8 @@ const BookingSummary = () => {
         console.log(userData);
       })
       .catch((err) => {
-        console.log(err.message);
+        toast.error(err?.response?.data?.message);
+        console.log(err);
       });
 
     // axios
@@ -98,10 +101,18 @@ const BookingSummary = () => {
       customUI: ({ onClose }) => {
         return (
           <div className={styles.customUI}>
-            <h1>Are you sure?</h1>
-            <p>You want to delete this file?</p>
-            <button onClick={onClose}>No</button>
+            <p className="title has-text-white">Are you sure?</p>
+            <p>You want to cancel this Slot?</p>
+            <p className="subtitle has-text-white">Date: {item.date}</p>
+            <p className="subtitle has-text-white">
+              Start Time: {item.startTime}
+            </p>
+            <p className="subtitle has-text-white">End Time: {item.endTime}</p>
+            <button className="button" onClick={onClose}>
+              No
+            </button>
             <button
+              className="button is-danger"
               onClick={() => {
                 const body = {
                   bookingId: item.bookingId,
@@ -121,6 +132,7 @@ const BookingSummary = () => {
                   })
                   .then((res) => {
                     console.log(res.data);
+                    setIsBookingCancelled(true);
                     toast.success("Slot Cancelled");
                     bookingSummary();
                   });
@@ -145,8 +157,17 @@ const BookingSummary = () => {
 
   return (
     <>
-      <div className={classnames("box", styles.dateCardWrapper)}>
-        <p className="card-header p-5 title has-text-white">Upcoming Booking</p>
+      <div className={classnames(styles.dateCardWrapper)}>
+        <p
+          className="card-header p-3 title has-text-black has-background-white"
+          style={{
+            fontFamily: "Conv_Ailerons",
+            marginLeft: 25,
+            borderRadius: 10,
+          }}
+        >
+          Upcoming Bookings
+        </p>
         <div className={classnames("card-content", styles.historygrid)}>
           {upcoming &&
             upcoming.map((item, index) => (
@@ -161,39 +182,97 @@ const BookingSummary = () => {
             ))}
         </div>
       </div>
-      <div className={classnames("box", styles.dateCardWrapper)}>
-        <p className="card-header title has-text-white p-5">Booking History</p>
-        <div className={classnames("card-content", styles.historygrid)}>
-          {history &&
-            history.map((item, index) => (
-              <BookingSummaryElement
-                key={index}
-                item={item}
-                index={index}
-                handleOnClick={() => {}}
-                handleOnClickView={() => {}}
-                isHistory={true}
-                id={1}
-              />
-            ))}
-        </div>
-      </div>
 
-      <div className={classnames("box", styles.dateCardWrapper)}>
-        <p className="card-header title has-text-white p-5">Cancel Booking</p>
-        <div className={classnames("card-content", styles.historygrid)}>
-          {cancelSlots &&
-            cancelSlots.map((item, index) => (
-              <BookingSummaryElement
-                key={index}
-                item={item}
-                index={index}
-                handleOnClick={() => {}}
-                handleOnClickView={() => {}}
-                isHistory={true}
-                id={1}
-              />
-            ))}
+      {history.length && (
+        <div className={classnames(styles.dateCardWrapper)}>
+          <p
+            className="card-header title has-text-black p-3 has-background-white"
+            style={{
+              fontFamily: "Conv_Ailerons",
+              marginLeft: 25,
+              borderRadius: 10,
+            }}
+          >
+            Bookings History
+          </p>
+          <div className={classnames("card-content", styles.historygrid)}>
+            {history &&
+              history.map((item, index) => (
+                <BookingSummaryElement
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnClick={() => {}}
+                  handleOnClickView={() => {}}
+                  isHistory={true}
+                  id={1}
+                />
+              ))}
+          </div>
+        </div>
+      )}
+
+      {cancelSlots.length && (
+        <div className={classnames(styles.dateCardWrapper)}>
+          <p
+            className="card-header title has-text-black p-3 has-background-white"
+            style={{
+              fontFamily: "Conv_Ailerons",
+              marginLeft: 25,
+              borderRadius: 10,
+            }}
+          >
+            Cancelled Booking
+          </p>
+          <div className={classnames("card-content", styles.historygrid)}>
+            {cancelSlots &&
+              cancelSlots.map((item, index) => (
+                <BookingSummaryElement
+                  key={index}
+                  item={item}
+                  index={index}
+                  handleOnClick={() => {}}
+                  handleOnClickView={() => {}}
+                  isHistory={true}
+                  id={1}
+                />
+              ))}
+          </div>
+        </div>
+      )}
+
+      <div
+        className={classnames("modal", isBookingCancelled ? "is-active" : "")}
+      >
+        <div className="modal-background"></div>
+        <div className={classnames("modal-card")}>
+          <header className="modal-card-head">
+            <p className="modal-card-title">Slot Cancelled</p>
+            <button
+              className="delete"
+              onClick={() => setIsBookingCancelled(false)}
+              aria-label="close"
+            ></button>
+          </header>
+          <section className={classnames("modal-card-body")}>
+            <div>
+              <p className="title">Slot Cancelled Successfully</p>
+              <p className="subtitle">
+                Your Refund Process has been initiated.
+              </p>
+              <p className="subtitle">
+                You will receive refund within 5 to 6 working days.
+              </p>
+            </div>
+          </section>
+          <footer className="modal-card-foot">
+            <button
+              className="button is-success"
+              onClick={() => setIsBookingCancelled(false)}
+            >
+              OK
+            </button>
+          </footer>
         </div>
       </div>
     </>

@@ -102,10 +102,10 @@
   .LoginWrapper {
     padding: 3rem 0 !important;
   }
-  .LoginLeftWrapper {
-    margin: 20px;
-  }
   .dividerWrapper .dividerLine {
     width: 25%;
+  }
+  .LoginLeftWrapper {
+    margin: 20px;
   }
 }
