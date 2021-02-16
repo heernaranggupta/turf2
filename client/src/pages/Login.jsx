@@ -4,8 +4,7 @@ import classnames from "classnames";
 import {
   AiOutlineGoogle,
   AiFillFacebook,
-  AiFillLinkedin,
-  AiOutlineTwitter,
+  AiOutlineInstagram,
 } from "react-icons/ai";
 import { Context } from "../data/context";
 import CartRightSideComponent from "../components/CartRightSideComponent";
@@ -14,6 +13,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
+import { links } from "../config/socialLinks";
 
 const Login = () => {
   const { state } = useLocation();
@@ -68,11 +68,8 @@ const Login = () => {
         }
       })
       .catch((err) => {
-        console.log("error here", err);
-        console.log("res", err.response);
-        if (err.response.code === 500) {
-          toast.error(err.response.data.message);
-        }
+        console.log(err);
+        toast.error(err?.response?.data?.message);
       });
   };
 
@@ -149,10 +146,31 @@ const Login = () => {
         </div>
 
         <div className={classnames("my-6", styles.socialIconsWrapper)}>
-          <AiOutlineGoogle size={40} color="#FFF" />
-          <AiFillFacebook size={40} color="#FFF" />
-          <AiFillLinkedin size={40} color="#FFF" />
-          <AiOutlineTwitter size={40} color="#FFF" />
+          <AiOutlineGoogle
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.google}`, "_blank");
+            }}
+          />
+          <AiFillFacebook
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.facebook}`, "_blank");
+            }}
+          />
+
+          <AiOutlineInstagram
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.instagram}`, "_blank");
+            }}
+          />
         </div>
       </div>
     );

@@ -63,7 +63,7 @@ const SlotItems = () => {
             }
           })
           .catch((error) => {
-            toast.error(error.message);
+            toast.error(error?.response?.data?.message);
             console.log(error.message);
           });
       } else {
@@ -82,7 +82,7 @@ const SlotItems = () => {
             }
           })
           .catch((error) => {
-            toast.error(error.message);
+            toast.error(error?.response?.data?.message);
             console.log(error.message);
           });
       }
@@ -112,6 +112,7 @@ const SlotItems = () => {
           setTotalSlots((old) => old - 1);
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     } else {
@@ -123,6 +124,7 @@ const SlotItems = () => {
           setTotalSlots((old) => old - 1);
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     }

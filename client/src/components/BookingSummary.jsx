@@ -64,6 +64,7 @@ const BookingSummary = () => {
         setHistory(historyList);
       })
       .catch((err) => {
+        toast.error(err?.response?.data?.message);
         console.log(err);
       });
   }, [token]);
@@ -81,7 +82,8 @@ const BookingSummary = () => {
         console.log(userData);
       })
       .catch((err) => {
-        console.log(err.message);
+        toast.error(err?.response?.data?.message);
+        console.log(err);
       });
 
     // axios
@@ -137,7 +139,7 @@ const BookingSummary = () => {
                 onClose();
               }}
             >
-              Yes, Cancel it!
+              Yes, Delete it!
             </button>
           </div>
         );
@@ -220,7 +222,7 @@ const BookingSummary = () => {
               borderRadius: 10,
             }}
           >
-            Cancelled Bookings
+            Cancelled Booking
           </p>
           <div className={classnames("card-content", styles.historygrid)}>
             {cancelSlots &&
@@ -239,25 +241,36 @@ const BookingSummary = () => {
         </div>
       )}
 
-      <div className={classnames("modal", false ? "is-active" : "")}>
+      <div
+        className={classnames("modal", isBookingCancelled ? "is-active" : "")}
+      >
         <div className="modal-background"></div>
-        <div className="modal-card">
+        <div className={classnames("modal-card")}>
           <header className="modal-card-head">
-            <p className="modal-card-title">Modal title</p>
+            <p className="modal-card-title">Slot Cancelled</p>
             <button
               className="delete"
               onClick={() => setIsBookingCancelled(false)}
               aria-label="close"
             ></button>
           </header>
-          <section className="modal-card-body"></section>
+          <section className={classnames("modal-card-body")}>
+            <div>
+              <p className="title">Slot Cancelled Successfully</p>
+              <p className="subtitle">
+                Your Refund Process has been initiated.
+              </p>
+              <p className="subtitle">
+                You will receive refund within 5 to 6 working days.
+              </p>
+            </div>
+          </section>
           <footer className="modal-card-foot">
-            <button className="button is-success">Save changes</button>
             <button
-              className="button"
+              className="button is-success"
               onClick={() => setIsBookingCancelled(false)}
             >
-              Ok
+              OK
             </button>
           </footer>
         </div>

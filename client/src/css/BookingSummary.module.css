@@ -83,7 +83,14 @@
   box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
   color: #fff;
 }
-
+.cancelModal {
+  width: 50%;
+}
+.cancelModalBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .customUI > h1 {
   margin-top: 0;
 }

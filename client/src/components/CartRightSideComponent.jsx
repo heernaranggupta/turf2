@@ -8,6 +8,7 @@ import axios from "axios";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 var IS_MOUNTED = false;
 const CartRightSideComponent = () => {
@@ -74,6 +75,7 @@ const CartRightSideComponent = () => {
           handleFetchedData(res);
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     } else {
@@ -88,6 +90,7 @@ const CartRightSideComponent = () => {
           handleFetchedData(res);
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err);
         });
     }

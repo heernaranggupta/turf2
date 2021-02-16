@@ -5,6 +5,7 @@ import { Context } from "../data/context";
 import api, { TurfMail } from "../config/api";
 import { ListData } from "../utils/ListData";
 import styles from "../css/Payment.module.css";
+import { toast } from "react-toastify";
 
 const PaymentGateway = () => {
   const { cartData, totalAmount, isLoggedIn, userData, token } = useContext(
@@ -58,6 +59,7 @@ const PaymentGateway = () => {
           }
         })
         .catch((err) => {
+          toast.error(err?.response?.data?.message);
           console.log(err.message);
         });
     },
@@ -102,6 +104,7 @@ const PaymentGateway = () => {
         }
       })
       .catch((err) => {
+        toast.error(err?.response?.data?.message);
         console.log(err.response);
       });
   };

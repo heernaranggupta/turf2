@@ -16,7 +16,7 @@ import {
 } from "../utils/TimeConverter";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/filterData";
-import { getCurrentTime } from "../utils/compareTime";
+import { compareTime, getCurrentTime } from "../utils/compareTime";
 import Loading from "./Loading";
 
 const Bookings = () => {
@@ -49,6 +49,7 @@ const Bookings = () => {
         setCartData(sortedData);
         const selectedDateCart = sortedData[bookDate];
         const newData = FetchgroundData;
+
         if (selectedDateCart) {
           if (selectedDateCart.turf01 && newData.turf01) {
             selectedDateCart.turf01.forEach((item) => {
@@ -92,9 +93,43 @@ const Bookings = () => {
             });
           }
         }
+        const newFilterData = {
+          turf01: [],
+          turf02: [],
+          turf03: [],
+        };
+
+        if (newData.turf01) {
+          newData.turf01.forEach((item) => {
+            if (!compareTime(startTime, item.startTime)) {
+              if (!compareTime(item.startTime, endTime)) {
+                newFilterData.turf01.push(item);
+              }
+            }
+          });
+        }
+        if (newData.turf02) {
+          newData.turf02.forEach((item) => {
+            if (!compareTime(startTime, item.startTime)) {
+              if (!compareTime(item.startTime, endTime)) {
+                newFilterData.turf02.push(item);
+              }
+            }
+          });
+        }
+        if (newData.turf03) {
+          newData.turf03.forEach((item) => {
+            if (!compareTime(startTime, item.startTime)) {
+              if (!compareTime(item.startTime, endTime)) {
+                newFilterData.turf03.push(item);
+              }
+            }
+          });
+        }
+
         setSortedData({ ...newData });
 
-        setGroundData({ ...newData });
+        setGroundData({ ...newFilterData });
       }
     },
     [
@@ -104,6 +139,8 @@ const Bookings = () => {
       setSortedData,
       setTotalSlots,
       setTotalTime,
+      endTime,
+      startTime,
     ]
   );
 
@@ -125,6 +162,7 @@ const Bookings = () => {
           })
           .catch((err) => {
             console.log(err);
+            toast.error(err?.response?.data?.message);
           });
       } else {
         axios
@@ -139,6 +177,7 @@ const Bookings = () => {
           })
           .catch((err) => {
             console.log(err);
+            toast.error(err?.response?.data?.message);
           });
       }
     },
@@ -194,7 +233,7 @@ const Bookings = () => {
         }
       })
       .catch((error) => {
-        toast.error(error.message);
+        toast.error(error?.response?.data?.message);
         console.log(error.message);
       });
   }, [
@@ -321,7 +360,6 @@ const Bookings = () => {
                   placeholder="Pick Start Time"
                   step="3600"
                   value={startTime}
-                  readOnly
                   onChange={(event) => setStartTime(event.target.value)}
                 />
               </div>

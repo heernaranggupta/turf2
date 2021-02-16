@@ -4,8 +4,7 @@ import classnames from "classnames";
 import {
   AiOutlineGoogle,
   AiFillFacebook,
-  AiFillLinkedin,
-  AiOutlineTwitter,
+  AiOutlineInstagram,
 } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { Context } from "../data/context";
@@ -14,6 +13,7 @@ import styles from "../css/Login.module.css";
 import axios from "axios";
 import api, { TurfMail } from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
+import { links } from "../config/socialLinks";
 
 // eslint-disable-next-line no-useless-escape
 const EmailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -107,13 +107,8 @@ const Signup = () => {
         }
       })
       .catch((err) => {
-        console.log(err.message);
-        if (err?.response?.data?.code === 500) {
-          toast.error("Internal Server error");
-        }
-        if (err?.response?.data?.code === 400) {
-          toast.error(err.response.data.message);
-        }
+        console.log(err);
+        toast.error(err?.response?.data?.message);
       });
   };
 
@@ -210,10 +205,31 @@ const Signup = () => {
         </div>
 
         <div className={classnames("my-6", styles.socialIconsWrapper)}>
-          <AiOutlineGoogle size={40} color="#FFF" />
-          <AiFillFacebook size={40} color="#FFF" />
-          <AiFillLinkedin size={40} color="#FFF" />
-          <AiOutlineTwitter size={40} color="#FFF" />
+          <AiOutlineGoogle
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.google}`, "_blank");
+            }}
+          />
+          <AiFillFacebook
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.facebook}`, "_blank");
+            }}
+          />
+
+          <AiOutlineInstagram
+            className="is-clickable"
+            size={40}
+            color="#FFF"
+            onClick={() => {
+              window.open(`${links.instagram}`, "_blank");
+            }}
+          />
         </div>
       </div>
     );

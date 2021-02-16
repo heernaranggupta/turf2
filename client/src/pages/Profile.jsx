@@ -84,10 +84,14 @@ const Profile = () => {
               })
               .catch((err) => {
                 console.log(err.message);
-                toast.error(err.message);
+                toast.error(err?.response?.data?.message);
               });
           })
-          .catch((err) => console.error(err));
+          .catch((err) => {
+            toast.error(err?.response?.data?.message);
+
+            console.error(err);
+          });
       } else {
         alert("Only Images (PNG, JPG, JPEG) are Allowed");
       }
@@ -135,7 +139,7 @@ const Profile = () => {
       })
       .catch((err) => {
         console.log(err.message);
-        toast.error(err.message);
+        toast.error(err?.response?.data?.message);
       });
   };
 
