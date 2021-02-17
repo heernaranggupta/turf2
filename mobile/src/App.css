@@ -1,0 +1,9 @@
+.columns {
+  margin: 0 !important;
+}
+.card.isCardSelected {
+  background-color: #bae5d3 !important;
+}
+.react-datepicker-wrapper {
+  width: 100% !important;
+}

@@ -39,7 +39,7 @@ const Bookings = () => {
   const [isGroundSelected3, setIsGroundSelected3] = useState(true);
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
   const [startTime, setStartTime] = useState(getCurrentTime());
-  const [endTime, setEndTime] = useState("12:00");
+  const [endTime, setEndTime] = useState("22:00");
 
   const handleFetchedData = useCallback(
     (res, FetchgroundData) => {
@@ -163,6 +163,7 @@ const Bookings = () => {
           .catch((err) => {
             console.log(err);
             toast.error(err?.response?.data?.message);
+            toast.error(err.message);
           });
       } else {
         axios
@@ -178,6 +179,7 @@ const Bookings = () => {
           .catch((err) => {
             console.log(err);
             toast.error(err?.response?.data?.message);
+            toast.error(err.message);
           });
       }
     },
@@ -234,6 +236,7 @@ const Bookings = () => {
       })
       .catch((error) => {
         toast.error(error?.response?.data?.message);
+        toast.error(error.message);
         console.log(error.message);
       });
   }, [
@@ -369,8 +372,13 @@ const Bookings = () => {
                   type="time"
                   placeholder="Pick End Time"
                   step="3600"
+                  min={startTime}
                   value={endTime}
                   onChange={(event) => {
+                    if (event.target.value < startTime) {
+                      toast.error(`Select End Time After ${startTime}`);
+                      return;
+                    }
                     setEndTime(event.target.value);
                   }}
                 />

@@ -65,6 +65,7 @@ const BookingSummary = () => {
       })
       .catch((err) => {
         toast.error(err?.response?.data?.message);
+        toast.error(err.message);
         console.log(err);
       });
   }, [token]);
@@ -83,6 +84,7 @@ const BookingSummary = () => {
       })
       .catch((err) => {
         toast.error(err?.response?.data?.message);
+        toast.error(err.message);
         console.log(err);
       });
 

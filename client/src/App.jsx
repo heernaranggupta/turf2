@@ -3,6 +3,7 @@ import { ToastContainer } from "react-toastify";
 import jwt_decode from "jwt-decode";
 import Routes from "./routes/routes";
 import { Context } from "./data/context";
+import { IoLogoWhatsapp } from "react-icons/io";
 import Loading from "./components/Loading";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
@@ -44,6 +45,17 @@ const App = () => {
     <>
       <Routes />
       <ToastContainer pauseOnHover={false} autoClose={1500} />
+      <div
+        className="fab"
+        onClick={() => {
+          window.open(
+            "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+            "_blank"
+          );
+        }}
+      >
+        <IoLogoWhatsapp size={40} color="green" />
+      </div>
     </>
   );
 };

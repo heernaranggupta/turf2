@@ -85,10 +85,12 @@ const Profile = () => {
               .catch((err) => {
                 console.log(err.message);
                 toast.error(err?.response?.data?.message);
+                toast.error(err.message);
               });
           })
           .catch((err) => {
             toast.error(err?.response?.data?.message);
+            toast.error(err.message);
 
             console.error(err);
           });
@@ -140,6 +142,7 @@ const Profile = () => {
       .catch((err) => {
         console.log(err.message);
         toast.error(err?.response?.data?.message);
+        toast.error(err.message);
       });
   };
 
