@@ -21,6 +21,8 @@ export const ContextProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("turfUserDetails")) || null
   );
   const [token, setToken] = useState(localStorage.getItem("token") || null);
+  const [successBookedData, setSuccessBookedData] = useState([]);
+
 
   return (
     <Context.Provider
@@ -51,6 +53,8 @@ export const ContextProvider = ({ children }) => {
         setIsLoading,
         token,
         setToken,
+        successBookedData, 
+        setSuccessBookedData
       }}
     >
       {children}

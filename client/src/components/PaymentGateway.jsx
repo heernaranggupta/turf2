@@ -8,7 +8,7 @@ import styles from "../css/Payment.module.css";
 import { toast } from "react-toastify";
 
 const PaymentGateway = () => {
-  const { cartData, totalAmount, isLoggedIn, userData, token } = useContext(
+  const { cartData, totalAmount, isLoggedIn, userData, token , setSuccessBookedData } = useContext(
     Context
   );
   const allData = ListData(cartData);
@@ -55,6 +55,7 @@ const PaymentGateway = () => {
               slots: res.data?.body?.timeSlots || [],
               paymentId: res.data?.body?.paymentId,
             });
+            setSuccessBookedData(res.data?.body?.timeSlots || []);
             history.push("/payment-success");
           }
         })
