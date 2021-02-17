@@ -37,6 +37,7 @@ const CartElement = ({ data, label, reloadData }) => {
         })
         .catch((err) => {
           toast.error(err?.response?.data?.message);
+          toast.error(err.message);
           console.log(err);
         });
     } else {
@@ -50,6 +51,7 @@ const CartElement = ({ data, label, reloadData }) => {
         })
         .catch((err) => {
           toast.error(err?.response?.data?.message);
+          toast.error(err.message);
           console.log(err);
         });
     }

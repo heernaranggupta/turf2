@@ -63,6 +63,7 @@ const PaymentGateway = () => {
         })
         .catch((err) => {
           toast.error(err?.response?.data?.message);
+          toast.error(err.message);
           console.log(err.message);
         });
     },
@@ -109,6 +110,7 @@ const PaymentGateway = () => {
       })
       .catch((err) => {
         toast.error(err?.response?.data?.message);
+        toast.error(err.message);
         console.log(err.response);
       });
   };

@@ -32,14 +32,14 @@ if user reshedule booking then compair price if more then take extra money else 
 
 
  
-1. Whatsapp & call
-2. Time Filter
-3. Comman Avail
+1. Whatsapp & call ----------------------------> done
+2. Time Filter ------------------------------> done
+3. Comman Avail 
 4. Text on Turf Images (Parking and Foot Container)
 5. Show date after turf is Selected - form view
 6. Take rate 
-7. order confirmation should show current booking
+7. order confirmation should show current booking ----------> done
 8. slot duration = 60 mins
 9. fit 2 slots in row
 10. Admin Rights
-11. updated rebounce logo
+11. updated rebounce logo 

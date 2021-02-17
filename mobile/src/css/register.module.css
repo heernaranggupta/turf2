@@ -1,0 +1,26 @@
+.FirstColumn,
+.SecondColumn {
+  height: 50vh !important;
+  padding: 25px;
+}
+.LandingImage {
+  margin-top: 20px;
+}
+.LandingImage img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.SecondColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.otpWrapper {
+  width: 100%;
+}
+.otpWrapper input {
+  width: 3em !important;
+  font-size: 18px;
+}
