@@ -7,3 +7,13 @@
 .react-datepicker-wrapper {
   width: 100% !important;
 }
+
+tr,
+td {
+  margin: 5px !important;
+  padding: 5px !important;
+}
+td {
+  padding: 15px !important;
+  text-align: center;
+}

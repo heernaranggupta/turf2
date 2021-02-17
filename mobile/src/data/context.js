@@ -7,7 +7,7 @@ export const ContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [phoneNumber, setphoneNumber] = useState("");
   const [name, setName] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date());
   const [startTime, setStartTime] = useState(getCurrentTime());
   const [endTime, setEndTime] = useState("22:00");
 

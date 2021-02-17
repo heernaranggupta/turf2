@@ -8,7 +8,7 @@ const App = () => {
   return (
     <>
       <Routes />
-      <ToastContainer pauseOnHover={false} autoClose={2000} />
+      <ToastContainer pauseOnHover={false} autoClose={1500} />
     </>
   );
 };

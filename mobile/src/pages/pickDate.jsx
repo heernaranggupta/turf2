@@ -40,6 +40,7 @@ const PickDate = () => {
       toast.error("Select Valid End Time");
       return;
     }
+    history.push("/bookings");
   };
 
   useEffect(() => {
