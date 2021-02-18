@@ -1,3 +1,4 @@
+import { createPortal } from 'react-dom';
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -6,7 +7,7 @@ import api, { TurfMail } from "../config/api";
 import { ListData } from "../utils/ListData";
 import styles from "../css/Payment.module.css";
 import { toast } from "react-toastify";
-import classnames from "classnames";
+import Modal from './modal';
 
 const PaymentGateway = () => {
   const { cartData, totalAmount, isLoggedIn, userData, token , setSuccessBookedData } = useContext(
@@ -19,6 +20,7 @@ const PaymentGateway = () => {
   // eslint-disable-next-line no-unused-vars
   const [responce, setResponce] = useState(null);
   const [model,setModel] = useState(false);
+  const [notAvaliableSlots,setNotAvailableSlots] = useState([]);
 
   const options = {
     key: "rzp_test_LkGyvMQnSFDTBu",
@@ -104,7 +106,10 @@ const PaymentGateway = () => {
           console.log("All Slots AVAILABLE");
           rzp1.open();
         } else {
+          console.log("popup slots",validateSlots)
+          setNotAvailableSlots(validateSlots);
           setModel(true);
+          createPortal(<Modal model={model} setModel={setModel} notAvaliableSlots={notAvaliableSlots}/>,document.getElementById("modal"))
           console.log("some slots is not available");
         }
       })
@@ -114,7 +119,6 @@ const PaymentGateway = () => {
         console.log(err.response);
       });
   };
-
   return (
     <div className={styles.PaymentWrapper}>
       {totalAmount > 0 ? (
@@ -135,28 +139,8 @@ const PaymentGateway = () => {
               <input type = "radio" value={payHalf} onChange={e => {setPayHalf(e.target.value),console.log(e.target.value)}} name="amt"/><lable>Pay 30% Payment</lable>
             </fieldset> */}
             <button className="button is-success p-5 is-large">Pay Now</button>
-            <div className={classnames("modal", model ? "is-active" : "")}>
-            <div className="modal-background"></div>
-            <div className="modal-card">
-              <header className="modal-card-head">
-                <p className="modal-card-title">You have too remove this slots then only you can Book</p>
-                <button
-                  onClick={() => setModel(false)}
-                  className="delete"
-                  aria-label="close"
-                ></button>
-              </header>
-              <section className="modal-card-body">
-                <div className="field">
-                  
-                </div>
-              </section>
-              <footer className="modal-card-foot">
-                
-              </footer>
+              
             </div>
-          </div>
-          </div>
         </div>
       ) : (
         <span></span>
