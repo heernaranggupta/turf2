@@ -109,7 +109,6 @@ const PaymentGateway = () => {
           console.log("popup slots",validateSlots)
           setNotAvailableSlots(validateSlots);
           setModel(true);
-          createPortal(<Modal model={model} setModel={setModel} notAvaliableSlots={notAvaliableSlots}/>,document.getElementById("modal"))
           console.log("some slots is not available");
         }
       })
@@ -139,7 +138,7 @@ const PaymentGateway = () => {
               <input type = "radio" value={payHalf} onChange={e => {setPayHalf(e.target.value),console.log(e.target.value)}} name="amt"/><lable>Pay 30% Payment</lable>
             </fieldset> */}
             <button className="button is-success p-5 is-large">Pay Now</button>
-              
+              {createPortal(<Modal model={model} setModel={setModel} notAvaliableSlots={notAvaliableSlots}/>,document.getElementById("modal-root"))}
             </div>
         </div>
       ) : (
