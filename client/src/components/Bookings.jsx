@@ -16,7 +16,7 @@ import {
 } from "../utils/TimeConverter";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/filterData";
-import { compareTime, getCurrentTime } from "../utils/compareTime";
+import { compareTime } from "../utils/compareTime";
 import Loading from "./Loading";
 
 const Bookings = () => {
@@ -38,7 +38,7 @@ const Bookings = () => {
   const [isGroundSelected2, setIsGroundSelected2] = useState(true);
   const [isGroundSelected3, setIsGroundSelected3] = useState(true);
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
-  const [startTime, setStartTime] = useState(getCurrentTime());
+  const [startTime, setStartTime] = useState("08:00");
   const [endTime, setEndTime] = useState("22:00");
 
   const handleFetchedData = useCallback(

@@ -1,3 +1,7 @@
+.FirstColumn,
+.SecondColumn {
+  width: 100%;
+}
 .FirstColumn {
   padding: 20px;
   height: 25vh;
@@ -29,4 +33,13 @@
 .timeWrapper .field {
   width: 45% !important;
   margin: 0 !important;
+}
+@media only screen and (min-width: 768px) {
+  .FirstColumn,
+  .SecondColumn {
+    width: 800px !important;
+  }
+  .FirstColumn {
+    margin: 0 !important;
+  }
 }

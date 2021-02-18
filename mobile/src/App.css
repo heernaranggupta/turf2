@@ -17,3 +17,35 @@ td {
   padding: 15px !important;
   text-align: center;
 }
+.react-multi-carousel-item {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.react-multi-carousel-item img {
+  height: 110px !important;
+  width: auto !important;
+  opacity: 0.3;
+  transition: all 0.5s ease-in-out;
+}
+.react-multi-carousel-item--active img {
+  height: 300px !important;
+  width: auto !important;
+  opacity: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    height: 100vh;
+    width: 800px !important;
+    display: flex !important;
+    justify-content: center;
+  }
+  .columns {
+    max-width: 800px;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center;
+    align-items: center;
+  }
+}

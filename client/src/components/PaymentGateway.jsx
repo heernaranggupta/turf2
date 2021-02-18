@@ -126,10 +126,6 @@ const PaymentGateway = () => {
               }
             }}
           >
-            {/* <fieldset id="group1">
-              <input type = "radio" value={payFull} onChange={e => {setPayFull(e.target.value);console.log(e.target.value)}} name="amt"/><lable>Pay Full Payment</lable><br/>
-              <input type = "radio" value={payHalf} onChange={e => {setPayHalf(e.target.value),console.log(e.target.value)}} name="amt"/><lable>Pay 30% Payment</lable>
-            </fieldset> */}
             <button className="button is-success p-5 is-large">Pay Now</button>
           </div>
         </div>

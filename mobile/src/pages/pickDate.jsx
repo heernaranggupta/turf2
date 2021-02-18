@@ -60,10 +60,11 @@ const PickDate = () => {
   }, []);
 
   return (
-    <div className="conatiner">
+    <div className="container">
       <div className="columns">
         <div className={classnames("column", styles.FirstColumn)}>
           <BsArrowLeft
+            className="is-clickable"
             size={30}
             color="#FFF"
             onClick={() => history.goBack()}

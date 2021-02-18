@@ -1,3 +1,8 @@
+.FirstColumn,
+.CenterColumn,
+.SecondColumn {
+  width: 100%;
+}
 .columns {
   position: relative;
 }
@@ -41,4 +46,20 @@
 }
 .inValidSlot {
   cursor: not-allowed;
+}
+.isSelected {
+  background-color: #00cb78;
+  color: white;
+}
+@media only screen and (min-width: 768px) {
+  .FirstColumn,
+  .CenterColumn,
+  .SecondColumn {
+    width: 800px;
+  }
+  .FirstColumn,
+  .CenterColumn,
+  .SecondColumn {
+    margin-top: 0% !important;
+  }
 }
