@@ -8,9 +8,14 @@ import styles from "../css/Payment.module.css";
 import { toast } from "react-toastify";
 
 const PaymentGateway = () => {
-  const { cartData, totalAmount, isLoggedIn, userData, token } = useContext(
-    Context
-  );
+  const {
+    cartData,
+    totalAmount,
+    isLoggedIn,
+    userData,
+    token,
+    cartId,
+  } = useContext(Context);
   const allData = ListData(cartData);
 
   const history = useHistory();
@@ -92,16 +97,42 @@ const PaymentGateway = () => {
       })
       .then((res) => {
         console.log(res.data);
-        const validateSlots = res.data.body.timeSlotResponses.filter(function (
-          item
-        ) {
-          return item.status === "NOT_AVAILABLE";
+        const slots = res.data.body.timeSlotResponses || [];
+
+        let length = 0;
+        slots.forEach((item) => {
+          if (item.status === "NOT_AVAILABLE") {
+            const body = {
+              cartId: cartId,
+              userPhoneNumber: userData?.phoneNumber || null,
+              removeSlot: item,
+            };
+
+            const url = api + "user/cart/remove";
+            axios
+              .post(url, body, {
+                headers: {
+                  "Content-Type": "Application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              .catch((err) => {
+                toast.error(err?.response?.data?.message);
+                toast.error(err.message);
+                console.log(err);
+              });
+
+            length += 1;
+          }
         });
-        if (validateSlots.length === 0) {
-          console.log("All Slots AVAILABLE");
-          rzp1.open();
+
+        if (length > 0) {
+          toast.warn(`${length} Unavailable slots were deleted`);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         } else {
-          console.log("some slots is not available");
+          rzp1.open();
         }
       })
       .catch((err) => {

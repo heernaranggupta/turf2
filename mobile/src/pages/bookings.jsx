@@ -335,7 +335,7 @@ const Bookings = () => {
               className="is-clickable"
               size={30}
               color="#FFF"
-              onClick={() => history.goBack()}
+              onClick={() => history.push("/date")}
             />
             <FaWhatsapp
               className="is-clickable"

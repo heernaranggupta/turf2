@@ -67,7 +67,7 @@ const PickDate = () => {
             className="is-clickable"
             size={30}
             color="#FFF"
-            onClick={() => history.goBack()}
+            onClick={() => history.push("/")}
           />
           <div>
             <p className="is-size-5 has-text-white">{greetingMessage}</p>

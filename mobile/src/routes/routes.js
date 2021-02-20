@@ -14,6 +14,7 @@ import Password from "../pages/password";
 import Cart from "../pages/cart";
 import ProtectedRoutes from "./protected.routes";
 import { Context } from "../data/context";
+import Success from "../pages/success";
 
 const Routes = () => {
   const { setIsLoggedIn, setToken, setUserData } = useContext(Context);
@@ -36,6 +37,10 @@ const Routes = () => {
 
         <ProtectedRoutes path="/cart">
           <Cart />
+        </ProtectedRoutes>
+
+        <ProtectedRoutes path="/success">
+          <Success />
         </ProtectedRoutes>
 
         <Route

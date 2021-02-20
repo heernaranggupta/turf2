@@ -26,3 +26,18 @@
   box-shadow: 0;
   z-index: 1;
 }
+@media only screen and (min-width: 768px) {
+  .cartContainer {
+    flex-direction: column !important;
+  }
+  .FirstColumn,
+  .CenterColumn,
+  .SecondColumn {
+    width: 800px;
+  }
+  .FirstColumn,
+  .CenterColumn,
+  .SecondColumn {
+    margin-top: 0% !important;
+  }
+}

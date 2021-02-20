@@ -37,7 +37,6 @@ const Cart = () => {
         transactionId: response.razorpay_payment_id,
         timeSlots: listData,
       };
-      console.log(body);
       axios
         .post(api + "common/order", body, {
           headers: {
@@ -45,8 +44,8 @@ const Cart = () => {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
+          history.push("/success");
         })
         .catch((err) => {
           toast.error(err?.response?.data?.message);
@@ -189,7 +188,7 @@ const Cart = () => {
   }, [handleFetchCartData]);
 
   return (
-    <div className="container">
+    <div className={classnames("container", styles.cartContainer)}>
       <div className="columns">
         <div className={classnames("column", styles.FirstColumn)}>
           <BsArrowLeft
