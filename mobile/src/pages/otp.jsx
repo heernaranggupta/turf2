@@ -33,7 +33,7 @@ const Otp = () => {
   }
 
   const handleVerifyClick = () => {
-    if (opt.length !== 6) {
+    if (opt.length !== 4) {
       toast.error("Enter Valid Otp");
       return;
     }
@@ -115,7 +115,7 @@ const Otp = () => {
             className={styles.otpWrapper}
             value={opt}
             onChange={(event) => setOpt(event)}
-            numInputs={6}
+            numInputs={4}
           />
 
           <NextButton title="Verify" onClickHandler={handleVerifyClick} />

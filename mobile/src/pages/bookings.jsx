@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext, useCallback } from "react";
 import axios from "axios";
 import classnames from "classnames";
 import { BsArrowLeft } from "react-icons/bs";
-import { FiFilter } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 import { BiRupee } from "react-icons/bi";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
@@ -14,9 +14,15 @@ import headerWithoutToken from "../config/headerWithoutToken";
 import styles from "../css/bookings.module.css";
 import { getMaxAllowedMonth } from "../utils/getMaxMonth";
 import { dateForAPI } from "../utils/dateConverter";
-import { compareDate, compareTime, tConvert } from "../utils/TimeConverter";
+import {
+  compareDate,
+  compareTime,
+  getCurrentTime,
+  tConvert,
+} from "../utils/TimeConverter";
 import NextButton from "../components/NextButton";
 import Loading from "../components/loading";
+import { filterData } from "../utils/filterData";
 
 const Bookings = () => {
   const {
@@ -34,40 +40,175 @@ const Bookings = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [slots, setSlots] = useState({});
-  const [dropdown, setDropdown] = useState(false);
   const [maxAllowedDate, setMaxAllowedDate] = useState("");
   const [amount, setAmount] = useState(0);
+  const [commanAvailable, setCommanAvailable] = useState(false);
 
-  const handleFetchData = useCallback(async () => {
-    setIsLoading(true);
-    const data = {
-      turfIds: ["truf01", "truf02", "truf03"],
-      date: date ? dateForAPI(date) : dateForAPI(""),
-      slotDuration: 60,
-    };
-    axios
-      .post(api + "user/mobile/get-all-slots-by-date", data, headerWithoutToken)
-      .then((res) => {
-        const slots = res.data.body.slotList;
-        const newData = {};
-        for (var key of Object.keys(res.data.body.slotList)) {
-          if (!compareTime(startTime, key)) {
-            if (!compareTime(key, endTime)) {
-              newData[key] = slots[key];
+  const handleCommanData = useCallback(() => {
+    if (commanAvailable) {
+      setIsLoading(true);
+      const data = {
+        turfIds: ["truf01", "truf02", "truf03"],
+        date: date ? dateForAPI(date) : dateForAPI(""),
+        slotDuration: 60,
+      };
+      axios
+        .post(
+          api + "user/get-all-slots-by-date/common",
+          data,
+          headerWithoutToken
+        )
+        .then((res) => {
+          const slots = res.data.body.slotList;
+          const newData = {};
+          for (var key of Object.keys(res.data.body.slotList)) {
+            if (!compareTime(getCurrentTime(), key)) {
+              if (!compareTime(key, endTime)) {
+                newData[key] = slots[key];
+              }
             }
           }
+          setSlots({ ...newData });
+        })
+        .catch((error) => {
+          toast.error(error?.response?.data?.message);
+          toast.error(error.message);
+          console.log(error?.response?.data?.message);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+    // /user/get-all-slots-by-date/common
+  }, [date, endTime, commanAvailable]);
+
+  const adjustTime = (time) => {
+    const dateArr = time.split(":");
+    return `${dateArr[0]}:${dateArr[1]}`;
+  };
+
+  const handleCartFetch = useCallback(
+    (newData) => {
+      return new Promise((resolve, reject) => {
+        if (phoneNumber) {
+          try {
+            axios
+              .get(api + "user/cart?phoneNumber=" + phoneNumber, {
+                headers: {
+                  "Content-Type": "Application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              })
+              .then((res) => {
+                setAmount(res.data.body.cartTotal || 0);
+                const sortedData = filterData(res.data.body);
+                const onlyData = sortedData[0];
+                const selectedDateData = onlyData[dateForAPI(date)] || null;
+                if (selectedDateData) {
+                  if (selectedDateData.turf01.length) {
+                    selectedDateData.turf01.forEach((item) => {
+                      const adjustedTime = adjustTime(item.startTime);
+                      if (newData[adjustedTime]) {
+                        if (item.turfId === "turf01") {
+                          newData[adjustedTime][0].isSelected = true;
+                        }
+                        if (item.turfId === "turf02") {
+                          newData[adjustedTime][1].isSelected = true;
+                        }
+                        if (item.turfId === "turf03") {
+                          newData[adjustedTime][2].isSelected = true;
+                        }
+                      }
+                    });
+                  }
+                  if (selectedDateData.turf02.length) {
+                    selectedDateData.turf02.forEach((item) => {
+                      const adjustedTime = adjustTime(item.startTime);
+                      if (newData[adjustedTime]) {
+                        if (item.turfId === "turf01") {
+                          newData[adjustedTime][0].isSelected = true;
+                        }
+                        if (item.turfId === "turf02") {
+                          newData[adjustedTime][1].isSelected = true;
+                        }
+                        if (item.turfId === "turf03") {
+                          newData[adjustedTime][2].isSelected = true;
+                        }
+                      }
+                    });
+                  }
+                  if (selectedDateData.turf03.length) {
+                    selectedDateData.turf03.forEach((item) => {
+                      const adjustedTime = adjustTime(item.startTime);
+                      if (newData[adjustedTime]) {
+                        if (item.turfId === "turf01") {
+                          newData[adjustedTime][0].isSelected = true;
+                        }
+                        if (item.turfId === "turf02") {
+                          newData[adjustedTime][1].isSelected = true;
+                        }
+                        if (item.turfId === "turf03") {
+                          newData[adjustedTime][2].isSelected = true;
+                        }
+                      }
+                    });
+                  }
+                }
+                resolve(newData);
+              })
+              .catch((err) => {
+                resolve(newData);
+                console.log(err);
+                toast.error(err?.response?.data?.message);
+                toast.error(err.message);
+              });
+          } catch (error) {
+            resolve(newData);
+            console.log(error);
+          }
         }
-        setSlots({ ...newData });
-      })
-      .catch((error) => {
-        toast.error(error?.response?.data?.message);
-        toast.error(error.message);
-        console.log(error?.response?.data?.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
-  }, [date, startTime, endTime]);
+    },
+    [date, phoneNumber, token]
+  );
+
+  const handleFetchData = useCallback(async () => {
+    if (!commanAvailable) {
+      setIsLoading(true);
+      const data = {
+        turfIds: ["truf01", "truf02", "truf03"],
+        date: date ? dateForAPI(date) : dateForAPI(""),
+        slotDuration: 60,
+      };
+      axios
+        .post(
+          api + "user/mobile/get-all-slots-by-date",
+          data,
+          headerWithoutToken
+        )
+        .then(async (res) => {
+          const slots = res.data.body.slotList;
+          const newData = {};
+          for (var key of Object.keys(res.data.body.slotList)) {
+            if (!compareTime(startTime, key)) {
+              if (!compareTime(key, endTime)) {
+                newData[key] = slots[key];
+              }
+            }
+          }
+          const selectedData = await handleCartFetch(newData);
+          setSlots({ ...selectedData });
+        })
+        .catch((error) => {
+          toast.error(error?.response?.data?.message);
+          toast.error(error.message);
+          console.log(error?.response?.data?.message);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, [date, startTime, endTime, commanAvailable, handleCartFetch]);
 
   const addSlot = (selectedSlot) => {
     const data = {
@@ -94,6 +235,7 @@ const Bookings = () => {
         toast.error(error?.response?.data?.message);
       });
   };
+
   const removeSlot = (selectedSlot) => {
     const data = {
       cartId: null,
@@ -178,9 +320,10 @@ const Bookings = () => {
 
   useEffect(() => {
     handleFetchData();
+    handleCommanData();
     const maxMonth = getMaxAllowedMonth();
     setMaxAllowedDate(maxMonth);
-  }, [handleFetchData]);
+  }, [handleFetchData, handleCommanData]);
 
   return (
     <div className="container">
@@ -193,47 +336,29 @@ const Bookings = () => {
               color="#FFF"
               onClick={() => history.goBack()}
             />
-            <div
-              className={classnames(
-                "dropdown is-right",
-                dropdown && "is-active"
-              )}
-            >
-              <div className="dropdown-trigger">
-                <div
-                  className="is-clickable"
-                  aria-haspopup="true"
-                  aria-controls="dropdown-menu"
-                  onClick={() => setDropdown((old) => !old)}
-                >
-                  <span>
-                    <FiFilter size={30} color="#FFF" />
-                  </span>
-                </div>
-              </div>
-              <div className="dropdown-menu" id="dropdown-menu" role="menu">
-                <div className="dropdown-content">
-                  <div className="dropdown-item">
-                    <label className="checkbox">
-                      <input type="checkbox" className="mx-1" />
-                      Available
-                    </label>
-                  </div>
-                  <div className="dropdown-item">
-                    <label className="checkbox">
-                      <input type="checkbox" className="mx-1" />
-                      Unavailable
-                    </label>
-                  </div>
-                  <div className="dropdown-item">
-                    <label className="checkbox">
-                      <input type="checkbox" className="mx-1" />
-                      Only Comman
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <FaWhatsapp
+              className="is-clickable"
+              size={30}
+              color="#FFF"
+              onClick={() => {
+                window.open(
+                  "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+                  "_blank"
+                );
+              }}
+            />
+          </div>
+
+          <div className="mt-3">
+            <label className="checkbox has-text-white">
+              <input
+                type="checkbox"
+                className="mr-3"
+                checked={commanAvailable}
+                onChange={() => setCommanAvailable((old) => !old)}
+              />
+              Only Show Slots Available In All 3 Turf
+            </label>
           </div>
         </div>
         <div className={classnames("column", styles.CenterColumn)}>
@@ -262,6 +387,7 @@ const Bookings = () => {
               placeholder="Pick Start Time"
               value={startTime}
               onChange={(event) => setStartTime(event.target.value)}
+              disabled={commanAvailable}
             />
           </div>
 
@@ -316,8 +442,11 @@ const Bookings = () => {
             </table>
             {amount > 0 ? (
               <NextButton
-                title={`Pay Now (INR ${amount})`}
-                onClickHandler={() => {}}
+                title={`Cart (INR ${amount})`}
+                onClickHandler={() => {
+                  history.push("/cart");
+                }}
+                isSticky={true}
               />
             ) : (
               <span></span>

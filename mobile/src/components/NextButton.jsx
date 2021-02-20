@@ -3,9 +3,12 @@ import classnames from "classnames";
 import { BsArrowRight } from "react-icons/bs";
 import styles from "../css/nextButton.module.css";
 
-const NextButton = ({ title, onClickHandler }) => {
+const NextButton = ({ title, onClickHandler, isSticky = false }) => {
   return (
-    <div className={classnames(styles.buttonWrapper)}>
+    <div
+      className={classnames(styles.buttonWrapper)}
+      style={{ position: isSticky ? "sticky" : "relative", bottom: "3%" }}
+    >
       <div
         className={classnames(styles.button)}
         onClick={() => onClickHandler()}

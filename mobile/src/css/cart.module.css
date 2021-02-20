@@ -1,0 +1,28 @@
+.FirstColumn,
+.SecondColumn {
+  width: 100%;
+}
+.FirstColumn {
+  padding: 20px;
+  height: auto;
+  background-color: #00cb78;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.SecondColumn {
+  padding: 20px;
+  height: auto;
+}
+.CenterColumn {
+  height: 10vh;
+  background-color: #00cb78;
+  margin: 0%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  bottom: 0;
+  box-shadow: 0;
+  z-index: 1;
+}

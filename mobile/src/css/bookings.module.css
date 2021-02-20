@@ -8,7 +8,7 @@
 }
 .FirstColumn {
   padding: 20px;
-  height: 10vh;
+  height: 15vh;
   background-color: #00cb78;
   display: flex;
   flex-direction: column;

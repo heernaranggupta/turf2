@@ -25,6 +25,13 @@ const Register = () => {
     isLoading,
   } = useContext(Context);
 
+  const onEnterPress = (e) => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      handleOnPhoneSubmit();
+    }
+  };
+
   const handleOnPhoneSubmit = () => {
     if (phoneNumber.length !== 10) {
       toast.error("Enter Valid Phone Number");
@@ -89,6 +96,7 @@ const Register = () => {
                 placeholder="Eg: 91060 54xxx"
                 value={phoneNumber}
                 onChange={(event) => setphoneNumber(event.target.value)}
+                onKeyDown={onEnterPress}
               />
               <span className="icon is-small is-left">
                 <img src={IndiaFlag} alt="India Flag" />
