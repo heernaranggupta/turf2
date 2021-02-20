@@ -44,49 +44,6 @@ const Bookings = () => {
   const [amount, setAmount] = useState(0);
   const [commanAvailable, setCommanAvailable] = useState(false);
 
-  const handleCommanData = useCallback(() => {
-    if (commanAvailable) {
-      setIsLoading(true);
-      const data = {
-        turfIds: ["truf01", "truf02", "truf03"],
-        date: date ? dateForAPI(date) : dateForAPI(""),
-        slotDuration: 60,
-      };
-      axios
-        .post(
-          api + "user/get-all-slots-by-date/common",
-          data,
-          headerWithoutToken
-        )
-        .then((res) => {
-          const slots = res.data.body.slotList;
-          const newData = {};
-          for (var key of Object.keys(res.data.body.slotList)) {
-            if (!compareTime(getCurrentTime(), key)) {
-              if (!compareTime(key, endTime)) {
-                newData[key] = slots[key];
-              }
-            }
-          }
-          setSlots({ ...newData });
-        })
-        .catch((error) => {
-          toast.error(error?.response?.data?.message);
-          toast.error(error.message);
-          console.log(error?.response?.data?.message);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    }
-    // /user/get-all-slots-by-date/common
-  }, [date, endTime, commanAvailable]);
-
-  const adjustTime = (time) => {
-    const dateArr = time.split(":");
-    return `${dateArr[0]}:${dateArr[1]}`;
-  };
-
   const handleCartFetch = useCallback(
     (newData) => {
       return new Promise((resolve, reject) => {
@@ -100,7 +57,7 @@ const Bookings = () => {
                 },
               })
               .then((res) => {
-                setAmount(res.data.body.cartTotal || 0);
+                setAmount(res?.data?.body?.cartTotal || 0);
                 const sortedData = filterData(res.data.body);
                 const onlyData = sortedData[0];
                 const selectedDateData = onlyData[dateForAPI(date)] || null;
@@ -171,6 +128,50 @@ const Bookings = () => {
     },
     [date, phoneNumber, token]
   );
+
+  const handleCommanData = useCallback(() => {
+    if (commanAvailable) {
+      setIsLoading(true);
+      const data = {
+        turfIds: ["truf01", "truf02", "truf03"],
+        date: date ? dateForAPI(date) : dateForAPI(""),
+        slotDuration: 60,
+      };
+      axios
+        .post(
+          api + "user/get-all-slots-by-date/common",
+          data,
+          headerWithoutToken
+        )
+        .then(async (res) => {
+          const slots = res.data.body.slotList;
+          const newData = {};
+          for (var key of Object.keys(res.data.body.slotList)) {
+            if (!compareTime(getCurrentTime(), key)) {
+              if (!compareTime(key, endTime)) {
+                newData[key] = slots[key];
+              }
+            }
+          }
+          const selectedData = await handleCartFetch(newData);
+          setSlots({ ...selectedData });
+        })
+        .catch((error) => {
+          toast.error(error?.response?.data?.message);
+          toast.error(error.message);
+          console.log(error?.response?.data?.message);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+    // /user/get-all-slots-by-date/common
+  }, [date, endTime, commanAvailable, handleCartFetch]);
+
+  const adjustTime = (time) => {
+    const dateArr = time.split(":");
+    return `${dateArr[0]}:${dateArr[1]}`;
+  };
 
   const handleFetchData = useCallback(async () => {
     if (!commanAvailable) {

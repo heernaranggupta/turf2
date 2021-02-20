@@ -113,7 +113,7 @@ const Cart = () => {
           },
         })
         .then((res) => {
-          setAmount(res.data.body.cartTotal || 0);
+          setAmount(res?.data?.body?.cartTotal || 0);
           const sortedData = filterData(res.data.body);
           setCartData({ ...sortedData[0] });
         })
