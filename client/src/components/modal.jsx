@@ -1,9 +1,10 @@
+import { createPortal } from 'react-dom';
 import React, { useContext, useState } from "react";
 import classnames from "classnames";
 
 const Modal = ({model,notAvaliableSlots,setModel}) =>{
     return(
-        <div className={classnames("modal", model ? "is-active" : "")}>
+        createPortal(<div className={classnames("modal", model ? "is-active" : "")}>
         <div className="modal-background"></div>
         <div className="modal-card">
           <header className="modal-card-head">
@@ -37,14 +38,17 @@ const Modal = ({model,notAvaliableSlots,setModel}) =>{
             </div>
           </section>
           <footer className="modal-card-foot">
-            <button onClick={() => {
+          <button className="button" onClick={() => {
+              setModel(false)
+              }}>Cancel</button>
+            <button className="button is-danger" onClick={() => {
               setModel(false)
               window.location.reload();
               }}>Delete All</button>
           </footer>
         </div>
       </div>
-     
+     ,document.getElementById("modal-root"))
     )
 
 }

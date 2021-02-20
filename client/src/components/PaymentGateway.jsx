@@ -1,5 +1,5 @@
-import { createPortal } from 'react-dom';
-import React, { useContext, useState } from "react";
+
+import React, { useCallback, useContext, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { Context } from "../data/context";
@@ -83,7 +83,7 @@ const PaymentGateway = () => {
     },
   };
 
-  const openPayModal = () => {
+  const openPayModal = useCallback(() => {
     var rzp1 = new window.Razorpay(options);
     const postData = {
       timeSlotRequestList: allData,
@@ -104,6 +104,7 @@ const PaymentGateway = () => {
         });
         if (validateSlots.length === 0) {
           console.log("All Slots AVAILABLE");
+          setModel(false);
           rzp1.open();
         } else {
           console.log("popup slots",validateSlots)
@@ -117,7 +118,7 @@ const PaymentGateway = () => {
         toast.error(err.message);
         console.log(err.response);
       });
-  };
+  },[model])
   return (
     <div className={styles.PaymentWrapper}>
       {totalAmount > 0 ? (
@@ -138,7 +139,8 @@ const PaymentGateway = () => {
               <input type = "radio" value={payHalf} onChange={e => {setPayHalf(e.target.value),console.log(e.target.value)}} name="amt"/><lable>Pay 30% Payment</lable>
             </fieldset> */}
             <button className="button is-success p-5 is-large">Pay Now</button>
-              {createPortal(<Modal model={model} setModel={setModel} notAvaliableSlots={notAvaliableSlots}/>,document.getElementById("modal-root"))}
+            <Modal model={model} setModel={setModel} notAvaliableSlots={notAvaliableSlots}/>
+              
             </div>
         </div>
       ) : (
