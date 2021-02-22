@@ -7,6 +7,7 @@ import { IoLogoWhatsapp } from "react-icons/io";
 import Loading from "./components/Loading";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => {
   const {
@@ -42,7 +43,7 @@ const App = () => {
   }
 
   return (
-    <>
+    <Router>
       <Routes />
       <ToastContainer pauseOnHover={false} autoClose={1500} />
       <div
@@ -56,7 +57,7 @@ const App = () => {
       >
         <IoLogoWhatsapp size={40} color="green" />
       </div>
-    </>
+    </Router>
   );
 };
 

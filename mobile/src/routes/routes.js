@@ -1,10 +1,5 @@
 import React, { useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-  Route,
-} from "react-router-dom";
+import { Switch, Redirect, Route } from "react-router-dom";
 import Home from "../pages/home";
 import Otp from "../pages/otp";
 import Register from "../pages/register";
@@ -16,12 +11,21 @@ import ProtectedRoutes from "./protected.routes";
 import { Context } from "../data/context";
 import Success from "../pages/success";
 import History from "../pages/history";
+import { useMediaQuery } from "react-responsive";
 
 const Routes = () => {
   const { setIsLoggedIn, setToken, setUserData } = useContext(Context);
 
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-device-width: 1224px)",
+  });
+
+  if (isDesktopOrLaptop) {
+    window.location.href = "http://turf.rebounce.in";
+  }
+
   return (
-    <Router>
+    <>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/register" component={Register} />
@@ -62,7 +66,7 @@ const Routes = () => {
 
         <Redirect to="/" />
       </Switch>
-    </Router>
+    </>
   );
 };
 

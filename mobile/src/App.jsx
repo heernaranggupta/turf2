@@ -5,6 +5,7 @@ import { Context } from "./data/context";
 import Routes from "./routes/routes";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => {
   const {
@@ -49,10 +50,10 @@ const App = () => {
   }, [checkAuth]);
 
   return (
-    <>
+    <Router>
       <Routes />
       <ToastContainer pauseOnHover={false} autoClose={1500} />
-    </>
+    </Router>
   );
 };
 

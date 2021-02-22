@@ -1,10 +1,5 @@
 import React, { useContext } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-  Route,
-} from "react-router-dom";
+import { Switch, Redirect, Route, useLocation } from "react-router-dom";
 import ProtectedRoutes from "./protected.routes";
 import Cart from "../pages/Cart";
 import Headers from "../components/Headers";
@@ -17,12 +12,24 @@ import PaymentSuccess from "../pages/PaymentSuccess";
 import { Context } from "../data/context";
 import PrintInvoice from "../Invoice/PrintInvoice";
 import Home from "../pages/Home";
+import { useMediaQuery } from "react-responsive";
 
 const Routes = () => {
   const { setIsLoggedIn, setUserData, setToken } = useContext(Context);
 
+  const loc = useLocation();
+
+  const isTabletOrMobileDevice = useMediaQuery({
+    query: "(max-device-width: 1224px)",
+  });
+
+  if (!loc.pathname.includes("/invoice/")) {
+    if (isTabletOrMobileDevice) {
+      window.location.href = "http://m.turf.rebounce.in";
+    }
+  }
   return (
-    <Router>
+    <>
       <Headers />
       <Switch>
         <Route exact path="/" component={Home} />
@@ -93,7 +100,7 @@ const Routes = () => {
 
         <Redirect to="/" />
       </Switch>
-    </Router>
+    </>
   );
 };
 
