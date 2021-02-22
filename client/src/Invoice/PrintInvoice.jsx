@@ -13,6 +13,7 @@ import InvoiceNo from "./InvoiceNo";
 import InvoiceItemsTable from "./InvoiceItemsTable";
 import InvoiceThankYouMsg from "./InvoiceThankYouMsg";
 import axios from "axios";
+import headerWithoutToken from "../config/headerWithoutToken";
 import api from "../config/api";
 import { Context } from "../data/context";
 
@@ -39,18 +40,16 @@ const PrintInvoice = ({ match }) => {
   const [showError, setShowError] = useState(false);
   const orderId = match?.params?.id;
 
-  const { userData, token } = useContext(Context);
+  const { userData } = useContext(Context);
 
   const fetchData = useCallback(() => {
     if (orderId) {
       setShowError(false);
       axios
-        .get(api + "common/order/slot-list?orderId=" + orderId, {
-          headers: {
-            "Content-Type": "Application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+        .get(
+          api + "common/order/slot-list?orderId=" + orderId,
+          headerWithoutToken
+        )
         .then((res) => {
           const InvoiceData = {
             id: orderId || "",
@@ -69,7 +68,7 @@ const PrintInvoice = ({ match }) => {
           setShowError(true);
         });
     }
-  }, [orderId, userData, token]);
+  }, [orderId, userData]);
 
   useEffect(() => {
     if (showError === false) {

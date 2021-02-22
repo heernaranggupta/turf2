@@ -7,9 +7,11 @@ import { toast } from "react-toastify";
 import { Context } from "../data/context";
 import NextButton from "../components/NextButton";
 import { getMaxAllowedMonth } from "../utils/getMaxMonth";
+import Header from "../components/header";
 
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../css/pickDate.module.css";
+import { FaWhatsapp } from "react-icons/fa";
 
 const PickDate = () => {
   const history = useHistory();
@@ -63,12 +65,28 @@ const PickDate = () => {
     <div className="container">
       <div className="columns">
         <div className={classnames("column", styles.FirstColumn)}>
-          <BsArrowLeft
-            className="is-clickable"
-            size={30}
-            color="#FFF"
-            onClick={() => history.push("/")}
-          />
+          <div className={classnames(styles.HeaderNav)}>
+            <BsArrowLeft
+              className="is-clickable"
+              size={30}
+              color="#FFF"
+              onClick={() => history.push("/")}
+            />
+            <div>
+              <FaWhatsapp
+                className="is-clickable mr-3"
+                size={30}
+                color="#FFF"
+                onClick={() => {
+                  window.open(
+                    "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+                    "_blank"
+                  );
+                }}
+              />
+              <Header />
+            </div>
+          </div>
           <div>
             <p className="is-size-5 has-text-white">{greetingMessage}</p>
             <p className="title has-text-white">{name}</p>

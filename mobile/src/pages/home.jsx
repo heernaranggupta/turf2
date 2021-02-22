@@ -1,9 +1,9 @@
-import React, { useContext } from "react";
+import React from "react";
 import classnames from "classnames";
 import Carousel from "react-multi-carousel";
 import { useHistory } from "react-router-dom";
-import { Context } from "../data/context";
 import NextButton from "../components/NextButton";
+import Header from "../components/header";
 
 import "react-multi-carousel/lib/styles.css";
 import styles from "../css/home.module.css";
@@ -15,8 +15,6 @@ import Slider4 from "../images/index_4.png";
 import Slider5 from "../images/index_5.png";
 
 const Home = () => {
-  const { isLoggedIn, name } = useContext(Context);
-
   const history = useHistory();
 
   return (
@@ -28,14 +26,7 @@ const Home = () => {
             <div className={classnames(styles.HomeHeader)}>
               <img src={Logo} alt="Logo" style={{ width: "100px" }} />
 
-              {isLoggedIn ? (
-                <p className="has-text-white">
-                  <span>Hey, </span>
-                  <span className="has-text-weight-bold">{name}</span>
-                </p>
-              ) : (
-                <span></span>
-              )}
+              <Header />
             </div>
             <Carousel
               className={styles.CarouselWrapper}

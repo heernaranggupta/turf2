@@ -75,14 +75,6 @@
   position: sticky;
   top: 0;
 }
-.customUI {
-  text-align: center;
-  width: 500px;
-  padding: 40px;
-  background: #045a14;
-  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
-  color: #fff;
-}
 .cancelModal {
   width: 50%;
 }
@@ -91,6 +83,15 @@
   justify-content: center;
   align-items: center;
 }
+.customUI {
+  text-align: center;
+  width: 500px;
+  padding: 40px;
+  background: #045a14;
+  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
+  color: #fff;
+}
+
 .customUI > h1 {
   margin-top: 0;
 }

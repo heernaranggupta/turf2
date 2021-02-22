@@ -23,6 +23,7 @@ import {
 import NextButton from "../components/NextButton";
 import Loading from "../components/loading";
 import { filterData } from "../utils/filterData";
+import Header from "../components/header";
 
 const Bookings = () => {
   const {
@@ -335,19 +336,22 @@ const Bookings = () => {
               className="is-clickable"
               size={30}
               color="#FFF"
-              onClick={() => history.push("/date")}
+              onClick={() => history.push("/")}
             />
-            <FaWhatsapp
-              className="is-clickable"
-              size={30}
-              color="#FFF"
-              onClick={() => {
-                window.open(
-                  "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
-                  "_blank"
-                );
-              }}
-            />
+            <div>
+              <FaWhatsapp
+                className="is-clickable mr-3"
+                size={30}
+                color="#FFF"
+                onClick={() => {
+                  window.open(
+                    "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+                    "_blank"
+                  );
+                }}
+              />
+              <Header />
+            </div>
           </div>
 
           <div className="mt-3">
