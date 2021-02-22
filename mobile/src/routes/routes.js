@@ -52,7 +52,6 @@ const Routes = () => {
           path="/logout"
           exact
           render={() => {
-            console.log("Clearing from routes");
             localStorage.clear();
             setIsLoggedIn(false);
             setToken(null);

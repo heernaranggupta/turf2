@@ -36,10 +36,10 @@ const Header = () => {
         </div>
         <div className="dropdown-menu" id="dropdown-menu" role="menu">
           <div className="dropdown-content">
-            <div className="dropdown-item">
+            <Link to="/" className="dropdown-item">
               <span>Hey, </span>
               <span className="has-text-weight-bold">{name}</span>
-            </div>
+            </Link>
             <Link to="/date" className="dropdown-item is-clickable">
               Book Slots
             </Link>
