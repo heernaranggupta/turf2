@@ -105,14 +105,14 @@ const Otp = () => {
         <div className={classnames("column", styles.SecondColumn)}>
           <div className={classnames(styles.text)}>
             <p className="is-size-5 has-text-weight-bold">Enter OTP</p>
-            <p>OTP has been send to {phoneNumber}</p>
+            <p>OTP has been sent to {phoneNumber}</p>
             <Link to="/register">Edit Phone Number</Link>
           </div>
 
           <OtpInput
             shouldAutoFocus
             isInputNum
-            containerStyle={{ width: "100%" }}
+            containerStyle={{ width: "100%", marginLeft:"14px" }}
             className={styles.otpWrapper}
             value={opt}
             onChange={(event) => setOpt(event)}

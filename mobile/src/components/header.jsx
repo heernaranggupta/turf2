@@ -3,6 +3,8 @@ import classnames from "classnames";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Context } from "../data/context";
+import { FaWhatsapp } from "react-icons/fa";
+import { FiPhoneCall } from "react-icons/fi";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,8 +28,8 @@ const Header = () => {
               {isMenuOpen ? (
                 <AiOutlineClose size={25} />
               ) : (
-                <AiOutlineMenu size={25} />
-              )}
+                  <AiOutlineMenu size={25} />
+                )}
             </span>
             <span className="icon is-small">
               <i className="fas fa-angle-down" aria-hidden="true"></i>
@@ -56,9 +58,35 @@ const Header = () => {
     );
   } else {
     return (
-      <Link to="/register" className="has-text-white is-clickable">
-        Login / Register
-      </Link>
+      <div className="call-whatsapp-icon">
+        <Link to="/register" className="has-text-white is-clickable">
+          Login / Register
+        </Link>
+        <div style={{ display: "grid", justifyContent: "flex-end" }}>
+          <FaWhatsapp
+            className="is-clickable mt-4 mx-3"
+            size={30}
+            color="#FFF"
+            onClick={() => {
+              window.open(
+                "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+                "_blank"
+              );
+            }}
+          />
+          <FiPhoneCall
+            className="is-clickable mt-4 mx-3"
+            size={30}
+            color="#FFF"
+            onClick={() => {
+              window.open(
+                "tel:919106054633",
+                "_blank"
+              );
+            }}
+          />
+        </div>
+      </div>
     );
   }
 };
