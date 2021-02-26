@@ -4,7 +4,6 @@ import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Context } from "../data/context";
 import { FaWhatsapp } from "react-icons/fa";
-
 import { FiPhoneCall } from "react-icons/fi";
 
 const Header = () => {
@@ -70,7 +69,7 @@ const Header = () => {
             color="#FFF"
             onClick={() => {
               window.open(
-                "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+                "https://api.whatsapp.com/send?phone=919725119988&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
                 "_blank"
               );
             }}
@@ -81,7 +80,7 @@ const Header = () => {
             color="#FFF"
             onClick={() => {
               window.open(
-                "tel:919106054633",
+                "tel:919725119988",
                 "_blank"
               );
             }}
