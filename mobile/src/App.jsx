@@ -1,15 +1,14 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import { BrowserRouter as Router } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { Context } from "./data/context";
 import Routes from "./routes/routes";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
-import { BrowserRouter as Router } from "react-router-dom";
 
 const App = () => {
   const {
-    setIsLoading,
     token,
     setToken,
     setIsLoggedIn,
@@ -24,6 +23,7 @@ const App = () => {
         setIsLoggedIn(true);
         setphoneNumber(userData.phoneNumber);
         setName(userData.name);
+        setToken(token);
       } else {
         console.log("here first if");
         setIsLoggedIn(false);
@@ -34,16 +34,7 @@ const App = () => {
       setIsLoggedIn(false);
       setToken(null);
     }
-    setIsLoading(false);
-  }, [
-    setIsLoggedIn,
-    setIsLoading,
-    token,
-    setToken,
-    userData,
-    setphoneNumber,
-    setName,
-  ]);
+  }, [setIsLoggedIn, token, setToken, userData, setphoneNumber, setName]);
 
   useEffect(() => {
     checkAuth();

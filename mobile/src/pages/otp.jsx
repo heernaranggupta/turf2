@@ -49,21 +49,22 @@ const Otp = () => {
 
     axios
       .post(api + "common/validate-otp", data, headerWithoutToken)
-      .then((res) => {
-        console.log(res.data);
-
+      .then(async (res) => {
         if (res.data.body.otpStatus === "INVALID") {
           toast.error("Incorrect OTP");
           return;
         }
         if (res.data.body.otpStatus === "VALID") {
           if (res.data.body.userStatus === "EXISTINGUSER") {
-            localStorage.setItem("token", res.data.body.token);
-            localStorage.setItem("user", JSON.stringify(res.data.body.user));
             setIsLoggedIn(true);
             setToken(res.data.body.token);
             setUserData(res.data.body.user);
-            history.push("/");
+            await localStorage.setItem(
+              "user",
+              JSON.stringify(res.data.body.user)
+            );
+            await localStorage.setItem("token", res.data.body.token);
+            history.push("/date");
           }
           if (res.data.body.userStatus === "USERDOESNOTEXIST") {
             history.push("/password");

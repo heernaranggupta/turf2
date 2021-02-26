@@ -24,6 +24,7 @@ const Password = () => {
     setToken,
     setIsLoading,
     isLoading,
+    setUserData,
   } = useContext(Context);
   const [password, setPassword] = useState("");
 
@@ -52,12 +53,12 @@ const Password = () => {
     axios
       .post(api + "user/sign-up", data, headerWithoutToken)
       .then((res) => {
-        console.log(res.data);
-        localStorage.setItem("token", res.data.body.token);
-        localStorage.setItem("user", JSON.stringify(res.data.body.user));
         setIsLoggedIn(true);
         setToken(res.data.body.token);
-        history.push("/");
+        setUserData(res.data.body.user);
+        localStorage.setItem("token", res.data.body.token);
+        localStorage.setItem("user", JSON.stringify(res.data.body.user));
+        history.push("/date");
       })
       .catch((error) => {
         console.log(error);
