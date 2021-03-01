@@ -9,7 +9,8 @@
 .FirstColumn {
   padding: 20px;
   height: 15vh;
-  background-color: #00cb78;
+  /* background-color: #00cb78; */
+  background: url("../images/homeBackground.png") !important;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -62,4 +63,11 @@
   .SecondColumn {
     margin-top: 0% !important;
   }
+}
+abbr{
+  text-decoration: none !important;
+}
+.headerlogo img{
+  height: 60px;
+    margin-left: 40px;
 }

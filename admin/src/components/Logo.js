@@ -1,5 +1,4 @@
 import React from "react";
-
 import logoImg from "../images/logo.png";
 
 const Logo = (props) => {

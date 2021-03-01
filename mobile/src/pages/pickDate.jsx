@@ -8,7 +8,7 @@ import { Context } from "../data/context";
 import NextButton from "../components/NextButton";
 import { getMaxAllowedMonth } from "../utils/getMaxMonth";
 import Header from "../components/header";
-
+import Logo from "../images/logo.png";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../css/pickDate.module.css";
 import { FaWhatsapp } from "react-icons/fa";
@@ -50,11 +50,11 @@ const PickDate = () => {
     var curHr = today.getHours();
 
     if (curHr < 12) {
-      setGreetingMessage("Good Morning,");
+      setGreetingMessage("Good Morning");
     } else if (curHr < 18) {
-      setGreetingMessage("Good Afternoon,");
+      setGreetingMessage("Good Afternoon");
     } else {
-      setGreetingMessage("Good Evening,");
+      setGreetingMessage("Good Evening");
     }
 
     const maxMonth = getMaxAllowedMonth();
@@ -72,6 +72,9 @@ const PickDate = () => {
               color="#FFF"
               onClick={() => history.push("/")}
             />
+            <div className={classnames(styles.headerlogo)}>
+              <img src={Logo} alt="" />
+            </div>
             <div>
               <FaWhatsapp
                 className="is-clickable mr-3"

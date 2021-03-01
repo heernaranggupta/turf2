@@ -12,6 +12,7 @@ import { tConvert } from "../utils/TimeConverter";
 import { ListData } from "../utils/serializeData";
 import api from "../config/api";
 import styles from "../css/cart.module.css";
+import Logo from "../images/logo.png";
 
 const Cart = () => {
   const { setIsLoading, token, phoneNumber } = useContext(Context);
@@ -183,7 +184,7 @@ const Cart = () => {
       return (
         <div className="box" style={{ background: "#BAE5D3" }}>
           <p className="subtitle">{name}</p>
-          <hr />
+          {/* <hr /> */}
           {turf.length &&
             turf.map((item, index) => {
               return (
@@ -223,6 +224,9 @@ const Cart = () => {
             color="#FFF"
             onClick={() => history.push("/bookings")}
           />
+          <div className={classnames(styles.headerlogo)}>
+              <img src={Logo} alt="" />
+            </div>
           <FaWhatsapp
             className="is-clickable"
             size={30}
@@ -280,7 +284,7 @@ const Cart = () => {
         <div className={classnames("column", styles.CenterColumn)}>
           <div>
             <p className="subtitle mt-3 has-text-white">
-              Pay, <span className="has-text-weight-bold ">INR {amount}</span>
+              Pay <span className="has-text-weight-bold ">INR {amount}</span>
             </p>
           </div>
           <button className="button" onClick={openPayModal}>

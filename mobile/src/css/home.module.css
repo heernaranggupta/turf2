@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 .HomeBackGround {
   height: 100vh;
   width: 100%;
@@ -28,4 +30,19 @@
 .CarouselWrapper {
   width: 100%;
   height: 40vh !important;
+}
+.slogan{
+  margin-top: 10px !important;
+  max-width: 400px;
+  margin: auto;
+}
+.slogan h2{
+  color: #00D1F6;
+  font-family: 'Anton', sans-serif;
+  font-size: 27px;
+}
+.slogan h3{
+  color: #ffffff ;
+  font-size: 10px;
+  text-align: center;
 }

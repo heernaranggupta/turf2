@@ -24,6 +24,7 @@ import NextButton from "../components/NextButton";
 import Loading from "../components/loading";
 import { filterData } from "../utils/filterData";
 import Header from "../components/header";
+import Logo from "../images/logo.png";
 
 const Bookings = () => {
   const {
@@ -338,6 +339,9 @@ const Bookings = () => {
               color="#FFF"
               onClick={() => history.push("/")}
             />
+            <div className={classnames(styles.headerlogo)}>
+              <img src={Logo} alt="" />
+            </div>
             <div>
               <FaWhatsapp
                 className="is-clickable mr-3"

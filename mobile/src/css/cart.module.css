@@ -5,7 +5,8 @@
 .FirstColumn {
   padding: 20px;
   height: auto;
-  background-color: #00cb78;
+  /* background-color: #00cb78; */
+  background: url("../images/homeBackground.png") !important;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -40,4 +41,9 @@
   .SecondColumn {
     margin-top: 0% !important;
   }
+}
+
+.headerlogo img{
+  height: 60px;
+    margin-left: 40px;
 }

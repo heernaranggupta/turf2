@@ -6,6 +6,8 @@ import styles from "../css/about.module.css";
 import { useHistory } from "react-router-dom";
 import Header from "./header";
 import '../css/policy.module.css'
+import Logo from "../images/logo.png";
+
 
 const Terms = () => {
     const history = useHistory();
@@ -19,6 +21,9 @@ const Terms = () => {
                         color="#FFF"
                         onClick={() => history.push("/")}
                     />
+                    <div className={classnames(styles.headerlogo)}>
+                                <img src={Logo} alt="" />
+                            </div>
                     <div>
                         <FaWhatsapp
                             className="is-clickable mr-3"

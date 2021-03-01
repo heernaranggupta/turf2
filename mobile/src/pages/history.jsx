@@ -13,7 +13,7 @@ import api from "../config/api";
 import Loading from "../components/loading";
 import { tConvert } from "../utils/TimeConverter";
 import Header from "../components/header";
-
+import Logo from "../images/logo.png";
 import { confirmAlert } from "react-confirm-alert"; // Import
 import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
 import styles from "../css/history.module.css";
@@ -180,16 +180,16 @@ const History = () => {
                             onClick={() => HandleDeleteOnClick(item)}
                           ></div>
                         ) : (
-                          <span></span>
-                        )}
+                            <span></span>
+                          )}
                       </div>
                     </div>
                   </div>
                 );
               })
             ) : (
-              <span></span>
-            )}
+                <span></span>
+              )}
           </div>
         </div>
       );
@@ -212,6 +212,9 @@ const History = () => {
               color="#FFF"
               onClick={() => history.push("/")}
             />
+            <div className={classnames(styles.headerlogo)}>
+              <img src={Logo} alt="" />
+            </div>
             <div>
               <FaWhatsapp
                 className="is-clickable mr-3"
@@ -231,28 +234,28 @@ const History = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <div className={classnames("column", styles.SecondColumn)}>
-            <RenderAllComponent
-              header="Upcoming Bookings"
-              list={upcoming}
-              isOpen={isUpComingOpen}
-              setIsOpen={setIsUpComingOpen}
-              showDeleteBtn={true}
-            />
-            <RenderAllComponent
-              header="History Bookings"
-              list={historyList}
-              isOpen={isHistoryOpen}
-              setIsOpen={setIsHistoryOpen}
-            />
-            <RenderAllComponent
-              header="Cancelled Bookings"
-              list={cancelSlots}
-              isOpen={isCancelSlotsOpen}
-              setIsOpen={setIsCancelSlotsOpen}
-            />
-          </div>
-        )}
+            <div className={classnames("column", styles.SecondColumn)}>
+              <RenderAllComponent
+                header="Upcoming Bookings"
+                list={upcoming}
+                isOpen={isUpComingOpen}
+                setIsOpen={setIsUpComingOpen}
+                showDeleteBtn={true}
+              />
+              <RenderAllComponent
+                header="History Bookings"
+                list={historyList}
+                isOpen={isHistoryOpen}
+                setIsOpen={setIsHistoryOpen}
+              />
+              <RenderAllComponent
+                header="Cancelled Bookings"
+                list={cancelSlots}
+                isOpen={isCancelSlotsOpen}
+                setIsOpen={setIsCancelSlotsOpen}
+              />
+            </div>
+          )}
       </div>
     </div>
   );

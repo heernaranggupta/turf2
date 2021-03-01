@@ -1,41 +1,8 @@
 /*!destyle.css v1.0.7 | MIT License | https://github.com/nicolas-cusan/destyle.css*/
-
-* {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box
-}
-
-:after,
-:before {
-    -webkit-box-sizing: inherit;
-    box-sizing: inherit
-}
-
-html {
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    -webkit-tap-highlight-color: transparent
-}
-
-body {
-    margin: 0
-}
-
-main {
-    display: block
-}
-
-address,
-blockquote,
-dl,
-figure,
-form,
-iframe,
-p,
-pre,
-table {
-    margin: 0
-}
+.headerlogo img{
+    height: 60px;
+      margin-left: 40px;
+  }
 
 h1,
 h2,
