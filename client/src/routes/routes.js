@@ -13,6 +13,10 @@ import { Context } from "../data/context";
 import PrintInvoice from "../Invoice/PrintInvoice";
 import Home from "../pages/Home";
 import { useMediaQuery } from "react-responsive";
+import About from "../pages/about";
+import Policy from "../components/policy";
+import Terms from "../components/term";
+import Refund from "../components/refund";
 
 const Routes = () => {
   const { setIsLoggedIn, setUserData, setToken } = useContext(Context);
@@ -37,7 +41,11 @@ const Routes = () => {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/about" component={About} />
         <Route exact path="/invoice/:id" component={PrintInvoice} />
+        <Route exact path="/policy" component={Policy} />
+        <Route exact path="/term" component={Terms} />
+        <Route exact path="/refund" component={Refund} />
 
         {/* <Route
           path="/pdf"

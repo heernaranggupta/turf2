@@ -82,6 +82,7 @@ const Headers = () => {
                   >
                     Profile
                   </Link>
+                  <Link to="/about" className={classnames("navbar-item", styles.headerNavLink)}>About Us</Link>
                   <p
                     onClick={async () => {
                       console.log("Clearing from header");

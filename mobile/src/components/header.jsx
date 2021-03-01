@@ -48,6 +48,9 @@ const Header = () => {
             <Link to="/history" className="dropdown-item is-clickable">
               View Bookings
             </Link>
+            <Link to="/about" className="dropdown-item is-clickable">
+              About Us
+            </Link>
             <hr className="dropdown-divider" />
             <Link to="logout" className="dropdown-item is-clickable">
               Logout

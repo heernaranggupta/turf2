@@ -12,6 +12,10 @@ import { Context } from "../data/context";
 import Success from "../pages/success";
 import History from "../pages/history";
 import { useMediaQuery } from "react-responsive";
+import aboutUs from "../pages/aboutUs";
+import PrivacyPolicy from "../components/privacyPolicy";
+import Terms from "../components/term";
+import ReturnRefund from "../components/return";
 
 const Routes = () => {
   const { setIsLoggedIn, setToken, setUserData } = useContext(Context);
@@ -31,6 +35,10 @@ const Routes = () => {
         <Route path="/register" component={Register} />
         <Route path="/otp" component={Otp} />
         <Route path="/password" component={Password} />
+        <Route path="/about" component={aboutUs} />
+        <Route path="/privacy" component={PrivacyPolicy} />
+        <Route path="/term" component={Terms} />
+        <Route path="/refund" component={ReturnRefund} />
 
         <ProtectedRoutes path="/date">
           <PickDate />
