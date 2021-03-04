@@ -10,8 +10,9 @@
     background-position: 50% 50%;
     background-size: cover;
     background-repeat: no-repeat;
-  }
-  .ProfileLeftColumn {
+}
+
+.ProfileLeftColumn {
     background: transparent;
     backdrop-filter: blur(10px);
     box-shadow: 0px 6px 60px #2b2e2a;
@@ -29,9 +30,11 @@
     border-radius: 20px;
     overflow-y: scroll;
     padding-bottom: 100px;
-  }
+    padding-left: 30px;
+    padding-right: 20px;
+}
 
-  /*!destyle.css v1.0.7 | MIT License | https://github.com/nicolas-cusan/destyle.css*/
+/*!destyle.css v1.0.7 | MIT License | https://github.com/nicolas-cusan/destyle.css*/
 
 * {
     -webkit-box-sizing: border-box;
@@ -335,7 +338,7 @@ template {
     background: -webkit-linear-gradient(315deg, #0452a5 0%, #0053a7 50%, #2d60d8 79%, #4779f3 100%);
     background: -o-linear-gradient(315deg, #0452a5 0%, #0053a7 50%, #2d60d8 79%, #4779f3 100%);
     background: linear-gradient(135deg, #0452a5 0%, #0053a7 50%, #2d60d8 79%, #4779f3 100%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#0452a5', endColorstr='#4779f3', GradientType=1);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#0452a5', endColorstr='#4779f3', GradientType=1);
     display: inline-block;
     width: 100%
 }
@@ -532,6 +535,7 @@ template {
     0% {
         opacity: 0
     }
+
     to {
         opacity: 1
     }
@@ -541,6 +545,7 @@ template {
     0% {
         opacity: 0
     }
+
     to {
         opacity: 1
     }
@@ -550,6 +555,7 @@ template {
     0% {
         opacity: 0
     }
+
     to {
         opacity: 1
     }
@@ -559,6 +565,7 @@ template {
     0% {
         opacity: 0
     }
+
     to {
         opacity: 1
     }
@@ -694,63 +701,80 @@ section pre {
         font-size: 1.75rem;
         padding: 20px 0
     }
+
     .subnav {
         background: #253246;
         padding-top: 0;
         padding-bottom: 0
     }
+
     .subnav li {
         float: left
     }
+
     .subnav li:hover {
         border-radius: 0
     }
+
     .subnav li label {
         font-size: 1rem;
         padding: 15px 15px 15px 20px
     }
+
     .subnav .label-name {
         display: none
     }
+
     .subnav .menu {
         clear: none;
         max-height: none
     }
+
     .subnav .menu li:last-of-type {
         margin-bottom: 0
     }
+
     .subnav .menu-icon {
         display: none
     }
+
     .subnav .by-termsfeed {
         top: 15px
     }
+
     /* section {
         padding: 10px 20px 40px
     } */
     section h1 {
         font-size: 2.125rem
     }
+
     section h2 {
         font-size: 1.65rem
     }
+
     section h3 {
         font-size: 1.35rem
     }
+
     section h4 {
         font-size: 1.25rem
     }
+
     section h5 {
         font-size: 1.125rem
     }
+
     section h6 {
         font-size: 1rem
     }
+
     section ul li p {
         margin-top: 0;
         margin-bottom: 10px
     }
+
     footer {
-        font-size: 1rem!important
+        font-size: 1rem !important
     }
 }

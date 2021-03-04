@@ -14,6 +14,7 @@ import axios from "axios";
 import api, { TurfMail } from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { links } from "../config/socialLinks";
+import Footer from "../components/footer";
 
 // eslint-disable-next-line no-useless-escape
 const EmailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -262,6 +263,7 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

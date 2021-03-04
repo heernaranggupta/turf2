@@ -1,56 +1,84 @@
+.aboutfooter {
+  height: 35px;
+  width: 100%;
+  background: #045a14;
+  padding-top: 10px;
+  position: fixed;
+  bottom: 0;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+}
+
+.aboutfooter a {
+  color: #ffffff;
+  /* margin-right: 10px; */
+  font-size: 10px;
+}
+
 .bookingsHeaderIcons {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .columns {
-    position: relative;
-  }
-  .FirstColumn {
-    padding: 20px;
-    height: 15vh;
-    /* background-color: #00cb78; */
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.columns {
+  position: relative;
+}
+
+.FirstColumn {
+  padding: 20px;
+  height: 15vh;
+  /* background-color: #00cb78; */
   background: url("../images/homeBackground.png") !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: flex-start;
-  }
-  .aboutusdetail{
-      margin-top: 40px;
-      margin-left: 20px;
-      margin-right: 20px;
-  }
-  .aboutusdetail h2{
-      font-size: 20px;
-      color: #2C2C2C;
-      font-weight: 700;
-  }
-  .aboutusdetail p{
-      margin-top: 10px;
-  }
-  .aboutusimg img{
-      height: 225px;
-      padding-left: 50px;
-      padding-top: 20px;
-  }
-  .aboutusimg{
-      background: url('../images/Group\ 3.png') no-repeat;
-      height: 50vh;
-      background-position: top 35px center;
-  }
-  .aboutuslinks{
-    display: grid;
-    float: right;
-    text-align: end;
-    margin-right: 20px;
-  }
-  .aboutuslinks a{
-      color: #2C2C2C;
-      font-weight: 700;
-  }
-  .headerlogo img{
-    height: 60px;
-      margin-left: 40px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.aboutusdetail {
+  margin-top: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.aboutusdetail h2 {
+  font-size: 20px;
+  color: #2C2C2C;
+  font-weight: 700;
+}
+
+.aboutusdetail p {
+  margin-top: 10px;
+}
+
+.aboutusimg img {
+  height: 225px;
+  padding-left: 50px;
+  padding-top: 20px;
+}
+
+.aboutusimg {
+  background: url('../images/Group\ 3.png') no-repeat;
+  height: 50vh;
+  background-position: top 35px center;
+}
+
+.aboutuslinks {
+  display: grid;
+  float: right;
+  text-align: end;
+  margin-right: 20px;
+}
+
+.aboutuslinks a {
+  color: #2C2C2C;
+  font-weight: 700;
+}
+
+.headerlogo img {
+  height: 60px;
+  margin-left: 40px;
+}

@@ -13,6 +13,7 @@ import { ListData } from "../utils/serializeData";
 import api from "../config/api";
 import styles from "../css/cart.module.css";
 import Logo from "../images/logo.png";
+import Footer from "../components/footer";
 
 const Cart = () => {
   const { setIsLoading, token, phoneNumber } = useContext(Context);
@@ -215,86 +216,89 @@ const Cart = () => {
   }, [handleFetchCartData]);
 
   return (
-    <div className={classnames("container", styles.cartContainer)}>
-      <div className="columns">
-        <div className={classnames("column", styles.FirstColumn)}>
-          <BsArrowLeft
-            className="is-clickable"
-            size={30}
-            color="#FFF"
-            onClick={() => history.push("/bookings")}
-          />
-          <div className={classnames(styles.headerlogo)}>
+    <>
+      <div className={classnames("container", styles.cartContainer)}>
+        <div className="columns">
+          <div className={classnames("column", styles.FirstColumn)}>
+            <BsArrowLeft
+              className="is-clickable"
+              size={30}
+              color="#FFF"
+              onClick={() => history.push("/bookings")}
+            />
+            <div className={classnames(styles.headerlogo)}>
               <img src={Logo} alt="" />
             </div>
-          <FaWhatsapp
-            className="is-clickable"
-            size={30}
-            color="#FFF"
-            onClick={() => {
-              window.open(
-                "https://api.whatsapp.com/send?phone=919725119988&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
-                "_blank"
-              );
-            }}
-          />
-        </div>
+            <FaWhatsapp
+              className="is-clickable"
+              size={30}
+              color="#FFF"
+              onClick={() => {
+                window.open(
+                  "https://api.whatsapp.com/send?phone=919725119988&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+                  "_blank"
+                );
+              }}
+            />
+          </div>
 
-        {amount > 0 ? (
-          <div className={classnames("column", styles.SecondColumn)}>
-            {cartData &&
-              Object.keys(cartData).map((key, index) => {
-                const turf01 = cartData[key].turf01;
-                const turf02 = cartData[key].turf02;
-                const turf03 = cartData[key].turf03;
-                return (
-                  <div className="card mt-3" key={index}>
-                    <header className="card-header">
-                      <p className="card-header-title">{key}</p>
-                    </header>
-                    <div className="card-content">
-                      <div className="content">
-                        <RenderBlock turf={turf01} name="Turf 1" />
-                        <RenderBlock turf={turf02} name="Turf 2" />
-                        <RenderBlock turf={turf03} name="Turf 3" />
+          {amount > 0 ? (
+            <div className={classnames("column", styles.SecondColumn)}>
+              {cartData &&
+                Object.keys(cartData).map((key, index) => {
+                  const turf01 = cartData[key].turf01;
+                  const turf02 = cartData[key].turf02;
+                  const turf03 = cartData[key].turf03;
+                  return (
+                    <div className="card mt-3" key={index}>
+                      <header className="card-header">
+                        <p className="card-header-title">{key}</p>
+                      </header>
+                      <div className="card-content">
+                        <div className="content">
+                          <RenderBlock turf={turf01} name="Turf 1" />
+                          <RenderBlock turf={turf02} name="Turf 2" />
+                          <RenderBlock turf={turf03} name="Turf 3" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+            </div>
+          ) : (
+              <article className="message is-success mt-5">
+                <div className="message-header">
+                  <p>Cart Empty</p>
+                </div>
+                <div className="message-body m-3">
+                  <p>Your Cart is Empty.</p>
+                  <button
+                    className="button is-success my-3"
+                    onClick={() => history.push("/bookings")}
+                  >
+                    Book Now
+              </button>
+                </div>
+              </article>
+            )}
+        </div>
+        {amount > 0 ? (
+          <div className={classnames("column", styles.CenterColumn)}>
+            <div>
+              <p className="subtitle mt-3 has-text-white">
+                Pay <span className="has-text-weight-bold ">INR {amount}</span>
+              </p>
+            </div>
+            <button className="button" onClick={openPayModal}>
+              Pay Now
+          </button>
           </div>
         ) : (
-          <article className="message is-success mt-5">
-            <div className="message-header">
-              <p>Cart Empty</p>
-            </div>
-            <div className="message-body m-3">
-              <p>Your Cart is Empty.</p>
-              <button
-                className="button is-success my-3"
-                onClick={() => history.push("/bookings")}
-              >
-                Book Now
-              </button>
-            </div>
-          </article>
-        )}
+            <span></span>
+          )}
       </div>
-      {amount > 0 ? (
-        <div className={classnames("column", styles.CenterColumn)}>
-          <div>
-            <p className="subtitle mt-3 has-text-white">
-              Pay <span className="has-text-weight-bold ">INR {amount}</span>
-            </p>
-          </div>
-          <button className="button" onClick={openPayModal}>
-            Pay Now
-          </button>
-        </div>
-      ) : (
-        <span></span>
-      )}
-    </div>
+      <Footer />
+    </>
   );
 };
 

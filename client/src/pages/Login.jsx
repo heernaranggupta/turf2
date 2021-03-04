@@ -14,6 +14,7 @@ import axios from "axios";
 import api from "../config/api";
 import headerWithoutToken from "../config/headerWithoutToken";
 import { links } from "../config/socialLinks";
+import Footer from "../components/footer";
 
 const Login = () => {
   const { state } = useLocation();
@@ -203,6 +204,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

@@ -52,13 +52,13 @@ h1 h2 h3 h4 h5 h6 {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: #fff;
   position: sticky;
   left: 2%;
-  bottom: 5%;
+  bottom: 1%;
   cursor: pointer;
 }
 

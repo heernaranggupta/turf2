@@ -55,7 +55,7 @@ const App = () => {
           );
         }}
       >
-        <IoLogoWhatsapp size={40} color="green" />
+        <IoLogoWhatsapp size={30} color="green" />
       </div>
     </Router>
   );

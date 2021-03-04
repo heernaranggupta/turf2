@@ -7,6 +7,7 @@ import styles from "../css/Cart.module.css";
 import PaymentGateway from "../components/PaymentGateway";
 import { Context } from "../data/context";
 import { Redirect } from "react-router-dom";
+import Footer from "../components/footer";
 
 const Cart = () => {
   const { isLoggedIn, userData, isLoading } = useContext(Context);
@@ -60,6 +61,7 @@ const Cart = () => {
           <ToastContainer pauseOnHover={false} autoClose={3000} />
         </div>
       </div>
+      <Footer />
     </>
   );
 };

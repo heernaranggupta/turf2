@@ -7,6 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import Header from "../components/header";
 import aboutimg from "../images/Image.png"
 import Logo from "../images/logo.png";
+import Footer from "../components/footer";
 
 const AboutUs = () => {
 
@@ -50,14 +51,15 @@ const AboutUs = () => {
                     </div>
                     <div className={classnames(styles.aboutusimg)}>
                         <img src={aboutimg} alt="" />
-                        <div className={classnames(styles.aboutuslinks)}>
+                        {/* <div className={classnames(styles.aboutuslinks)}>
                             <Link to="/privacy">Privacy Policy</Link>
                             <Link to="/term">Terms & conditions</Link>
                             <Link to="/refund">Cancellation/Refund Policy</Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

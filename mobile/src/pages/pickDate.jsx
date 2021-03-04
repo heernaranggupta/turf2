@@ -12,6 +12,7 @@ import Logo from "../images/logo.png";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "../css/pickDate.module.css";
 import { FaWhatsapp } from "react-icons/fa";
+import Footer from "../components/footer";
 
 const PickDate = () => {
   const history = useHistory();
@@ -151,6 +152,7 @@ const PickDate = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

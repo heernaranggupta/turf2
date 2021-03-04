@@ -25,6 +25,7 @@ import Loading from "../components/loading";
 import { filterData } from "../utils/filterData";
 import Header from "../components/header";
 import Logo from "../images/logo.png";
+import Footer from "../components/footer";
 
 const Bookings = () => {
   const {
@@ -329,141 +330,144 @@ const Bookings = () => {
   }, [handleFetchData, handleCommanData]);
 
   return (
-    <div className="container">
-      <div className={classnames("columns", styles.columns)}>
-        <div className={classnames("column", styles.FirstColumn)}>
-          <div className={classnames(styles.bookingsHeaderIcons)}>
-            <BsArrowLeft
-              className="is-clickable"
-              size={30}
-              color="#FFF"
-              onClick={() => history.push("/")}
-            />
-            <div className={classnames(styles.headerlogo)}>
-              <img src={Logo} alt="" />
-            </div>
-            <div>
-              <FaWhatsapp
-                className="is-clickable mr-3"
+    <>
+      <div className="container">
+        <div className={classnames("columns", styles.columns)}>
+          <div className={classnames("column", styles.FirstColumn)}>
+            <div className={classnames(styles.bookingsHeaderIcons)}>
+              <BsArrowLeft
+                className="is-clickable"
                 size={30}
                 color="#FFF"
-                onClick={() => {
-                  window.open(
-                    "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
-                    "_blank"
-                  );
-                }}
+                onClick={() => history.push("/")}
               />
-              <Header />
+              <div className={classnames(styles.headerlogo)}>
+                <img src={Logo} alt="" />
+              </div>
+              <div>
+                <FaWhatsapp
+                  className="is-clickable mr-3"
+                  size={30}
+                  color="#FFF"
+                  onClick={() => {
+                    window.open(
+                      "https://api.whatsapp.com/send?phone=919106054633&text=Hi,%20I%20Would%20Like%20to%20Book%20Turf%20Ground%20@Rebounce",
+                      "_blank"
+                    );
+                  }}
+                />
+                <Header />
+              </div>
             </div>
-          </div>
 
-          <div className="mt-3">
-            <label className="checkbox has-text-white">
-              <input
-                type="checkbox"
-                className="mr-3"
-                checked={commanAvailable}
-                onChange={() => setCommanAvailable((old) => !old)}
-              />
+            <div className="mt-3">
+              <label className="checkbox has-text-white">
+                <input
+                  type="checkbox"
+                  className="mr-3"
+                  checked={commanAvailable}
+                  onChange={() => setCommanAvailable((old) => !old)}
+                />
               Only Show Slots Available In All 3 Turf
             </label>
+            </div>
           </div>
-        </div>
-        <div className={classnames("column", styles.CenterColumn)}>
-          <div className={classnames(styles.dateWrapper)}>
-            <p>Date</p>
-            <DatePicker
-              placeholderText="Click to select a date"
-              dateFormat="dd/MM/yyyy"
-              className="input"
-              value={date}
-              selected={date}
-              onChange={(date) => {
-                setDate(date);
-              }}
-              minDate={new Date(new Date())}
-              maxDate={maxAllowedDate}
-            />
-          </div>
-
-          <div className={classnames(styles.startTimeWrapper)}>
-            <p>Start Time</p>
-            <input
-              className="input"
-              type="time"
-              step="3600"
-              placeholder="Pick Start Time"
-              value={startTime}
-              onChange={(event) => setStartTime(event.target.value)}
-              disabled={commanAvailable}
-            />
-          </div>
-
-          <div className={classnames(styles.endTimeWrapper)}>
-            <p>End Time</p>
-            <input
-              className="input"
-              type="time"
-              step="3600"
-              placeholder="Pick Start Time"
-              value={endTime}
-              onChange={(event) => setEndTime(event.target.value)}
-            />
-          </div>
-        </div>
-        {isLoading ? (
-          <Loading text="Loading Slots" />
-        ) : (
-          <div className={classnames("column", styles.SecondColumn)}>
-            <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-              <thead>
-                <tr>
-                  <th>Time</th>
-                  <th>
-                    <abbr title="Ground 1 (Near Parking)">Turf 1</abbr>
-                  </th>
-                  <th>
-                    <abbr title="Ground 2 (Center)">Turf 2</abbr>
-                  </th>
-                  <th>
-                    <abbr title="Ground 3 (Near Food Court)">Turf 3</abbr>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.keys(slots).map((key, index) => {
-                  if (key) {
-                    if (compareDate(date)) {
-                      return RenderTable(index, key);
-                    } else {
-                      if (compareTime(key)) {
-                        return RenderTable(index, key);
-                      } else {
-                        return RenderTable(index, key, true);
-                      }
-                    }
-                  } else {
-                    return <span></span>;
-                  }
-                })}
-              </tbody>
-            </table>
-            {amount > 0 ? (
-              <NextButton
-                title={`Cart (INR ${amount})`}
-                onClickHandler={() => {
-                  history.push("/cart");
+          <div className={classnames("column", styles.CenterColumn)}>
+            <div className={classnames(styles.dateWrapper)}>
+              <p>Date</p>
+              <DatePicker
+                placeholderText="Click to select a date"
+                dateFormat="dd/MM/yyyy"
+                className="input"
+                value={date}
+                selected={date}
+                onChange={(date) => {
+                  setDate(date);
                 }}
-                isSticky={true}
+                minDate={new Date(new Date())}
+                maxDate={maxAllowedDate}
               />
-            ) : (
-              <span></span>
-            )}
+            </div>
+
+            <div className={classnames(styles.startTimeWrapper)}>
+              <p>Start Time</p>
+              <input
+                className="input"
+                type="time"
+                step="3600"
+                placeholder="Pick Start Time"
+                value={startTime}
+                onChange={(event) => setStartTime(event.target.value)}
+                disabled={commanAvailable}
+              />
+            </div>
+
+            <div className={classnames(styles.endTimeWrapper)}>
+              <p>End Time</p>
+              <input
+                className="input"
+                type="time"
+                step="3600"
+                placeholder="Pick Start Time"
+                value={endTime}
+                onChange={(event) => setEndTime(event.target.value)}
+              />
+            </div>
           </div>
-        )}
+          {isLoading ? (
+            <Loading text="Loading Slots" />
+          ) : (
+              <div className={classnames("column", styles.SecondColumn)}>
+                <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>
+                        <abbr title="Ground 1 (Near Parking)">Turf 1</abbr>
+                      </th>
+                      <th>
+                        <abbr title="Ground 2 (Center)">Turf 2</abbr>
+                      </th>
+                      <th>
+                        <abbr title="Ground 3 (Near Food Court)">Turf 3</abbr>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.keys(slots).map((key, index) => {
+                      if (key) {
+                        if (compareDate(date)) {
+                          return RenderTable(index, key);
+                        } else {
+                          if (compareTime(key)) {
+                            return RenderTable(index, key);
+                          } else {
+                            return RenderTable(index, key, true);
+                          }
+                        }
+                      } else {
+                        return <span></span>;
+                      }
+                    })}
+                  </tbody>
+                </table>
+                {amount > 0 ? (
+                  <NextButton
+                    title={`Cart (INR ${amount})`}
+                    onClickHandler={() => {
+                      history.push("/cart");
+                    }}
+                    isSticky={true}
+                  />
+                ) : (
+                    <span></span>
+                  )}
+              </div>
+            )}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

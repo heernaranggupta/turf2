@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../data/context";
 import PaymentSuccessGIF from "../images/payment-successful.gif";
 import styles from "../css/PaymentSuccess.module.css";
+import Footer from "../components/footer";
 
 const PaymentSuccess = () => {
   const { setIsLoggedIn } = useContext(Context);
@@ -41,6 +42,7 @@ const PaymentSuccess = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import styles from "../css/Checkout.module.css";
 import CartSummary from "../components/CartSummary";
 import CartRightSideComponent from "../components/CartRightSideComponent";
 import PaymentGateway from "../components/PaymentGateway";
+import Footer from "../components/footer";
 
 const Checkout = () => {
   return (
@@ -26,6 +27,7 @@ const Checkout = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

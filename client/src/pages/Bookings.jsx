@@ -3,6 +3,7 @@ import classnames from "classnames";
 import Bookings from "../components/Bookings";
 import styles from "../css/BookingPage.module.css";
 import LandingPage from "../components/LandingPage";
+import Footer from "../components/footer";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
           <Bookings />
         </div>
       </div>
+      <Footer />
     </>
   );
 };

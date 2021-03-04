@@ -13,6 +13,7 @@ import axios from "axios";
 import S3 from "react-aws-s3";
 import api from "../config/api";
 import BookingSummary from "../components/BookingSummary";
+import Footer from "../components/footer";
 
 const config = {
   bucketName: "turf-user-profile-images",
@@ -281,6 +282,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };
