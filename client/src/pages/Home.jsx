@@ -12,6 +12,7 @@ import Slider2 from "../images/index_2.png";
 import Slider3 from "../images/index_3.png";
 import Slider4 from "../images/index_4.png";
 import Slider5 from "../images/index_5.png";
+import Footer from "../components/footer";
 
 const Home = () => {
   useEffect(() => {
@@ -103,6 +104,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

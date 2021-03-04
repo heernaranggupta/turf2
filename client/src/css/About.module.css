@@ -47,11 +47,11 @@
       margin-top: -60px;
   }
   .aboutfooter{
-      height: 80px;
+      height: 50px;
       width: 100%;
       background: #045a14;
-      padding: 25px;
-      position: absolute;
+      padding-top: 10px;
+      position: fixed;
       bottom: 0;
       color: #ffffff;
       display: flex;

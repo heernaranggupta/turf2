@@ -1,4 +1,5 @@
 import React from "react";
+
 import LoadingGif from "../images/soccer.gif";
 
 const FullPageLoading = ({ text }) => {

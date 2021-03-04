@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import style from '../css/About.module.css'
 import abouting from '../images/iPhone X.svg'
-import { Link } from "react-router-dom";
+import Footer from "../components/footer";
 
 const About = () => {
     return (
@@ -19,11 +19,12 @@ const About = () => {
                         </div>
                     </div>
                 </div>
-                <div className={classnames(style.aboutfooter)}>
+                {/* <div className={classnames(style.aboutfooter)}>
                     <Link to="/policy">Privacy Policy</Link>
                     <Link to="/term">Terms & conditions</Link>
                     <Link to="/refund">Cancellation/Refund Policy</Link>
-                </div>
+                </div> */}
+                <Footer />
             </section>
         </>
     )
