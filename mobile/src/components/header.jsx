@@ -65,7 +65,7 @@ const Header = () => {
         <Link to="/register" className="has-text-white is-clickable">
           Login / Register
         </Link>
-        <div style={{ display: "grid", justifyContent: "flex-end" }}>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <FaWhatsapp
             className="is-clickable mt-4 mx-3"
             size={30}
