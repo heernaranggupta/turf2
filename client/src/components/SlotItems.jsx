@@ -325,7 +325,7 @@ const SlotItems = () => {
             groundData.turf03.map((item, index) => {
               return GenerateSlots(item, index, 3);
             })}
-          <div className="mb-6"></div>
+          <div style={{marginBottom:"5.5rem"}}></div>
         </div>
       </div>
     </div>

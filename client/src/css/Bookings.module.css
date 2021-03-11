@@ -74,7 +74,7 @@
   -webkit-transform: translateZ(0);
 
   position: fixed !important;
-  top: 100%;
+  top: 98%;
   left: 52%;
   transform: translate(-25%, -100%);
 }
@@ -105,6 +105,7 @@
   margin-left: 25px;
   height: 50px;
   font-family: Conv_Ailerons;
+  margin-top: 11px;
 }
 
 @media only screen and (max-width: 1100px) {
