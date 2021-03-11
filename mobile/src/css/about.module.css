@@ -1,18 +1,15 @@
 .aboutfooter {
-  height: 35px;
+  height: 55px;
   width: 100%;
   background: #045a14;
-  padding-top: 10px;
   position: fixed;
   bottom: 0;
   color: #ffffff;
-  display: flex;
-  justify-content: space-around;
+  padding-top: 10px;
 }
 
 .aboutfooter a {
   color: #ffffff;
-  /* margin-right: 10px; */
   font-size: 10px;
 }
 
@@ -59,7 +56,26 @@
   padding-left: 50px;
   padding-top: 20px;
 }
-
+.pol{
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.pol a {
+  color: #ffffff;
+  /* margin-right: 30px; */
+}
+.powerby{
+  text-align: center;
+  font-size: 15px;
+}
+.powerby a{
+  font-weight: 700;
+}
+.powerby a:hover{
+  color: #ffffff;
+}
 .aboutusimg {
   background: url('../images/Group\ 3.png') no-repeat;
   height: 50vh;

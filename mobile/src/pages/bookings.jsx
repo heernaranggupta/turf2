@@ -417,41 +417,42 @@ const Bookings = () => {
           {isLoading ? (
             <Loading text="Loading Slots" />
           ) : (
-              <div className={classnames("column", styles.SecondColumn)}>
-                <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-                  <thead>
-                    <tr>
-                      <th>Time</th>
-                      <th>
-                        <abbr title="Ground 1 (Near Parking)">Turf 1</abbr>
-                      </th>
-                      <th>
-                        <abbr title="Ground 2 (Center)">Turf 2</abbr>
-                      </th>
-                      <th>
-                        <abbr title="Ground 3 (Near Food Court)">Turf 3</abbr>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.keys(slots).map((key, index) => {
-                      if (key) {
-                        if (compareDate(date)) {
+            <div className={classnames("column", styles.SecondColumn)}>
+              <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                  <tr>
+                    <th>Time</th>
+                    <th>
+                      <abbr title="Ground 1 (Near Parking)">Turf 1</abbr>
+                    </th>
+                    <th>
+                      <abbr title="Ground 2 (Center)">Turf 2</abbr>
+                    </th>
+                    <th>
+                      <abbr title="Ground 3 (Near Food Court)">Turf 3</abbr>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.keys(slots).map((key, index) => {
+                    if (key) {
+                      if (compareDate(date)) {
+                        return RenderTable(index, key);
+                      } else {
+                        if (compareTime(key)) {
                           return RenderTable(index, key);
                         } else {
-                          if (compareTime(key)) {
-                            return RenderTable(index, key);
-                          } else {
-                            return RenderTable(index, key, true);
-                          }
+                          return RenderTable(index, key, true);
                         }
-                      } else {
-                        return <span></span>;
                       }
-                    })}
-                  </tbody>
-                </table>
-                {amount > 0 ? (
+                    } else {
+                      return <span></span>;
+                    }
+                  })}
+                </tbody>
+              </table>
+              {amount > 0 ? (
+                <div style={{ marginBottom: "45px" }}>
                   <NextButton
                     title={`Cart (INR ${amount})`}
                     onClickHandler={() => {
@@ -459,11 +460,12 @@ const Bookings = () => {
                     }}
                     isSticky={true}
                   />
-                ) : (
-                    <span></span>
-                  )}
-              </div>
-            )}
+                </div>
+              ) : (
+                <span></span>
+              )}
+            </div>
+          )}
         </div>
       </div>
       <Footer />

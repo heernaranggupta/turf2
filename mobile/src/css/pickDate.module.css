@@ -29,12 +29,14 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+  margin-top: -45px;
 }
 .timeWrapper {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: -45px;
 }
 
 .timeWrapper .field {
@@ -53,4 +55,8 @@
 .headerlogo img{
   height: 60px;
     margin-left: 40px;
+}
+.quote{
+  color: #00b56a;
+  font-weight: 700;
 }

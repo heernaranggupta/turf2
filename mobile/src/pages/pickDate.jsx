@@ -101,9 +101,11 @@ const PickDate = () => {
             <p className="is-size-5">Let's Start</p>
             <p className="is-size-4 has-text-weight-bold">Pick Date & Time</p>
           </div>
+          {/* <h1 className="quote__text">{value}</h1> */}
+          <h2 className={classnames("is-size-4", styles.quote)}>"Practice like you've never won. perform like you've never lost."</h2>
 
           <div className={classnames(styles.contentWrapper)}>
-            <div className="field mt-6" style={{ width: "100%" }}>
+            <div className="field mt-1" style={{ width: "100%" }}>
               <label className="label">Pick Date</label>
               <div className="control">
                 <DatePicker

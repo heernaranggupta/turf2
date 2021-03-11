@@ -47,7 +47,7 @@ const AboutUs = () => {
                     </div>
                     <div className={classnames(styles.aboutusdetail)}>
                         <h2>About Us</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Condimentum diam orci pretium a pharetra, feugiat cursus. Dictumst risus, sem egestas odio cras adipiscing vulputate. Nisi, risus in suscipit non. Non commodo volutpat, pharetra, vel.</p>
+                        <p>Rebounce Turf is Surat's largest and tallest Turf! There are 3-a side turfs that be booked at hourly basis. Turf 1 is the parking side turf, Turf 2 is the one by the stands, Turf 3 is the one by the food court and viewing container. Now book online for hassle free unlimited fun.</p>
                     </div>
                     <div className={classnames(styles.aboutusimg)}>
                         <img src={aboutimg} alt="" />

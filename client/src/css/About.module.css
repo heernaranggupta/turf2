@@ -61,10 +61,21 @@
     bottom: 0;
     color: #ffffff;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
-
-.aboutfooter a {
+.pol{
+    margin-right: 30px;
+}
+.pol a {
     color: #ffffff;
     margin-right: 30px;
+}
+.powerby{
+    margin-left: 10px;
+}
+.powerby a{
+    font-weight: 700;
+}
+.powerby a:hover{
+    color: #ffffff;
 }
