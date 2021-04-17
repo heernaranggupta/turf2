@@ -17,6 +17,7 @@ import About from "../pages/about";
 import Policy from "../components/policy";
 import Terms from "../components/term";
 import Refund from "../components/refund";
+import Pricing from "../components/Pricing";
 
 const Routes = () => {
   const { setIsLoggedIn, setUserData, setToken } = useContext(Context);
@@ -46,6 +47,7 @@ const Routes = () => {
         <Route exact path="/policy" component={Policy} />
         <Route exact path="/term" component={Terms} />
         <Route exact path="/refund" component={Refund} />
+        <Route exact path="/pricing" component={Pricing} />
 
         {/* <Route
           path="/pdf"

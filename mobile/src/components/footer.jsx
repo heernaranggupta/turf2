@@ -13,6 +13,7 @@ const Footer = () => {
           <Link to="/term">Terms & conditions</Link>
           <Link to="/refund">Cancellation/Refund Policy</Link>
         </div>
+        
         <div className={classnames(styles.powerby)}>
           Powered by Smarty Pants Technologies
         </div>

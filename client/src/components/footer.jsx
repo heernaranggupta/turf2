@@ -11,6 +11,7 @@ const Footer = () => {
                     Powered by <Link onClick={() => window.open("https://www.smartypantstechnologies.com/")} target="_blank">Smarty Pants Technologies</Link>
                 </div>
                 <div className={classnames(style.pol)}>
+                    <Link to="/pricing">Pricing</Link>
                     <Link to="/policy">Privacy Policy</Link>
                     <Link to="/term">Terms & conditions</Link>
                     <Link to="/refund">Cancellation/Refund Policy</Link>
