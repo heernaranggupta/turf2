@@ -24,7 +24,8 @@ const PaymentGateway = () => {
   const [responce, setResponce] = useState(null);
 
   const options = {
-    key: "rzp_test_LkGyvMQnSFDTBu",
+    key: "rzp_live_3tUCBzjqdoB9KR",
+    // key: "rzp_test_LkGyvMQnSFDTBu",
     // key: 'rzp_live_VMGLEhEd6uLVJm',
     // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
