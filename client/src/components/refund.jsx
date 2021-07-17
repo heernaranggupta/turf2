@@ -13,7 +13,7 @@ const Refund = () => {
                             <div id="md_en" data-target="out_en" class="agreement_md"><h1>Return and Refund Policy</h1>
                                 <p>Last updated: February 27, 2021</p>
                                 <p>Thank you for shopping at Rebounce Turf.</p>
-                                <p>If, for any reason, You are not completely satisfied with a purchase We invite You to review our policy on refunds and returns. This Return and Refund Policy has been created with the help of the <a href="https://www.termsfeed.com/return-refund-policy-generator/" target="_blank">Return and Refund Policy Generator</a>.</p>
+                                <p>If, for any reason, You are not completely satisfied with a purchase We invite You to review our policy on refunds and returns. This Return and Refund Policy has been created with the help of the <a href="https://www.termsfeed.com/return-refund-policy-generator/" target="_blank" rel="noreferrer">Return and Refund Policy Generator</a>.</p>
                                 <p>The following terms are applicable for any products that You purchased with Us.</p>
                                 <h1>Interpretation and Definitions</h1>
                                 <h2>Interpretation</h2>
@@ -34,7 +34,7 @@ const Refund = () => {
                                         <p><strong>Service</strong> refers to the Website.</p>
                                     </li>
                                     <li>
-                                        <p><strong>Website</strong> refers to Rebounce Turf, accessible from <a href="https://turf.rebounce.in/" rel="external nofollow noopener" target="_blank">https://turf.rebounce.in/</a></p>
+                                        <p><strong>Website</strong> refers to Rebounce Turf, accessible from <a href="https://turf.rebounce.in/" rel="external nofollow noopener noreferrer" target="_blank">https://turf.rebounce.in/</a></p>
                                     </li>
                                     <li>
                                         <p><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</p>
