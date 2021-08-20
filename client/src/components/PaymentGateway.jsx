@@ -8,14 +8,8 @@ import styles from "../css/Payment.module.css";
 import { toast } from "react-toastify";
 
 const PaymentGateway = () => {
-  const {
-    cartData,
-    totalAmount,
-    isLoggedIn,
-    userData,
-    token,
-    cartId,
-  } = useContext(Context);
+  const { cartData, totalAmount, isLoggedIn, userData, token, cartId } =
+    useContext(Context);
   const allData = ListData(cartData);
 
   const history = useHistory();
@@ -36,7 +30,6 @@ const PaymentGateway = () => {
       "Welcome to Rebounce You can pay with RazorPay and book your turf Ground",
     image: "https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png",
     handler: function (response) {
-      console.log(response.razorpay_payment_id);
       setResponce(response.razorpay_payment_id);
       const data = JSON.parse(localStorage.getItem("turfUserDetails"));
       const body = {
@@ -44,7 +37,6 @@ const PaymentGateway = () => {
         transactionId: response.razorpay_payment_id,
         timeSlots: allData,
       };
-      console.log(body);
       axios
         .post(api + "common/order", body, {
           headers: {

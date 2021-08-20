@@ -1,24 +1,26 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import clsx from "clsx";
-import PropTypes from "prop-types";
-import moment from "moment";
-import PerfectScrollbar from "react-perfect-scrollbar";
 import {
-  Avatar,
   Box,
+  Button,
   Card,
-  Checkbox,
+  makeStyles,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
-  makeStyles,
+  Tooltip,
 } from "@material-ui/core";
-import { Edit, Repeat } from "react-feather";
+import axios from "axios";
+import { toast } from "react-toastify";
+import clsx from "clsx";
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import { CheckCircle, XCircle } from "react-feather";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import API from "../../config/api";
+import headerWithToken from "../../config/headerWithToken";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -27,50 +29,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Results = ({ className, customers, ...rest }) => {
+const Results = ({ className, customers, handleFetchedData, ...rest }) => {
   const classes = useStyles();
   const [selectedCustomerIds, setSelectedCustomerIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
-  const handleSelectAll = (event) => {
-    let newSelectedCustomerIds;
-
-    if (event.target.checked) {
-      newSelectedCustomerIds = customers.map((customer) => customer.id);
-    } else {
-      newSelectedCustomerIds = [];
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedCustomerIds.indexOf(id);
-    let newSelectedCustomerIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds,
-        id
-      );
-    } else if (selectedIndex === 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(1)
-      );
-    } else if (selectedIndex === selectedCustomerIds.length - 1) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, -1)
-      );
-    } else if (selectedIndex > 0) {
-      newSelectedCustomerIds = newSelectedCustomerIds.concat(
-        selectedCustomerIds.slice(0, selectedIndex),
-        selectedCustomerIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedCustomerIds(newSelectedCustomerIds);
-  };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -80,29 +43,51 @@ const Results = ({ className, customers, ...rest }) => {
     setPage(newPage);
   };
 
+  const handleAcceptPayment = (id) => {
+    axios
+      .get(API + `business/payment_accepted?bookingId=${id}`, headerWithToken)
+      .then((res) => {
+        console.log(res.data);
+        handleFetchedData();
+        toast("Payment Accepted Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
+  const handleCancel = (id) => {
+    if (window.confirm("Are you sure? You want to Cancel booking?")) {
+      axios
+        .delete(
+          API + `business/cancel_booking?bookingId=${id}`,
+          headerWithToken
+        )
+        .then(() => {
+          handleFetchedData();
+          toast.warn("Booking Cancel");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error(err.message);
+        });
+    }
+  };
+
   return (
     <Card className={clsx(classes.root, className)} {...rest}>
       <PerfectScrollbar>
-        <Box minWidth={1050}>
+        <Box>
           <Table>
             <TableHead>
               <TableRow>
-                {/* <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedCustomerIds.length === customers.length}
-                    color="primary"
-                    indeterminate={
-                      selectedCustomerIds.length > 0 &&
-                      selectedCustomerIds.length < customers.length
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell> */}
                 <TableCell>Mobile</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell>Ground</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Amount</TableCell>
+                <TableCell>Paid Amount</TableCell>
+                <TableCell>Remaining Amount</TableCell>
                 <TableCell>Start Time</TableCell>
                 <TableCell>End Time</TableCell>
                 <TableCell>Action</TableCell>
@@ -119,46 +104,54 @@ const Results = ({ className, customers, ...rest }) => {
                       selectedCustomerIds.indexOf(customer.bookingId) !== -1
                     }
                   >
-                    {/* <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={
-                          selectedCustomerIds.indexOf(customer.bookingId) !== -1
-                        }
-                        onChange={(event) =>
-                          handleSelectOne(event, customer.bookingId)
-                        }
-                        value="true"
-                      />
-                    </TableCell> */}
-                    <TableCell>
-                      {/* <Box alignItems="center" display="flex">
-                        <Avatar
-                          className={classes.avatar}
-                          src={customer.avatarUrl}
-                        >
-                          {customer.userId}
-                        </Avatar>
-                        <Typography
-                          color="textPrimary"
-                          variant="body1"
-                        ></Typography>
-                      </Box> */}
-                      {customer.userId}
-                    </TableCell>
+                    <TableCell>{customer.userId}</TableCell>
                     <TableCell>{customer.date}</TableCell>
                     <TableCell>{customer.turfId}</TableCell>
                     <TableCell>{customer.status}</TableCell>
                     <TableCell>{customer.price}</TableCell>
+                    <TableCell>{customer.payedPrice}</TableCell>
+                    <TableCell>{customer.remainingPrice}</TableCell>
                     <TableCell>{customer.startTime}</TableCell>
                     <TableCell>{customer.endTime}</TableCell>
                     <TableCell>
                       <Box alignItems="center" display="flex">
-                        <Typography color="textPrimary" variant="body1">
-                          <Edit />
-                        </Typography>
-                        <Typography color="textPrimary" variant="body1">
-                          <Repeat />
-                        </Typography>
+                        {customer.remainingPrice > 0 ? (
+                          <Tooltip
+                            title="Accept Remaining Payment"
+                            aria-label="Accept Remaining Payment"
+                          >
+                            <Button
+                              variant="outlined"
+                              style={{ marginRight: 5, borderColor: "green" }}
+                              onClick={() => {
+                                handleAcceptPayment(customer.id);
+                              }}
+                            >
+                              <CheckCircle style={{ color: "green" }} />
+                            </Button>
+                          </Tooltip>
+                        ) : (
+                          <span />
+                        )}
+
+                        {customer.status.includes("BOOKED") ? (
+                          <Tooltip
+                            title="Cancel Booking"
+                            aria-label="Cancel Booking"
+                          >
+                            <Button
+                              variant="outlined"
+                              style={{ borderColor: "red" }}
+                              onClick={() => {
+                                handleCancel(customer.id);
+                              }}
+                            >
+                              <XCircle style={{ color: "red" }} />
+                            </Button>
+                          </Tooltip>
+                        ) : (
+                          <span />
+                        )}
                       </Box>
                     </TableCell>
                   </TableRow>

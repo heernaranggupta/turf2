@@ -1,28 +1,27 @@
 import React, { useContext } from "react";
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
   Redirect,
+  Route,
+  Switch,
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Home from "../pages/Home";
-import ProtectedRoutes from "./protected.routes";
-import Login from "../pages/Auth/Login";
-import DashboardView from "../pages/Dashboard";
+import { Context } from "../data/context";
 import DashboardLayout from "../layouts/DashboardLayout";
-import BookingsViews from "../pages/Bookings";
-import Settings from "../pages/Settings";
-import Products from "../pages/Products";
-import NotFoundView from "../pages/errors/NotFoundView";
 import MainLayout from "../layouts/MainLayout";
 import AccountView from "../pages/Account";
-import { Context } from "../data/context";
 import AddManager from "../pages/AddManager";
+import AddPrice from "../pages/AddPrice";
+import AdjustPrices from "../pages/AdjustPrices";
+import Login from "../pages/Auth/Login";
+import BookingsViews from "../pages/Bookings";
+import DashboardView from "../pages/Dashboard";
+import NotFoundView from "../pages/errors/NotFoundView";
+import Home from "../pages/Home";
 import Managers from "../pages/Managers";
-
-// eslint-disable-next-line no-unused-vars
-import Register from "../pages/Auth/Register";
+import Products from "../pages/Products";
+import Settings from "../pages/Settings";
+import ProtectedRoutes from "./protected.routes";
 
 const Routes = () => {
   const { setIsLoggedIn } = useContext(Context);
@@ -76,6 +75,18 @@ const Routes = () => {
         <ProtectedRoutes path="/addManager">
           <DashboardLayout>
             <AddManager />
+          </DashboardLayout>
+        </ProtectedRoutes>
+
+        <ProtectedRoutes path="/adjust">
+          <DashboardLayout>
+            <AdjustPrices />
+          </DashboardLayout>
+        </ProtectedRoutes>
+
+        <ProtectedRoutes path="/price/add">
+          <DashboardLayout>
+            <AddPrice />
           </DashboardLayout>
         </ProtectedRoutes>
 

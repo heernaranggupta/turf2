@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback, useContext } from "react";
 import { Box, Container, makeStyles } from "@material-ui/core";
+import axios from "axios";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import Page from "../../components/Page";
+import api from "../../config/api";
+import headerWithToken from "../../config/headerWithToken";
+import { Context } from "../../data/context";
 import Results from "./Results";
 import Toolbar from "./Toolbar";
-import axios from "axios";
-import headerWithToken from "../../config/headerWithToken";
-import api from "../../config/api";
-import { Context } from "../../data/context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +32,6 @@ const CustomerListView = () => {
     axios
       .post(api + "business/view-all-bookings", postData, headerWithToken)
       .then((res) => {
-        console.log(res);
         setBookingList(res.data.body);
       })
       .catch((err) => {
@@ -49,7 +48,10 @@ const CustomerListView = () => {
       <Container maxWidth={false}>
         <Toolbar />
         <Box mt={3}>
-          <Results customers={bookingList} />
+          <Results
+            customers={bookingList}
+            handleFetchedData={handleFetchedData}
+          />
         </Box>
       </Container>
     </Page>

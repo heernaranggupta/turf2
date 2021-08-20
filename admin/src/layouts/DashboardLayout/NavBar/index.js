@@ -22,6 +22,7 @@ import {
   UserPlus as UserPlusIcon,
   Users as UsersIcon,
   LogOut,
+  DollarSign,
 } from "react-feather";
 import NavItem from "./NavItem";
 import { Context } from "../../../data/context";
@@ -42,6 +43,11 @@ const items = [
     href: "/addManager",
     icon: UserIcon,
     title: "Add Manager",
+  },
+  {
+    href: "/adjust",
+    icon: DollarSign,
+    title: "Adjust Prices",
   },
   {
     href: "/managers",
