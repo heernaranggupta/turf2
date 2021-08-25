@@ -20,13 +20,8 @@ const Login = () => {
   const { state } = useLocation();
   const history = useHistory();
 
-  const {
-    isLoggedIn,
-    setIsLoggedIn,
-    setUserData,
-    cartId,
-    setToken,
-  } = useContext(Context);
+  const { isLoggedIn, setIsLoggedIn, setUserData, cartId, setToken } =
+    useContext(Context);
   const phoneRef = useRef(null);
   const passwordRef = useRef(null);
 
@@ -51,8 +46,8 @@ const Login = () => {
       .then(async (res) => {
         if (res.data.code === 200) {
           console.log(res.data);
-          await localStorage.setItem("token", res.data.body.token);
-          await localStorage.setItem(
+          localStorage.setItem("token", res.data.body.token);
+          localStorage.setItem(
             "turfUserDetails",
             JSON.stringify(res.data.body.user)
           );

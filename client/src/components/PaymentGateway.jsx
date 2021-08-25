@@ -135,6 +135,38 @@ const PaymentGateway = () => {
       });
   };
 
+  const completeOrder = () => {
+    const data = JSON.parse(localStorage.getItem("turfUserDetails"));
+    const body = {
+      userId: data?.user?.phoneNumber,
+      timeSlots: allData,
+    };
+    axios
+      .post(api + "common/order", body, {
+        headers: {
+          "Content-Type": "Application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.success) {
+          axios.post(TurfMail + "bookings", {
+            name: userData.name,
+            email: userData.emailId,
+            slots: res.data?.body?.timeSlots || [],
+            paymentId: res.data?.body?.paymentId,
+          });
+          history.push("/payment-success");
+        }
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data?.message);
+        toast.error(err.message);
+        console.log(err.message);
+      });
+  };
+
   return (
     <div className={styles.PaymentWrapper}>
       {totalAmount > 0 ? (
@@ -144,7 +176,11 @@ const PaymentGateway = () => {
             style={{ width: "250px" }}
             onClick={() => {
               if (isLoggedIn) {
-                openPayModal();
+                if (userData.role === "ADMIN") {
+                  completeOrder();
+                } else {
+                  openPayModal();
+                }
               } else {
                 history.push("/login");
               }
