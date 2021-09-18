@@ -22,8 +22,8 @@ const Cart = () => {
   const [amount, setAmount] = useState(0);
 
   const options = {
-    key: "rzp_test_LkGyvMQnSFDTBu",
-    // key: 'rzp_live_VMGLEhEd6uLVJm',
+    // key: "rzp_test_LkGyvMQnSFDTBu",
+    key: "rzp_live_VMGLEhEd6uLVJm",
     // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
     amount: amount * 100, //  = INR 1
@@ -56,12 +56,12 @@ const Cart = () => {
         });
     },
     prefill: {
-      name: "Neha",
-      contact: "9999999999",
-      email: "demo@demo.com",
+      name: "",
+      contact: phoneNumber,
+      email: "",
     },
     notes: {
-      address: "some address",
+      address: "",
     },
     theme: {
       color: "blue",
@@ -266,21 +266,21 @@ const Cart = () => {
                 })}
             </div>
           ) : (
-              <article className="message is-success mt-5">
-                <div className="message-header">
-                  <p>Cart Empty</p>
-                </div>
-                <div className="message-body m-3">
-                  <p>Your Cart is Empty.</p>
-                  <button
-                    className="button is-success my-3"
-                    onClick={() => history.push("/bookings")}
-                  >
-                    Book Now
-              </button>
-                </div>
-              </article>
-            )}
+            <article className="message is-success mt-5">
+              <div className="message-header">
+                <p>Cart Empty</p>
+              </div>
+              <div className="message-body m-3">
+                <p>Your Cart is Empty.</p>
+                <button
+                  className="button is-success my-3"
+                  onClick={() => history.push("/bookings")}
+                >
+                  Book Now
+                </button>
+              </div>
+            </article>
+          )}
         </div>
         {amount > 0 ? (
           <div className={classnames("column", styles.CenterColumn)}>
@@ -291,11 +291,11 @@ const Cart = () => {
             </div>
             <button className="button" onClick={openPayModal}>
               Pay Now
-          </button>
+            </button>
           </div>
         ) : (
-            <span></span>
-          )}
+          <span></span>
+        )}
       </div>
       <Footer />
     </>
