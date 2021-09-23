@@ -8,8 +8,15 @@ import styles from "../css/Payment.module.css";
 import { toast } from "react-toastify";
 
 const PaymentGateway = () => {
-  const { cartData, totalAmount, isLoggedIn, userData, token, cartId } =
-    useContext(Context);
+  const {
+    cartData,
+    totalAmount,
+    isLoggedIn,
+    userData,
+    token,
+    cartId,
+    priceSplit,
+  } = useContext(Context);
   const allData = ListData(cartData);
 
   const history = useHistory();
@@ -24,7 +31,7 @@ const PaymentGateway = () => {
     // key: 'rzp_live_VMGLEhEd6uLVJm',
     // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
-    amount: totalAmount * 100, //  = INR 1
+    amount: priceSplit.payNow * 100, //  = INR 1
     // amount: 1000,
     name: "Turf Booking",
     description:

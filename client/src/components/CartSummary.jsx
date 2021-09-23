@@ -4,7 +4,7 @@ import styles from "../css/Cart.module.css";
 import { Context } from "../data/context";
 
 const CartSummary = () => {
-  const { totalAmount, totalSlots } = useContext(Context);
+  const { totalAmount, totalSlots, priceSplit } = useContext(Context);
   return (
     <>
       <p
@@ -16,6 +16,28 @@ const CartSummary = () => {
       </p>
 
       <div className={classnames(styles.cartSummaryInfo)}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <p
+            className={classnames(
+              "subtitle is-3 is-capitalized has-text-white"
+            )}
+          >
+            Total Slots
+          </p>
+          <p
+            className={classnames(
+              "subtitle is-3 is-capitalized has-text-white"
+            )}
+          >
+            {totalSlots}
+          </p>
+        </div>
         <div
           style={{
             display: "flex",
@@ -50,14 +72,36 @@ const CartSummary = () => {
               "subtitle is-3 is-capitalized has-text-white"
             )}
           >
-            Total Slots
+            Pay At Rebounce
           </p>
           <p
             className={classnames(
               "subtitle is-3 is-capitalized has-text-white"
             )}
           >
-            {totalSlots}
+            {priceSplit.payAtSite}
+          </p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "baseline",
+          }}
+        >
+          <p
+            className={classnames(
+              "subtitle is-3 is-capitalized has-text-white"
+            )}
+          >
+            Pay Now
+          </p>
+          <p
+            className={classnames(
+              "subtitle is-3 is-capitalized has-text-white"
+            )}
+          >
+            {priceSplit.payNow}
           </p>
         </div>
       </div>

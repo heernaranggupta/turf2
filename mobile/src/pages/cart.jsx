@@ -20,13 +20,17 @@ const Cart = () => {
   const history = useHistory();
   const [cartData, setCartData] = useState(null);
   const [amount, setAmount] = useState(0);
+  const [priceSplit, setPriceSplit] = useState({
+    payNow: 0,
+    payAtSite: 0,
+  });
 
   const options = {
     // key: "rzp_test_LkGyvMQnSFDTBu",
     key: "rzp_live_VMGLEhEd6uLVJm",
     // keySecret: 'y3NEE7Eb12whbSSjdlLLbBR2',
 
-    amount: amount * 100, //  = INR 1
+    amount: priceSplit.payNow * 100, //  = INR 1
     // amount: 1000,
     name: "Turf Booking",
     description:
@@ -141,6 +145,10 @@ const Cart = () => {
         })
         .then((res) => {
           setAmount(res?.data?.body?.cartTotal || 0);
+          setPriceSplit({
+            payNow: res.data.body.payNow,
+            payAtSite: res.data.body.payAtSite,
+          });
           const sortedData = filterData(res.data.body);
           setCartData({ ...sortedData[0] });
         })
@@ -283,16 +291,33 @@ const Cart = () => {
           )}
         </div>
         {amount > 0 ? (
-          <div className={classnames("column", styles.CenterColumn)}>
+          <>
+            <div className={classnames("column", styles.CenterColumn)}>
+              <div>
+                <p className="subtitle mt-3 has-text-white">
+                  Pay{" "}
+                  <span className="has-text-weight-bold ">
+                    INR {priceSplit.payNow}
+                  </span>
+                </p>
+              </div>
+              <button className="button" onClick={openPayModal}>
+                Pay Now
+              </button>
+            </div>
             <div>
-              <p className="subtitle mt-3 has-text-white">
-                Pay <span className="has-text-weight-bold ">INR {amount}</span>
+              <p className="mt-3 ">
+                Pay At Rebounce{" "}
+                <span className="has-text-weight-bold ">
+                  INR {priceSplit.payAtSite}
+                </span>
+              </p>
+              <p className="mt-3 ">
+                Total Amount{" "}
+                <span className="has-text-weight-bold ">INR {amount}</span>
               </p>
             </div>
-            <button className="button" onClick={openPayModal}>
-              Pay Now
-            </button>
-          </div>
+          </>
         ) : (
           <span></span>
         )}

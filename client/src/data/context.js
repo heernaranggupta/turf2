@@ -15,6 +15,10 @@ export const ContextProvider = ({ children }) => {
   const [cartId, setCartId] = useState(localStorage.getItem("turfCart") || "");
   const [cartData, setCartData] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [priceSplit, setPriceSplit] = useState({
+    payNow: 0,
+    payAtSite: 0,
+  });
   const [totalSlots, setTotalSlots] = useState(0);
   const [isCartEmpty, setIsCartEmpty] = useState(false);
   const [userData, setUserData] = useState(
@@ -41,6 +45,8 @@ export const ContextProvider = ({ children }) => {
         setCartData,
         totalAmount,
         setTotalAmount,
+        priceSplit,
+        setPriceSplit,
         totalSlots,
         setTotalSlots,
         isCartEmpty,

@@ -17,6 +17,7 @@ const CartRightSideComponent = () => {
     setCartData,
     cartData,
     setTotalAmount,
+    setPriceSplit,
     setTotalSlots,
     setIsCartEmpty,
     isCartEmpty,
@@ -37,29 +38,52 @@ const CartRightSideComponent = () => {
               setTotalSlots(res.data.body.selectedSlots.length);
               setCartData(sortedData);
               setTotalAmount(res.data.body.cartTotal);
+              setPriceSplit({
+                payNow: res.data.body.payNow,
+                payAtSite: res.data.body.payAtSite,
+              });
               setDateArray([...dateArry]);
               setIsCartEmpty(false);
             }
           } else {
             setIsCartEmpty(true);
             setTotalAmount(0);
+            setPriceSplit({
+              payNow: 0,
+              payAtSite: 0,
+            });
             setTotalSlots(0);
             setTotalTime(0);
           }
         } else {
           setIsCartEmpty(true);
           setTotalAmount(0);
+          setPriceSplit({
+            payNow: 0,
+            payAtSite: 0,
+          });
           setTotalSlots(0);
           setTotalTime(0);
         }
       } else {
         setIsCartEmpty(true);
         setTotalAmount(0);
+        setPriceSplit({
+          payNow: 0,
+          payAtSite: 0,
+        });
         setTotalSlots(0);
         setTotalTime(0);
       }
     },
-    [setCartData, setIsCartEmpty, setTotalAmount, setTotalSlots, setTotalTime]
+    [
+      setCartData,
+      setIsCartEmpty,
+      setTotalAmount,
+      setTotalSlots,
+      setTotalTime,
+      setPriceSplit,
+    ]
   );
 
   const fetchCartData = useCallback(() => {
